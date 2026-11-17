@@ -28,6 +28,12 @@ def parse_args():
     p.add_argument("--fraction", type=float, default=1.0, help="สัดส่วนของ train ที่ใช้ (ทดลองสั้นใช้ 0.1)")
     p.add_argument("--workers", type=int, default=2, help="WSL มี RAM ~7 GB อย่าเกิน 4")
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--cache", default="false", choices=["false", "ram", "disk"],
+                   help="ram เร็วสุด แต่ต้องมี RAM เหลือ ~10 GB (Colab ได้, WSL ห้าม)")
+    p.add_argument("--project", default=str(ROOT / "runs" / "detect"),
+                   help="โฟลเดอร์เก็บผล (Colab: ชี้ไปที่ Google Drive เพื่อไม่ให้หายเมื่อ session หลุด)")
+    p.add_argument("--resume", metavar="LAST_PT",
+                   help="เทรนต่อจาก checkpoint (…/weights/last.pt) ใช้ค่าเดิมทั้งหมดจาก run นั้น")
     return p.parse_args()
 
 
@@ -35,9 +41,18 @@ def main():
     args = parse_args()
     from ultralytics import YOLO  # import ช้า ให้ --help ตอบเร็ว
 
-    batch = int(args.batch) if args.batch == int(args.batch) else args.batch
-    model = YOLO(args.model)
     t0 = time.time()
+    if args.resume:
+        # resume ใช้ args ทั้งหมดที่บันทึกใน checkpoint (epochs, batch, data, project ...)
+        # ถ้า path ของ data เปลี่ยน (เช่น Colab session ใหม่) ให้แตก zip ไว้ที่เดิม
+        model = YOLO(args.resume)
+        model.train(resume=True)
+        print(f"\n[train.py] resume: เวลารอบนี้ {(time.time() - t0) / 60:.1f} นาที → {model.trainer.save_dir}")
+        return
+
+    batch = int(args.batch) if args.batch == int(args.batch) else args.batch
+    cache = False if args.cache == "false" else args.cache
+    model = YOLO(args.model)
     model.train(
         data=args.data,
         epochs=args.epochs,
@@ -48,7 +63,8 @@ def main():
         workers=args.workers,
         seed=args.seed,
         deterministic=True,
-        project=str(ROOT / "runs" / "detect"),
+        cache=cache,
+        project=args.project,
         name=args.name,
         exist_ok=False,
         plots=True,
