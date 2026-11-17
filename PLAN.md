@@ -57,7 +57,7 @@
 2. notebook `01_data.ipynb`: จำนวนรูป/instance ต่อ class (กราฟ), ขนาดรูป, ตัวอย่างรูปพร้อม polygon, class imbalance
 3. (ทางเลือก บท 06) k-means บน embedding ของรูปเพื่อดูกลุ่มและหารูปผิดปกติ
 
-### Phase C: Baseline (~3–4 ชม. ส่วนใหญ่รอเทรน)
+### Phase C: Baseline ✅ เสร็จ 2026-11-17 (Colab L4, mAP50 0.510 / mAP50-95 0.409 บน val · ดู experiments.md #1)
 1. ทดลองสั้นก่อน: `yolo11n.pt`, `epochs=1`, `fraction=0.1` เพื่อตรวจว่า pipeline ทำงาน
 2. Baseline: **YOLO11n detect**, `imgsz=640`, `epochs=50`, `patience=15`, `batch=16` (ถ้า GPU memory ไม่พอใช้ `batch=8` หรือ `batch=-1` ให้ Ultralytics เลือกเอง), `workers=2` (Windows), `seed=0`
    - label เป็น polygon: Ultralytics แปลงเป็นกล่องให้เองตอนเทรน detect
