@@ -62,3 +62,16 @@
 - **shrimp** (48): ถูก 19 · chicken duck 8 · fish 3 · **ham** (11): ถูก 4 · cheese butter 3
 - **wild betel**: เจอของจริง 179/180 แต่ precision 0.293 เพราะ**label ไม่ครบ**: ใน 44 รูป val มี label 180 กล่อง แต่โมเดลทาย 633 กล่อง (conf ≥ 0.25) · ตัวอย่าง IMG_7004 มีใบราว 30 ใบ label ไว้ 2 ใบ โมเดลเจอเกือบทุกใบ (`example_wild_betel_label_vs_pred.jpg`) → precision ต่ำเพราะ label ไม่ใช่เพราะโมเดล · รูปทั้งหมดมาจาก `5-thai-herbs` = ต้นชะพลูในสวน ไม่ใช่ใบในตู้เย็น
 - **mango** (12): ทายเป็น apple 3, cheese butter 2, carrot 2 · **ginger** (10): ถูก 1 · **okra** (2): ถูก 0 → รูปใน train น้อย (15–73 รูป) และใน val มีไม่กี่ instance
+
+## Dataset v2: เพิ่มวัตถุดิบดิบจาก Roboflow (2026-11-17)
+- เหตุผล: pork ใน v1 เป็นอาหารสุกบนจาน (#1) → E ไม่ตรงกับ T (บท 01 *"Is training experience representative of performance goal?"*)
+- ที่มา 4 ชุด (`data/sources.md`): aicook v1 (MIT), fridge-objects v9, food-ingredients-x2 v1, meat-data-sets v4 (CC BY 4.0) · map class: `data/rf_class_map.yaml` (เนื้อวัวดิบ → steak, รูปที่มี class map ไม่ได้ = ตัดทั้งรูป)
+- คัดรูป (`scripts/build_dataset_v2.py`): ต้องมี pork/shrimp/ham/bacon หรือเนื้อดิบที่สับสนกับ pork (steak, chicken duck) · ตัดรูปซ้ำกับ v1 76 รูป · 1 รูปต่อต้นฉบับ · จำกัด 300 รูป/class → **เพิ่ม 709 รูป** แบ่ง 70/15/15 (seed 42) → train 10,545 / val 2,068 / test 1,427 (`data/split_report_v2.md`)
+- เพิ่มต่อ class (train/val/test): pork +119/+26/+26 · shrimp +129/+28/+33 · ham +55/+11/+12 · bacon +63/+14/+13 · steak +133/+29/+29 · chicken duck +203/+44/+43 · class อื่นในรูปตู้เย็น aicook ก็เพิ่มด้วย (เช่น sugar +114, flour +105, sweet potato +94)
+- label: Roboflow เป็นกล่อง → แปลงเป็น polygon ด้วย SAM (sam_b) · ใช้ polygon ถ้ากรอบของมันทับกล่องเดิม IoU ≥ 0.8 (3,405 ชิ้น) ไม่งั้นใช้สี่เหลี่ยมของกล่องเดิม (1,199 ชิ้น) → กรอบสำหรับ detect ตรงกับต้นฉบับ
+  - ⚠️ ข้อจำกัด: polygon จาก SAM บางชิ้นใน food-ingredients-x2 เป็นเส้นซิกแซก (SAM ได้หลาย mask แล้วถูกต่อกัน) กรอบยังถูกแต่ไม่เหมาะกับงาน segmentation (`results/dataset_v2/v2_added_food-ingredients-x2.jpg`)
+- Ultralytics สแกน label v2: 0 corrupt
+
+**baseline_n เดิม บน val ส่วนที่เพิ่ม (109 รูปวัตถุดิบดิบ)** → `results/baseline_n_on_v2added/per_class_val.csv` (ค่า "ก่อน")
+- all: mAP50 0.6220 · mAP50-95 0.3924
+- pork mAP50 0.166 / mAP50-95 0.114 (R 0.077: เจอหมูดิบแค่ 2 จาก 26) · bacon 0.000 / 0.000 · ham 0.555 / 0.383 · shrimp 0.787 / 0.402 · steak 0.484 / 0.268 · chicken duck 0.600 / 0.474
