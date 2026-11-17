@@ -79,7 +79,7 @@
 
 ### #2 baseline_n_v2 (`results/baseline_n_v2/`, 2026-11-18)
 - คำสั่ง: เซลล์ 5 ของ notebook · `--name baseline_n_v2 --data /content/foodseg_yolo_v2/data.yaml` ที่เหลือเหมือน #1 ทุกค่า (ตรวจด้วย diff `args.yaml`: ต่างแค่ `data`, `name`)
-- ใน Drive ชื่อ `baseline_n_v2-2`: รอบแรก `baseline_n_v2` session หลุดหลัง epoch 13 (ไม่ใช้) · รอบที่ใช้ copy มาเป็น `runs/detect/baseline_n_v2`
+- ใน Drive ชื่อ `baseline_n_v2-2`: รอบแรก `baseline_n_v2` session หลุดหลัง epoch 13 (ไม่ใช้ · ลบออกจาก Drive แล้ว 2026-11-18) · รอบที่ใช้ copy มาเป็น `runs/detect/baseline_n_v2`
 - Colab L4 · torch 2.14.1+cu130 · ultralytics 8.4.215 · เวลา 48.1 นาทีตาม `results.csv`
 - best epoch 44 (บน val v2): P 0.592 · R 0.545 · mAP50 0.5558 · mAP50-95 0.4363 · epoch 50: mAP50 0.5528 · mAP50-95 0.4339
 - บท 03: val loss แบนช่วงท้ายและไม่กลับขึ้น (box ต่ำสุด epoch 49, cls epoch 34, dfl epoch 42) → ไม่ overfit ชัดเจน เหมือน #1 (`loss_train_vs_val.png`)
