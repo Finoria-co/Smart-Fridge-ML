@@ -146,23 +146,56 @@ def stage(picked):
     boxes = sum(1 for f in (STAGE / "labels").glob("*.txt")
                 for l in f.read_text().splitlines() if len(l.split()) == 5)
     print(f"stage: {len(names)} รูป · กล่องที่ต้องแปลง {boxes}", flush=True)
-    yolo_bbox2segment(im_dir=str(STAGE / "images"), save_dir=str(STAGE / "labels_seg"), sam_model="sam_b.pt")
-    # SAM บางกล่องอาจได้ polygon ว่าง → ใช้สี่เหลี่ยมของกล่องเดิมแทน (ไม่ให้ label หาย)
-    fixed = 0
-    for lf in (STAGE / "labels").glob("*.txt"):
-        seg = STAGE / "labels_seg" / lf.name
-        box_rows = [l.split() for l in lf.read_text().splitlines() if l.split()]
-        seg_rows = [l.split() for l in seg.read_text().splitlines() if l.split()] if seg.exists() else []
-        if len(seg_rows) != len(box_rows):
-            seg_rows = []
-            for r in box_rows:
-                c, x, y, w, h = r[0], *map(float, r[1:5])
-                seg_rows.append([c] + [f"{v:.6f}" for v in (x - w / 2, y - h / 2, x + w / 2, y - h / 2,
-                                                           x + w / 2, y + h / 2, x - w / 2, y + h / 2)])
-            fixed += 1
-        seg.write_text("\n".join(" ".join(r) for r in seg_rows) + "\n")
-    print(f"SAM เสร็จ · รูปที่ใช้สี่เหลี่ยมแทนเพราะจำนวน polygon ไม่ตรง: {fixed}")
+    yolo_bbox2segment(im_dir=str(STAGE / "images"), save_dir=str(STAGE / "labels_seg_raw"), sam_model="sam_b.pt")
     return names
+
+
+def rect(x, y, w, h):
+    return [f"{v:.6f}" for v in (x - w / 2, y - h / 2, x + w / 2, y - h / 2, x + w / 2, y + h / 2, x - w / 2, y + h / 2)]
+
+
+def iou(a, b):
+    ix = max(0.0, min(a[2], b[2]) - max(a[0], b[0]))
+    iy = max(0.0, min(a[3], b[3]) - max(a[1], b[1]))
+    inter = ix * iy
+    union = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter
+    return inter / union if union > 0 else 0.0
+
+
+def sanitize(min_iou=0.8):
+    """ตรวจ polygon จาก SAM ทีละชิ้น: กรอบของ polygon ต้องทับกล่องเดิม IoU ≥ min_iou
+    ไม่ผ่าน (เช่น SAM ได้หลาย mask แล้ว Ultralytics ต่อเป็นเส้นซิกแซก) หรือจำนวนไม่ตรง → ใช้สี่เหลี่ยมของกล่องเดิม
+    งานนี้เทรน detect: กรอบที่ได้จาก polygon ต้องตรงกับกล่องต้นฉบับ"""
+    out = STAGE / "labels_seg"
+    if out.exists():
+        shutil.rmtree(out)
+    out.mkdir()
+    n_poly = n_rect = n_file_mismatch = 0
+    for lf in sorted((STAGE / "labels").glob("*.txt")):
+        box_rows = [l.split() for l in lf.read_text().splitlines() if l.split()]
+        raw = STAGE / "labels_seg_raw" / lf.name
+        seg_rows = [l.split() for l in raw.read_text().splitlines() if l.split()] if raw.exists() else []
+        if len(seg_rows) != len(box_rows):
+            n_file_mismatch += 1
+            seg_rows = [None] * len(box_rows)
+        rows = []
+        for b, s in zip(box_rows, seg_rows):
+            c, x, y, w, h = b[0], *map(float, b[1:5])
+            ok = False
+            if s is not None and s[0] == c and len(s) >= 7:
+                pts = np.array(s[1:], float).reshape(-1, 2)
+                pb = (*pts.min(0), *pts.max(0))
+                ok = iou(pb, (x - w / 2, y - h / 2, x + w / 2, y + h / 2)) >= min_iou
+            if ok:
+                rows.append(s)
+                n_poly += 1
+            else:
+                rows.append([c] + rect(x, y, w, h))
+                n_rect += 1
+        (out / lf.name).write_text("\n".join(" ".join(r) for r in rows) + "\n")
+    total = n_poly + n_rect
+    print(f"SAM เสร็จ · ใช้ polygon จาก SAM {n_poly}/{total} ({n_poly / total:.0%}) · "
+          f"แทนด้วยสี่เหลี่ยมของกล่องเดิม {n_rect} (IoU < {min_iou}) · ไฟล์ที่จำนวนไม่ตรง {n_file_mismatch}")
 
 
 def split(stems_cls: dict[str, set[int]], rng):
@@ -257,6 +290,7 @@ def grids(assign, ours_names, per=12):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--reuse-sam", action="store_true", help="ใช้ผล SAM เดิมใน rf_stage (ไม่แปลงใหม่)")
     args = p.parse_args()
     ours_names = dict(enumerate(names_of(V1 / "data.yaml")))
     ours = {v: k for k, v in ours_names.items()}
@@ -271,7 +305,16 @@ def main():
     if args.dry_run:
         return
 
-    src_of = stage(picked)
+    if args.reuse_sam and (STAGE / "labels_seg_raw").exists():
+        src_of = {}
+        for _short, img, _rows in picked:
+            new = re.sub(r"[^\w.\-]", "_", f"rfraw_{_short}_{orig_stem(img.name)}{img.suffix.lower()}")
+            src_of[new] = _short
+        assert set(src_of) == {p.name for p in (STAGE / "images").iterdir()}, "stage ไม่ตรงกับรายการรูป ให้รันใหม่โดยไม่ใส่ --reuse-sam"
+        print(f"ใช้ผล SAM เดิม: {len(src_of)} รูป")
+    else:
+        src_of = stage(picked)
+    sanitize()
     stems_cls = {}
     for lf in (STAGE / "labels_seg").glob("*.txt"):
         stems_cls[lf.stem] = {int(l.split()[0]) for l in lf.read_text().splitlines() if l.split()}
