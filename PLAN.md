@@ -40,7 +40,12 @@
 
 ## 2. Phase ทำงาน (commit ทีละขั้นทุกครั้ง)
 
-### Phase A: เตรียมเครื่อง (~30 นาที)
+### Phase A: เตรียมเครื่อง ✅ เสร็จ 2026-11-17 (ย้ายไป WSL2)
+> **ผลจริง**: venv บน Windows ติดตั้ง torch ได้ แต่ Smart App Control (state = On) บล็อก `torch\lib\torch.dll` ทุกครั้ง (ดูจาก event log CodeIntegrity, ลองทั้ง 2.11.0 และ 2.9.1) ผู้ใช้จึงเลือกใช้ **WSL2 Ubuntu** แทน
+> venv `/root/venvs/smart-fridge` (Python 3.12, torch 2.11.0+cu128, ultralytics 8.4.215, `cuda.is_available()` = True) · สร้างด้วย `scripts/setup_wsl.sh` · dataset คัดลอกไปไว้ที่ `/root/data/foodseg_yolo/` (นับไฟล์แล้วตรงทุก split) · วิธีเรียกใช้ดูใน `CLAUDE.md`
+>
+> ขั้นตอนเดิม (ใช้ไม่ได้บนเครื่องนี้ เก็บไว้อ้างอิง):
+
 1. สร้าง venv **ด้วย `C:\Users\patim\miniconda3\python.exe -m venv .venv`** (ห้าม `uv venv`: Application Control บล็อก)
 2. ติดตั้ง PyTorch แบบ CUDA ก่อน แล้วค่อย `ultralytics` (เช็คคำสั่งติดตั้งปัจจุบันจาก pytorch.org ให้ตรงกับ Python ใน venv ถ้า Python 3.14 ยังไม่มี wheel ของ torch ให้ใช้ Python 3.12 จาก conda env แยก)
 3. ตรวจ: `python -c "import torch; print(torch.cuda.is_available())"` ต้องได้ `True`
