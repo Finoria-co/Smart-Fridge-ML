@@ -1,0 +1,96 @@
+true,pred,count,share_of_true
+apple,banana,1,0.067
+apple,lime,1,0.067
+background,cheese butter,327,
+background,bacon,274,
+background,chicken duck,243,
+background,potato,242,
+background,steak,234,
+background,ham,213,
+background,corn,200,
+background,egg,195,
+background,bread,192,
+background,pork,189,
+background,flour,173,
+background,onion,156,
+background,blueberries,142,
+background,shrimp,141,
+background,sugar,136,
+background,strawberry,132,
+background,milk,129,
+background,tomato,127,
+background,cilantro mint,125,
+background,carrot,122,
+background,mushroom,121,
+background,spinach,119,
+background,green beans,98,
+background,cream,89,
+background,sweet potato,88,
+background,meat,80,
+background,tofu,79,
+background,apple,71,
+background,wild betel,63,
+background,orange,61,
+background,kaffir lime,61,
+background,lemon,57,
+background,banana,54,
+background,lime,52,
+background,sweet basil,46,
+background,spring onion,38,
+background,pepper,37,
+background,fish,36,
+background,lettuce,36,
+background,sausage,32,
+background,avocado,30,
+background,holy basil,29,
+background,olive,25,
+background,bean sprouts,24,
+background,mango,21,
+background,yogurt,18,
+background,asparagus,17,
+background,zucchini,15,
+background,broccoli,14,
+background,sauce,14,
+background,eggplant,12,
+background,cabbage,12,
+background,beans,12,
+background,grape,10,
+background,ginger,10,
+background,garlic,9,
+background,pumpkin,8,
+background,cucumber,8,
+background,peach,8,
+background,squash,8,
+background,cream cheese,7,
+background,shellfish,5,
+background,celery stick,4,
+background,melon,4,
+background,cauliflower,3,
+background,rape,2,
+background,white radish,2,
+background,plum,2,
+background,salad,2,
+background,okra,1,
+background,watermelon,1,
+bacon,pork,4,0.222
+carrot,strawberry,1,0.059
+chicken duck,background,8,0.143
+cream,corn,2,0.087
+flour,cheese butter,1,0.03
+lime,banana,1,0.043
+pork,bacon,2,0.077
+pork,steak,1,0.038
+pork,background,1,0.038
+shrimp,bread,1,0.036
+steak,pork,2,0.061
+steak,chicken duck,2,0.061
+steak,background,2,0.061
+steak,strawberry,1,0.03
+steak,bacon,1,0.03
+steak,ham,1,0.03
+strawberry,corn,1,0.036
+sugar,flour,2,0.069
+sweet potato,potato,1,0.04
+tomato,grape,1,0.03
+tomato,plum,1,0.03
+tomato,background,1,0.03

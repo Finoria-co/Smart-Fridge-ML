@@ -17,6 +17,7 @@
   - test แบ่งจาก val ด้วย `scripts/make_test_split.py` (seed 42) ห้ามแบ่งใหม่ถ้าไม่ได้สั่ง
 - ไม่มีข้าวและพาสต้าใน dataset · มติ 75 vs 12 class ยังรอทีม (ค่าเริ่มต้น 75)
 - **dataset v2** (2026-11-17) = v1 + 709 รูปวัตถุดิบดิบจาก Roboflow: `/root/data/foodseg_yolo_v2/` (WSL) · `foodseg_yolo_v2.zip` ใน Drive · สร้างด้วย `scripts/build_dataset_v2.py` · รายงาน `data/split_report_v2.md` · `data_added_val.yaml` = val เฉพาะรูปที่เพิ่ม (ใช้เทียบโมเดล) · v1 ยังใช้เทียบได้ ห้ามลบ
+  - ผล (`experiments.md` #2): `baseline_n_v2` ดีกว่า v1 บน val ดิบมาก และไม่แย่ลงบน val เดิม → **การทดลอง Phase D ต่อไปใช้ v2** (`ZIP='foodseg_yolo_v2.zip'` ใน notebook) · เทียบโมเดลด้วย `eval_per_class.py --data` ทั้ง v1 val และ `data_added_val.yaml`
 
 ## เครื่องและข้อจำกัด
 - Windows 11 · GPU NVIDIA RTX 4050 Laptop 6 GB

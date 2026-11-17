@@ -1,0 +1,732 @@
+true,pred,count,share_of_true
+apple,cucumber,5,0.039
+apple,lemon,4,0.031
+apple,potato,4,0.031
+apple,orange,3,0.023
+apple,bread,3,0.023
+apple,banana,2,0.016
+apple,tomato,2,0.016
+apple,strawberry,1,0.008
+apple,pork,1,0.008
+apple,tofu,1,0.008
+apple,pumpkin,1,0.008
+apple,background,1,0.008
+asparagus,background,5,0.062
+asparagus,cilantro mint,4,0.049
+asparagus,french beans,4,0.049
+asparagus,cucumber,3,0.037
+asparagus,pepper,2,0.025
+asparagus,banana,1,0.012
+asparagus,grape,1,0.012
+asparagus,potato,1,0.012
+asparagus,garlic,1,0.012
+asparagus,cauliflower,1,0.012
+asparagus,lettuce,1,0.012
+asparagus,snow peas,1,0.012
+asparagus,onion,1,0.012
+asparagus,spinach,1,0.012
+avocado,cucumber,11,0.262
+avocado,lemon,2,0.048
+avocado,cheese butter,1,0.024
+avocado,bread,1,0.024
+avocado,lettuce,1,0.024
+avocado,broccoli,1,0.024
+avocado,pepper,1,0.024
+avocado,melon,1,0.024
+background,onion,13335,
+background,egg,11900,
+background,cheese butter,9693,
+background,bread,9189,
+background,chicken duck,8450,
+background,cilantro mint,7778,
+background,potato,7395,
+background,mushroom,6729,
+background,pepper,6553,
+background,pork,6116,
+background,steak,6097,
+background,lettuce,5864,
+background,tomato,5601,
+background,cucumber,4792,
+background,spring onion,4606,
+background,carrot,4405,
+background,sausage,3745,
+background,broccoli,3527,
+background,lemon,3131,
+background,beans,3055,
+background,strawberry,3003,
+background,fish,2949,
+background,garlic,2893,
+background,tofu,2867,
+background,asparagus,2658,
+background,apple,2417,
+background,wild betel,2402,
+background,orange,2384,
+background,shrimp,2159,
+background,cauliflower,2125,
+background,yogurt,1995,
+background,cabbage,1942,
+background,french beans,1898,
+background,corn,1883,
+background,avocado,1825,
+background,milk,1773,
+background,pumpkin,1639,
+background,green beans,1492,
+background,meat,1453,
+background,grape,1401,
+background,banana,1382,
+background,sauce,1315,
+background,mango,1301,
+background,white radish,1274,
+background,celery stick,1274,
+background,snow peas,1220,
+background,shellfish,915,
+background,eggplant,905,
+background,ham,864,
+background,bacon,774,
+background,kaffir lime,727,
+background,okra,683,
+background,bean sprouts,643,
+background,rape,637,
+background,ginger,569,
+background,holy basil,519,
+background,olive,492,
+background,sweet basil,450,
+background,melon,395,
+background,blueberries,303,
+background,cream cheese,275,
+background,zucchini,274,
+background,lime,218,
+background,spinach,202,
+background,cream,189,
+background,squash,182,
+background,peach,179,
+background,salad,169,
+background,brussel sprouts,168,
+background,plum,137,
+background,sweet potato,118,
+background,watermelon,99,
+background,flour,91,
+background,sugar,77,
+background,raspberries,45,
+bacon,cheese butter,2,0.286
+bacon,ham,1,0.143
+bacon,background,1,0.143
+banana,lemon,5,0.045
+banana,bread,5,0.045
+banana,onion,4,0.036
+banana,orange,2,0.018
+banana,cucumber,2,0.018
+banana,background,2,0.018
+banana,tofu,1,0.009
+banana,garlic,1,0.009
+banana,tomato,1,0.009
+banana,pumpkin,1,0.009
+bean sprouts,lettuce,2,0.182
+bean sprouts,egg,1,0.091
+bean sprouts,chicken duck,1,0.091
+bean sprouts,bread,1,0.091
+bean sprouts,broccoli,1,0.091
+bean sprouts,cilantro mint,1,0.091
+bean sprouts,onion,1,0.091
+bean sprouts,mushroom,1,0.091
+beans,background,146,0.223
+beans,egg,1,0.002
+blueberries,egg,1,0.2
+blueberries,salad,1,0.2
+blueberries,background,1,0.2
+bread,background,28,0.063
+bread,chicken duck,18,0.04
+bread,potato,16,0.036
+bread,cheese butter,12,0.027
+bread,steak,12,0.027
+bread,egg,7,0.016
+bread,onion,7,0.016
+bread,pork,5,0.011
+bread,sausage,2,0.004
+bread,fish,2,0.004
+bread,corn,2,0.004
+bread,lettuce,2,0.004
+bread,banana,1,0.002
+bread,strawberry,1,0.002
+bread,tofu,1,0.002
+bread,cauliflower,1,0.002
+bread,ginger,1,0.002
+bread,white radish,1,0.002
+bread,pepper,1,0.002
+bread,yogurt,1,0.002
+broccoli,cilantro mint,14,0.046
+broccoli,background,8,0.026
+broccoli,french beans,5,0.017
+broccoli,cauliflower,3,0.01
+broccoli,cucumber,3,0.01
+broccoli,cheese butter,1,0.003
+broccoli,avocado,1,0.003
+broccoli,chicken duck,1,0.003
+broccoli,bread,1,0.003
+broccoli,asparagus,1,0.003
+broccoli,green beans,1,0.003
+broccoli,mushroom,1,0.003
+brussel sprouts,broccoli,1,0.5
+cabbage,lettuce,8,0.333
+cabbage,cilantro mint,2,0.083
+cabbage,steak,1,0.042
+cabbage,potato,1,0.042
+cabbage,tomato,1,0.042
+cabbage,cucumber,1,0.042
+cabbage,background,1,0.042
+carrot,tomato,17,0.036
+carrot,background,12,0.026
+carrot,mushroom,8,0.017
+carrot,potato,7,0.015
+carrot,onion,7,0.015
+carrot,sausage,6,0.013
+carrot,pepper,6,0.013
+carrot,bread,4,0.009
+carrot,meat,4,0.009
+carrot,pumpkin,3,0.006
+carrot,egg,1,0.002
+carrot,apple,1,0.002
+carrot,steak,1,0.002
+carrot,chicken duck,1,0.002
+carrot,fish,1,0.002
+carrot,shrimp,1,0.002
+carrot,cucumber,1,0.002
+carrot,celery stick,1,0.002
+cauliflower,potato,4,0.062
+cauliflower,broccoli,3,0.046
+cauliflower,onion,2,0.031
+cauliflower,cheese butter,1,0.015
+cauliflower,garlic,1,0.015
+cauliflower,lettuce,1,0.015
+cauliflower,pumpkin,1,0.015
+cauliflower,carrot,1,0.015
+celery stick,cucumber,3,0.055
+celery stick,cilantro mint,3,0.055
+celery stick,background,2,0.036
+celery stick,lemon,1,0.018
+celery stick,spring onion,1,0.018
+celery stick,carrot,1,0.018
+celery stick,asparagus,1,0.018
+celery stick,broccoli,1,0.018
+celery stick,pepper,1,0.018
+cheese butter,background,26,0.088
+cheese butter,bread,15,0.051
+cheese butter,chicken duck,11,0.037
+cheese butter,yogurt,10,0.034
+cheese butter,egg,7,0.024
+cheese butter,milk,6,0.02
+cheese butter,potato,6,0.02
+cheese butter,lemon,4,0.014
+cheese butter,pork,4,0.014
+cheese butter,onion,4,0.014
+cheese butter,meat,4,0.014
+cheese butter,sausage,3,0.01
+cheese butter,fish,2,0.007
+cheese butter,tofu,2,0.007
+cheese butter,garlic,2,0.007
+cheese butter,cauliflower,2,0.007
+cheese butter,lettuce,2,0.007
+cheese butter,mushroom,2,0.007
+cheese butter,apple,1,0.003
+cheese butter,strawberry,1,0.003
+cheese butter,steak,1,0.003
+cheese butter,shrimp,1,0.003
+cheese butter,tomato,1,0.003
+cheese butter,spring onion,1,0.003
+cheese butter,cucumber,1,0.003
+cheese butter,cilantro mint,1,0.003
+cheese butter,cabbage,1,0.003
+cheese butter,bean sprouts,1,0.003
+cheese butter,sauce,1,0.003
+cheese butter,ham,1,0.003
+chicken duck,pork,35,0.111
+chicken duck,steak,30,0.095
+chicken duck,background,23,0.073
+chicken duck,bread,21,0.067
+chicken duck,fish,19,0.06
+chicken duck,potato,9,0.029
+chicken duck,mushroom,7,0.022
+chicken duck,sausage,6,0.019
+chicken duck,cheese butter,4,0.013
+chicken duck,egg,4,0.013
+chicken duck,shrimp,4,0.013
+chicken duck,onion,4,0.013
+chicken duck,lettuce,2,0.006
+chicken duck,tofu,1,0.003
+chicken duck,garlic,1,0.003
+chicken duck,cilantro mint,1,0.003
+chicken duck,pepper,1,0.003
+chicken duck,meat,1,0.003
+cilantro mint,lettuce,24,0.067
+cilantro mint,broccoli,12,0.033
+cilantro mint,background,11,0.031
+cilantro mint,rape,5,0.014
+cilantro mint,spring onion,4,0.011
+cilantro mint,asparagus,4,0.011
+cilantro mint,strawberry,2,0.006
+cilantro mint,pepper,2,0.006
+cilantro mint,lemon,1,0.003
+cilantro mint,steak,1,0.003
+cilantro mint,bread,1,0.003
+cilantro mint,potato,1,0.003
+cilantro mint,cucumber,1,0.003
+cilantro mint,french beans,1,0.003
+cilantro mint,mushroom,1,0.003
+cilantro mint,holy basil,1,0.003
+corn,background,6,0.056
+corn,potato,3,0.028
+corn,spring onion,3,0.028
+corn,egg,2,0.019
+corn,lettuce,1,0.009
+corn,pumpkin,1,0.009
+corn,cucumber,1,0.009
+corn,cabbage,1,0.009
+corn,green beans,1,0.009
+cream,milk,1,0.143
+cucumber,onion,9,0.056
+cucumber,background,8,0.05
+cucumber,celery stick,7,0.043
+cucumber,cilantro mint,7,0.043
+cucumber,pepper,6,0.037
+cucumber,lemon,3,0.019
+cucumber,eggplant,3,0.019
+cucumber,lettuce,3,0.019
+cucumber,asparagus,3,0.019
+cucumber,cabbage,3,0.019
+cucumber,potato,2,0.012
+cucumber,garlic,2,0.012
+cucumber,cheese butter,1,0.006
+cucumber,egg,1,0.006
+cucumber,apple,1,0.006
+cucumber,avocado,1,0.006
+cucumber,banana,1,0.006
+cucumber,green beans,1,0.006
+cucumber,french beans,1,0.006
+egg,background,15,0.016
+egg,cheese butter,13,0.014
+egg,potato,7,0.008
+egg,milk,3,0.003
+egg,corn,3,0.003
+egg,yogurt,3,0.003
+egg,steak,2,0.002
+egg,meat,2,0.002
+egg,lemon,1,0.001
+egg,orange,1,0.001
+egg,chicken duck,1,0.001
+egg,bread,1,0.001
+egg,garlic,1,0.001
+egg,cauliflower,1,0.001
+egg,pumpkin,1,0.001
+egg,cucumber,1,0.001
+egg,carrot,1,0.001
+egg,cilantro mint,1,0.001
+egg,mushroom,1,0.001
+egg,sugar,1,0.001
+eggplant,bread,2,0.125
+eggplant,background,2,0.125
+eggplant,cheese butter,1,0.062
+eggplant,egg,1,0.062
+eggplant,shrimp,1,0.062
+eggplant,cucumber,1,0.062
+eggplant,asparagus,1,0.062
+fish,chicken duck,30,0.405
+fish,pork,10,0.135
+fish,steak,3,0.041
+fish,bread,3,0.041
+fish,cheese butter,1,0.014
+fish,avocado,1,0.014
+fish,sausage,1,0.014
+fish,shrimp,1,0.014
+fish,onion,1,0.014
+fish,pepper,1,0.014
+fish,background,1,0.014
+flour,sugar,1,0.125
+french beans,asparagus,11,0.115
+french beans,snow peas,8,0.083
+french beans,spring onion,4,0.042
+french beans,cilantro mint,4,0.042
+french beans,pepper,3,0.031
+french beans,cucumber,2,0.021
+french beans,background,2,0.021
+french beans,garlic,1,0.01
+french beans,okra,1,0.01
+french beans,lettuce,1,0.01
+french beans,broccoli,1,0.01
+garlic,onion,4,0.211
+garlic,mushroom,2,0.105
+garlic,cheese butter,1,0.053
+garlic,egg,1,0.053
+garlic,corn,1,0.053
+garlic,lettuce,1,0.053
+garlic,carrot,1,0.053
+garlic,asparagus,1,0.053
+ginger,orange,2,0.2
+ginger,egg,1,0.1
+ginger,lemon,1,0.1
+ginger,pork,1,0.1
+ginger,chicken duck,1,0.1
+ginger,garlic,1,0.1
+ginger,background,1,0.1
+grape,strawberry,2,0.065
+grape,mushroom,2,0.065
+grape,potato,1,0.032
+grape,background,1,0.032
+green beans,cilantro mint,6,0.075
+green beans,background,6,0.075
+green beans,broccoli,4,0.05
+green beans,spring onion,3,0.038
+green beans,chicken duck,1,0.012
+green beans,shrimp,1,0.012
+green beans,carrot,1,0.012
+green beans,snow peas,1,0.012
+green beans,pepper,1,0.012
+green beans,mushroom,1,0.012
+ham,bacon,3,0.273
+ham,cheese butter,1,0.091
+ham,meat,1,0.091
+ham,cream cheese,1,0.091
+ham,background,1,0.091
+holy basil,background,4,0.038
+kaffir lime,background,2,0.021
+lemon,background,11,0.046
+lemon,orange,7,0.029
+lemon,potato,4,0.017
+lemon,cucumber,4,0.017
+lemon,egg,3,0.012
+lemon,apple,2,0.008
+lemon,banana,2,0.008
+lemon,grape,1,0.004
+lemon,chicken duck,1,0.004
+lemon,celery stick,1,0.004
+lemon,cilantro mint,1,0.004
+lemon,pepper,1,0.004
+lemon,cream,1,0.004
+lettuce,cilantro mint,39,0.2
+lettuce,background,10,0.051
+lettuce,cucumber,9,0.046
+lettuce,cabbage,6,0.031
+lettuce,broccoli,5,0.026
+lettuce,bread,4,0.021
+lettuce,potato,3,0.015
+lettuce,tomato,2,0.01
+lettuce,celery stick,2,0.01
+lettuce,onion,2,0.01
+lettuce,cheese butter,1,0.005
+lettuce,egg,1,0.005
+lettuce,lemon,1,0.005
+lettuce,pork,1,0.005
+lettuce,chicken duck,1,0.005
+lettuce,fish,1,0.005
+lettuce,cauliflower,1,0.005
+lettuce,asparagus,1,0.005
+lettuce,green beans,1,0.005
+lettuce,mushroom,1,0.005
+mango,apple,2,0.167
+mango,banana,2,0.167
+mango,carrot,2,0.167
+mango,cheese butter,1,0.083
+mango,lemon,1,0.083
+mango,steak,1,0.083
+mango,potato,1,0.083
+meat,tofu,6,0.043
+meat,cheese butter,4,0.029
+meat,chicken duck,3,0.022
+meat,egg,2,0.014
+meat,pork,1,0.007
+meat,cucumber,1,0.007
+melon,lemon,3,0.048
+melon,banana,1,0.016
+melon,squash,1,0.016
+milk,cheese butter,8,0.055
+milk,background,7,0.048
+milk,yogurt,3,0.021
+milk,tomato,1,0.007
+milk,onion,1,0.007
+milk,cream,1,0.007
+milk,wild betel,1,0.007
+mushroom,background,8,0.069
+mushroom,onion,6,0.052
+mushroom,potato,5,0.043
+mushroom,steak,3,0.026
+mushroom,cucumber,3,0.026
+mushroom,cheese butter,2,0.017
+mushroom,chicken duck,2,0.017
+mushroom,shellfish,2,0.017
+mushroom,green beans,2,0.017
+mushroom,pork,1,0.009
+mushroom,shrimp,1,0.009
+mushroom,tofu,1,0.009
+mushroom,cauliflower,1,0.009
+mushroom,lettuce,1,0.009
+mushroom,carrot,1,0.009
+mushroom,bean sprouts,1,0.009
+mushroom,pepper,1,0.009
+mushroom,squash,1,0.009
+okra,cucumber,1,0.5
+okra,cilantro mint,1,0.5
+olive,milk,1,0.077
+olive,yogurt,1,0.077
+onion,background,19,0.104
+onion,mushroom,14,0.077
+onion,potato,10,0.055
+onion,tomato,6,0.033
+onion,lettuce,6,0.033
+onion,cheese butter,5,0.027
+onion,chicken duck,5,0.027
+onion,bread,5,0.027
+onion,steak,4,0.022
+onion,carrot,4,0.022
+onion,pepper,4,0.022
+onion,lemon,3,0.016
+onion,pork,3,0.016
+onion,garlic,3,0.016
+onion,sausage,2,0.011
+onion,cucumber,2,0.011
+onion,egg,1,0.005
+onion,apple,1,0.005
+onion,corn,1,0.005
+onion,white radish,1,0.005
+orange,lemon,17,0.181
+orange,bread,3,0.032
+orange,pumpkin,3,0.032
+orange,apple,2,0.021
+orange,carrot,2,0.021
+orange,banana,1,0.011
+orange,potato,1,0.011
+orange,tomato,1,0.011
+orange,ginger,1,0.011
+orange,cilantro mint,1,0.011
+orange,pepper,1,0.011
+orange,background,1,0.011
+peach,avocado,3,0.176
+peach,apple,2,0.118
+peach,plum,1,0.059
+pepper,background,22,0.124
+pepper,tomato,17,0.096
+pepper,carrot,15,0.084
+pepper,onion,8,0.045
+pepper,lemon,4,0.022
+pepper,asparagus,4,0.022
+pepper,banana,3,0.017
+pepper,strawberry,3,0.017
+pepper,cucumber,3,0.017
+pepper,french beans,3,0.017
+pepper,sausage,2,0.011
+pepper,spring onion,2,0.011
+pepper,broccoli,2,0.011
+pepper,mushroom,2,0.011
+pepper,mango,1,0.006
+pepper,grape,1,0.006
+pepper,orange,1,0.006
+pepper,steak,1,0.006
+pepper,pork,1,0.006
+pepper,shrimp,1,0.006
+pepper,bread,1,0.006
+pepper,potato,1,0.006
+pepper,lettuce,1,0.006
+pepper,celery stick,1,0.006
+pepper,cilantro mint,1,0.006
+pepper,cabbage,1,0.006
+pepper,green beans,1,0.006
+pork,steak,41,0.283
+pork,chicken duck,23,0.159
+pork,background,11,0.076
+pork,bread,8,0.055
+pork,onion,5,0.034
+pork,mushroom,5,0.034
+pork,fish,4,0.028
+pork,potato,3,0.021
+pork,cheese butter,2,0.014
+pork,sausage,2,0.014
+pork,shellfish,2,0.014
+pork,cauliflower,1,0.007
+pork,tomato,1,0.007
+pork,cucumber,1,0.007
+pork,carrot,1,0.007
+pork,pepper,1,0.007
+potato,background,21,0.082
+potato,onion,9,0.035
+potato,chicken duck,8,0.031
+potato,bread,8,0.031
+potato,cauliflower,8,0.031
+potato,cheese butter,3,0.012
+potato,mushroom,3,0.012
+potato,egg,2,0.008
+potato,steak,2,0.008
+potato,corn,2,0.008
+potato,garlic,2,0.008
+potato,lettuce,2,0.008
+potato,pork,1,0.004
+potato,sausage,1,0.004
+potato,fish,1,0.004
+potato,shrimp,1,0.004
+potato,tofu,1,0.004
+potato,tomato,1,0.004
+potato,cucumber,1,0.004
+potato,broccoli,1,0.004
+potato,cabbage,1,0.004
+potato,pepper,1,0.004
+pumpkin,bread,3,0.214
+pumpkin,mushroom,2,0.143
+pumpkin,apple,1,0.071
+pumpkin,mango,1,0.071
+pumpkin,orange,1,0.071
+pumpkin,pork,1,0.071
+pumpkin,potato,1,0.071
+pumpkin,onion,1,0.071
+rape,cilantro mint,8,0.615
+rape,broccoli,3,0.231
+salad,asparagus,2,0.133
+salad,broccoli,2,0.133
+salad,background,2,0.133
+salad,cheese butter,1,0.067
+salad,cucumber,1,0.067
+salad,meat,1,0.067
+sauce,background,3,0.115
+sauce,milk,2,0.077
+sauce,lemon,1,0.038
+sauce,yogurt,1,0.038
+sausage,pork,6,0.097
+sausage,tomato,5,0.081
+sausage,carrot,5,0.081
+sausage,chicken duck,4,0.065
+sausage,bread,3,0.048
+sausage,onion,3,0.048
+sausage,mushroom,3,0.048
+sausage,lemon,2,0.032
+sausage,background,2,0.032
+sausage,egg,1,0.016
+sausage,banana,1,0.016
+sausage,strawberry,1,0.016
+sausage,steak,1,0.016
+sausage,shellfish,1,0.016
+sausage,potato,1,0.016
+shellfish,potato,3,0.2
+shellfish,onion,2,0.133
+shellfish,chicken duck,1,0.067
+shellfish,sausage,1,0.067
+shellfish,background,1,0.067
+shrimp,chicken duck,5,0.104
+shrimp,onion,3,0.062
+shrimp,mushroom,3,0.062
+shrimp,background,3,0.062
+shrimp,cheese butter,2,0.042
+shrimp,potato,2,0.042
+shrimp,cilantro mint,2,0.042
+shrimp,steak,1,0.021
+shrimp,fish,1,0.021
+shrimp,tofu,1,0.021
+shrimp,garlic,1,0.021
+snow peas,pepper,8,0.242
+snow peas,spring onion,5,0.152
+snow peas,asparagus,5,0.152
+snow peas,cucumber,2,0.061
+snow peas,grape,1,0.03
+snow peas,lettuce,1,0.03
+snow peas,broccoli,1,0.03
+snow peas,onion,1,0.03
+snow peas,background,1,0.03
+spinach,green beans,3,0.429
+spinach,salad,1,0.143
+spring onion,cilantro mint,14,0.226
+spring onion,asparagus,5,0.081
+spring onion,background,5,0.081
+spring onion,onion,3,0.048
+spring onion,cucumber,2,0.032
+spring onion,celery stick,2,0.032
+spring onion,french beans,2,0.032
+spring onion,lettuce,1,0.016
+spring onion,broccoli,1,0.016
+spring onion,snow peas,1,0.016
+spring onion,cabbage,1,0.016
+spring onion,pepper,1,0.016
+spring onion,mushroom,1,0.016
+squash,cucumber,1,0.5
+steak,pork,46,0.167
+steak,chicken duck,26,0.094
+steak,bread,9,0.033
+steak,background,9,0.033
+steak,onion,8,0.029
+steak,fish,5,0.018
+steak,mushroom,5,0.018
+steak,meat,4,0.014
+steak,sausage,3,0.011
+steak,tomato,3,0.011
+steak,potato,2,0.007
+steak,cheese butter,1,0.004
+steak,shellfish,1,0.004
+steak,carrot,1,0.004
+steak,asparagus,1,0.004
+steak,broccoli,1,0.004
+steak,cabbage,1,0.004
+strawberry,background,10,0.039
+strawberry,tomato,9,0.035
+strawberry,apple,3,0.012
+strawberry,sausage,3,0.012
+strawberry,steak,2,0.008
+strawberry,cheese butter,1,0.004
+strawberry,banana,1,0.004
+strawberry,grape,1,0.004
+strawberry,bread,1,0.004
+strawberry,potato,1,0.004
+strawberry,onion,1,0.004
+strawberry,pepper,1,0.004
+strawberry,sauce,1,0.004
+sweet basil,background,4,0.044
+sweet basil,holy basil,1,0.011
+tofu,potato,4,0.148
+tofu,cheese butter,3,0.111
+tofu,bread,2,0.074
+tofu,cauliflower,2,0.074
+tofu,milk,1,0.037
+tofu,chicken duck,1,0.037
+tofu,fish,1,0.037
+tofu,rape,1,0.037
+tofu,cabbage,1,0.037
+tofu,onion,1,0.037
+tofu,pepper,1,0.037
+tomato,pepper,21,0.039
+tomato,background,20,0.037
+tomato,carrot,15,0.028
+tomato,sausage,12,0.022
+tomato,strawberry,7,0.013
+tomato,apple,5,0.009
+tomato,onion,5,0.009
+tomato,shrimp,4,0.007
+tomato,egg,3,0.006
+tomato,pork,3,0.006
+tomato,bread,3,0.006
+tomato,steak,2,0.004
+tomato,lettuce,2,0.004
+tomato,meat,2,0.004
+tomato,raspberries,2,0.004
+tomato,orange,1,0.002
+tomato,chicken duck,1,0.002
+tomato,potato,1,0.002
+tomato,pumpkin,1,0.002
+tomato,white radish,1,0.002
+tomato,cilantro mint,1,0.002
+tomato,mushroom,1,0.002
+tomato,ham,1,0.002
+watermelon,avocado,8,0.211
+watermelon,melon,3,0.079
+watermelon,broccoli,1,0.026
+watermelon,cabbage,1,0.026
+white radish,onion,10,0.476
+white radish,background,2,0.095
+white radish,sausage,1,0.048
+white radish,fish,1,0.048
+white radish,bread,1,0.048
+white radish,tofu,1,0.048
+white radish,potato,1,0.048
+white radish,tomato,1,0.048
+white radish,spring onion,1,0.048
+white radish,pepper,1,0.048
+wild betel,background,1,0.006
+yogurt,cheese butter,12,0.121
+yogurt,milk,6,0.061
+yogurt,background,2,0.02
+yogurt,egg,1,0.01
+yogurt,lemon,1,0.01
+yogurt,meat,1,0.01
+zucchini,pepper,1,0.2
