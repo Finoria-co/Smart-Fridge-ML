@@ -20,7 +20,7 @@
 ## เครื่องและข้อจำกัด
 - Windows 11 · GPU NVIDIA RTX 4050 Laptop 6 GB
 - **เทรนหลักบน Colab** (ผู้ใช้เลือก 2026-11-17 เพื่อไม่ให้เครื่องหนัก): `notebooks/colab_train.ipynb` · L4 GPU กิน ~1.94 CU/ชม. · บัญชีไม่ได้ subscribe ใช้ CU ที่ซื้อเพิ่ม (100 CU / $9.99) → **ประหยัด CU**: ตัด runtime ทันทีเมื่อเทรนเสร็จ
-  - Drive: `MyDrive/Mini_Project_Finoria_ML/` (ในเครื่องอ่านตรงได้ที่ `G:My DriveMini_Project_Finoria_ML` ผ่าน Google Drive for desktop แบบ Stream · Git Bash: `/g/My Drive/...` · ตัวเชื่อม google-drive ของ plugin ล็อกอินไม่ผ่าน ไม่ต้องลอง) มี `foodseg_yolo_split.zip` (สร้างด้วย `scripts/zip_dataset.py`, ไฟล์ zip อยู่ที่ `data/` ในเครื่อง) + `train.py` (ถ้าแก้ `scripts/train.py` ต้องอัปโหลดทับ) · ผลเทรนอยู่ที่ `MyDrive/Mini_Project_Finoria_ML/runs/detect/<name>`
+  - Drive: `MyDrive/Mini_Project_Finoria_ML/` (ในเครื่องอ่านตรงได้ที่ `G:\My Drive\Mini_Project_Finoria_ML` ผ่าน Google Drive for desktop แบบ Stream · Git Bash: `/g/My Drive/...` · ตัวเชื่อม google-drive ของ plugin ล็อกอินไม่ผ่าน ไม่ต้องลอง) มี `foodseg_yolo_split.zip` (สร้างด้วย `scripts/zip_dataset.py`, ไฟล์ zip อยู่ที่ `data/` ในเครื่อง) + `train.py` (ถ้าแก้ `scripts/train.py` ต้องอัปโหลดทับ) · ผลเทรนอยู่ที่ `MyDrive/Mini_Project_Finoria_ML/runs/detect/<name>`
   - การทดลองบน Colab ใช้ batch 32, workers 8, cache ram → เทียบกันเฉพาะกับ run บน Colab
 - **งานที่ใช้ PyTorch ในเครื่อง (สำรอง/งานสั้น) ใช้ WSL2 Ubuntu** (ผู้ใช้เลือก 2026-11-17): Smart App Control บล็อก `torch\lib\torch.dll` ถาวรบน Windows (ลองทั้ง torch 2.11 และ 2.9.1 รันซ้ำแล้วก็ไม่ผ่าน)
   - venv: `/root/venvs/smart-fridge` (Python 3.12, torch 2.11.0+cu128, ultralytics 8.4.215) · ติดตั้งใหม่ด้วย `scripts/setup_wsl.sh`
@@ -43,4 +43,4 @@
   - **ทุกครั้งที่แก้หรืออัปเดตไฟล์ใน repo ต้อง commit เก็บไว้เสมอ** (ไม่ปล่อย working tree ค้าง) · commit แยกตามขั้น/เฟส (ข้อความขึ้นต้นด้วย Phase หรือหมวด) เพื่อ `git revert` ทีละขั้นได้ · **push ขึ้น main ได้ทันทีหลังทุก commit ไม่ต้องถาม**
   - ชื่อผู้ commit: `git -c user.name="Patima Tinsumran" commit ...` · ห้ามใส่รหัสนักศึกษาหรือข้อมูลส่วนตัวในไฟล์ (repo เป็น public)
   - PR/merge/force-push/ลบ branch ยังต้องให้ผู้ใช้สั่ง
-- ผลเทรน: copy `results.csv`, `args.yaml` และกราฟหลัก (results.png, confusion_matrix_normalized.png, BoxPR_curve.png, BoxF1_curve.png) ไปไว้ที่ `results/<name>/` แล้ว commit · `runs/` และ `*.pt` ไม่เข้า git (weights อยู่ที่ Drive, best.pt ตัวสุดท้ายแนบเป็น GitHub Release)
+- ผลเทรน: copy run จาก Drive มาไว้ `runs/detect/<name>/` แล้วรัน (ใน WSL) `scripts/analyze_run.py runs/detect/<name> <name>` (copy csv + กราฟหลัก + กราฟ train vs val loss ไป `results/<name>/`) และ `scripts/eval_per_class.py runs/detect/<name>/weights/best.pt <name>` (mAP ราย class บน val) แล้ว commit · `runs/` และ `*.pt` ไม่เข้า git (weights อยู่ที่ Drive, best.pt ตัวสุดท้ายแนบเป็น GitHub Release)
