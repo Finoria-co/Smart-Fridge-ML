@@ -20,7 +20,7 @@
 ## เครื่องและข้อจำกัด
 - Windows 11 · GPU NVIDIA RTX 4050 Laptop 6 GB
 - **เทรนหลักบน Colab** (ผู้ใช้เลือก 2026-11-17 เพื่อไม่ให้เครื่องหนัก): `notebooks/colab_train.ipynb` · L4 GPU กิน ~1.94 CU/ชม. · บัญชีไม่ได้ subscribe ใช้ CU ที่ซื้อเพิ่ม (100 CU / $9.99) → **ประหยัด CU**: ตัด runtime ทันทีเมื่อเทรนเสร็จ
-  - Drive: `MyDrive/smart-fridge-cv/` มี `foodseg_yolo_split.zip` (สร้างด้วย `scripts/zip_dataset.py`, ไฟล์ zip อยู่ที่ `data/` ในเครื่อง) + `train.py` (ถ้าแก้ `scripts/train.py` ต้องอัปโหลดทับ) · ผลเทรนอยู่ที่ `MyDrive/smart-fridge-cv/runs/detect/<name>`
+  - Drive: `MyDrive/Mini_Project_Finoria_ML/` มี `foodseg_yolo_split.zip` (สร้างด้วย `scripts/zip_dataset.py`, ไฟล์ zip อยู่ที่ `data/` ในเครื่อง) + `train.py` (ถ้าแก้ `scripts/train.py` ต้องอัปโหลดทับ) · ผลเทรนอยู่ที่ `MyDrive/Mini_Project_Finoria_ML/runs/detect/<name>`
   - การทดลองบน Colab ใช้ batch 32, workers 8, cache ram → เทียบกันเฉพาะกับ run บน Colab
 - **งานที่ใช้ PyTorch ในเครื่อง (สำรอง/งานสั้น) ใช้ WSL2 Ubuntu** (ผู้ใช้เลือก 2026-11-17): Smart App Control บล็อก `torch\lib\torch.dll` ถาวรบน Windows (ลองทั้ง torch 2.11 และ 2.9.1 รันซ้ำแล้วก็ไม่ผ่าน)
   - venv: `/root/venvs/smart-fridge` (Python 3.12, torch 2.11.0+cu128, ultralytics 8.4.215) · ติดตั้งใหม่ด้วย `scripts/setup_wsl.sh`
