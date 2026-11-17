@@ -101,8 +101,7 @@ def main(zip_path, out_dir):
 
     # data.yaml: ลบ path ออก -> Ultralytics ใช้โฟลเดอร์ที่ data.yaml อยู่ (path แบบ relative จะถูกตีความใต้ datasets_dir ของมัน)
     # ใช้ได้ทั้งในเครื่องและ Colab ไม่ว่าจะแตก dataset ไว้ที่ไหน + เพิ่ม test
-    new_yaml = re.sub(r"^path: .*
-", "", yaml_text, flags=re.M)
+    new_yaml = re.sub(r"^path: .*\n", "", yaml_text, flags=re.M)
     new_yaml = new_yaml.replace("val: images/val\n", "val: images/val\ntest: images/test\n")
     (root / "data.yaml").write_text(new_yaml, encoding="utf-8")
     (out_dir / "test_files.txt").write_text("\n".join(sorted(test)) + "\n", encoding="utf-8")
