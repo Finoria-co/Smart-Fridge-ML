@@ -1,0 +1,113 @@
+# แผนงาน Computer Vision: Smart Fridge (YOLO) จนถึงคลิปนำเสนอ
+
+เจ้าของงาน: ปฏิมา ถิ่นสำราญ (T-Patima, 6752300461) · โรล **Computer Vision** · เขียนแผน 2026-11-17
+ภาพรวมโปรเจกต์และผลตรวจ dataset: `../mini-project-smart-fridge.md` (อ่านก่อน)
+
+**เป้าหมาย**: เทรน **YOLO (Ultralytics YOLO11)** ตรวจจับวัตถุดิบในรูปตู้เย็น แล้วส่งมอบ
+`best.pt` + `predict_image()` + กราฟ/ตารางผล + ส่วน CV ของคลิปนำเสนอ
+**ข้อบังคับ**: ใช้ YOLO · ดึงเนื้อหาที่เรียนในวิชามาใช้และอ้างบทในสไลด์ทุกครั้ง (ส่วนที่ไม่มีในสไลด์ให้ติดป้าย "เนื้อหาเสริม")
+
+---
+
+## 0. สถานะตอนเริ่ม (2026-11-17)
+- [x] ตรวจแผน PDF + แผนผังล่าสุด + dataset → `../mini-project-smart-fridge.md`
+- [x] แตก dataset ไว้ที่ `data/foodseg_yolo/` (1.9 GB, gitignore) และแบ่ง test แล้ว: train 10,055 / val 1,959 / test 1,317 (`data/split_report.md`)
+- [x] `data/data.yaml` มี `test:` แล้ว และไม่มี `path:` (Ultralytics จะใช้โฟลเดอร์ของไฟล์ yaml)
+- [ ] **รอลงมติทีม (ข้อ 4.1 ใน mini-project-smart-fridge.md)**: เทรน 75 class หรือตัดเหลือ 12 ชนิด (dataset ไม่มีข้าวและพาสต้า)
+  - ถ้ายังไม่ได้มติ ให้ใช้ค่าเริ่มต้น **75 class** แล้วแปลงเป็นวัตถุดิบมาตรฐานด้วยตาราง (เปลี่ยนเป็น 12 ทีหลังได้ด้วยสคริปต์กรอง class)
+- เครื่อง: Windows 11, **GPU RTX 4050 Laptop 6 GB** (driver 581.66) → เทรนในเครื่องได้ · Colab เป็นทางสำรอง
+
+---
+
+## 1. ผูกเนื้อหาที่เรียน (บทในสไลด์) เข้ากับงาน CV
+ใช้ตารางนี้ทั้งตอนทำและตอนเขียนสคริปต์คลิป ทุกข้อต้องมีหลักฐาน (กราฟ/ตาราง/ตัวเลข) ไว้โชว์
+
+| บท | เนื้อหาในสไลด์ | ใช้ในงาน CV ยังไง | หลักฐานที่ต้องมี |
+|---|---|---|---|
+| 01 Intro | นิยาม ML: Task T, Performance P, Experience E | T = ตรวจจับวัตถุดิบในรูปตู้เย็น · P = mAP50-95 บน test · E = รูปที่ label แล้ว 10,055 รูป | สไลด์ Problem |
+| 05 ANN | perceptron, activation, gradient descent, learning rate, backpropagation | YOLO คือ ANN หลายชั้น เทรนด้วย gradient descent (SGD/AdamW) + backprop ลด loss · อธิบาย `lr0`, `epochs`, `batch` · CNN เป็นเนื้อหาเสริมต่อจาก ANN | loss curve (box/cls/dfl) ของ train vs val |
+| 03 Decision Tree | overfitting, validation set, pre-pruning / post-pruning | ใช้ val ตรวจ overfitting (train loss ลด แต่ val loss เพิ่ม) · `patience` (early stopping) คือแนวคิดเดียวกับ pre-pruning · เลือก `best.pt` จาก val แล้วใช้ test **ครั้งเดียวตอนจบ** | กราฟ train vs val + epoch ที่หยุด |
+| 07 GA | fitness, selection, crossover, mutation | **ปรับ hyperparameter ด้วย evolution**: `model.tune()` ของ Ultralytics กลายพันธุ์ค่า hyperparameter แล้วคัดตัวที่ fitness (mAP) ดีที่สุด (ของ Ultralytics ใช้ mutation + เลือกตัวดี ไม่มี crossover ให้บอกตรงๆ) · โยงกับการบ้าน GA จัดทีมกีฬาสีได้ | กราฟ fitness ตามรุ่น + ค่า hyperparameter ที่ได้ |
+| Ensemble (Classwork) | Bagging/Boosting: รวมหลายโมเดลลด variance/bias | **TTA** (`augment=True`) = ทำนายหลายมุมแล้วรวม (แนวคิดเดียวกับ Bagging) · (ทางเลือก) รวมผล YOLO11n + YOLO11s ด้วย Weighted Boxes Fusion | ตาราง mAP ก่อน/หลัง TTA |
+| 04 k-NN | k-NN, การวัดระยะ L2, Condensed NN | **ตัวจำแนกขั้นที่ 2 สำหรับสมุนไพรที่สับสนกัน** (กะเพรา/โหระพา/มะกรูด/ชะพลู): crop กล่องจาก YOLO → embedding → k-NN (L2) · Condensed NN ลดจำนวนตัวอย่างที่เก็บ | confusion matrix ก่อน/หลังใช้ k-NN เฉพาะกลุ่มนี้ |
+| 09 SVM | hyperplane, margin, kernel | เทียบกับ k-NN บน embedding เดียวกัน (linear vs RBF kernel) เป็นหัวข้อ Compared | ตาราง accuracy k-NN vs SVM |
+| 06 Clustering | k-means, SOM | สำรวจ dataset: k-means บน embedding ของรูป เพื่อดูกลุ่ม/รูปซ้ำ/รูปผิดปกติ (ใช้เป็นส่วน data ของ Method) | กราฟ cluster 2D + ตัวอย่างรูปแต่ละกลุ่ม |
+| 08 Bayesian | Bayes theorem, MAP | เลือก confidence threshold: เทียบ precision/recall ที่ threshold ต่างๆ (precision/recall/mAP เป็นเนื้อหาเสริม) · class imbalance = prior ไม่เท่ากัน | กราฟ PR curve / F1–confidence (Ultralytics สร้างให้) |
+
+> แกนบังคับ: บท 01, 05, 03, 07 + TTA · ทางเลือกถ้ามีเวลา: k-NN/SVM ขั้นที่ 2, k-means สำรวจข้อมูล, WBF ensemble
+
+---
+
+## 2. Phase ทำงาน (commit ทีละขั้นทุกครั้ง)
+
+### Phase A: เตรียมเครื่อง (~30 นาที)
+1. สร้าง venv **ด้วย `C:\Users\patim\miniconda3\python.exe -m venv .venv`** (ห้าม `uv venv`: Application Control บล็อก)
+2. ติดตั้ง PyTorch แบบ CUDA ก่อน แล้วค่อย `ultralytics` (เช็คคำสั่งติดตั้งปัจจุบันจาก pytorch.org ให้ตรงกับ Python ใน venv ถ้า Python 3.14 ยังไม่มี wheel ของ torch ให้ใช้ Python 3.12 จาก conda env แยก)
+3. ตรวจ: `python -c "import torch; print(torch.cuda.is_available())"` ต้องได้ `True`
+4. ถ้าเจอ `DLL load failed ... Application Control` ให้รันซ้ำ ใช้ `python -m <module>` แทนตัว `.exe` เสมอ (เช่น `python -m ultralytics ...` หรือเรียกผ่าน Python API)
+5. `requirements.txt` และ commit
+
+### Phase B: ตารางวัตถุดิบมาตรฐาน + สำรวจข้อมูล (~1 ชม.)
+1. `ingredient_map.json`: class id → `{"en": ..., "th": ..., "std": ...}` (ชื่อมาตรฐานต้องตรงกับฝ่าย NLP/Retrieval) · ถ้าทีมเลือก 12 ชนิด ให้เขียน `scripts/filter_classes.py` สร้าง dataset ย่อย
+2. notebook `01_data.ipynb`: จำนวนรูป/instance ต่อ class (กราฟ), ขนาดรูป, ตัวอย่างรูปพร้อม polygon, class imbalance
+3. (ทางเลือก บท 06) k-means บน embedding ของรูปเพื่อดูกลุ่มและหารูปผิดปกติ
+
+### Phase C: Baseline (~3–4 ชม. ส่วนใหญ่รอเทรน)
+1. ทดลองสั้นก่อน: `yolo11n.pt`, `epochs=1`, `fraction=0.1` เพื่อตรวจว่า pipeline ทำงาน
+2. Baseline: **YOLO11n detect**, `imgsz=640`, `epochs=50`, `patience=15`, `batch=16` (ถ้า GPU memory ไม่พอใช้ `batch=8` หรือ `batch=-1` ให้ Ultralytics เลือกเอง), `workers=2` (Windows), `seed=0`
+   - label เป็น polygon: Ultralytics แปลงเป็นกล่องให้เองตอนเทรน detect
+3. เก็บผล: `results.csv`, loss curve, PR curve, confusion matrix, mAP50 / mAP50-95 ต่อ class บน **val**
+4. วิเคราะห์ overfitting (บท 03) และ class ที่แย่สุด (คาดว่าสมุนไพรไทยและ class รูปน้อย)
+
+### Phase D: ปรับปรุง + Compared (~1 วัน รวมเวลาเทรน)
+เลือกตามเวลาที่มี เรียงตามความสำคัญ:
+1. **YOLO11s** เทียบกับ n (ขนาดโมเดล vs ความแม่นยำ vs ความเร็ว)
+2. **GA tuning (บท 07)**: `model.tune(data=..., epochs=10, iterations=20–30, fraction=0.3, plots=True)` แล้วเทรนเต็มด้วย hyperparameter ที่ได้ ระวังเวลา: ตั้ง iteration ให้จบได้ภายในคืนเดียว
+3. **TTA (Ensemble)**: `model.val(..., augment=True)` เทียบกับไม่ใช้
+4. (ทางเลือก) **YOLO11n-seg** เทียบกับ detect: label รองรับอยู่แล้ว
+5. (ทางเลือก บท 04/09) ตัวจำแนกขั้นที่ 2 สำหรับสมุนไพร: crop → embedding (เช่น feature จาก backbone ของ YOLO หรือ color histogram) → k-NN vs SVM
+
+ทุกการทดลองบันทึกลง `experiments.md`: config, mAP50, mAP50-95, precision, recall, เวลาเทรน, ms/รูป
+
+### Phase E: ประเมินผลสุดท้ายบน test (~1 ชม.)
+1. เลือกโมเดลสุดท้ายจากผลบน **val** เท่านั้น
+2. รัน `model.val(split="test")` **ครั้งเดียว** เก็บตาราง mAP ต่อ class + confusion matrix ของ test
+3. ทดสอบกับรูปถ่ายตู้เย็นจริง 10–20 รูป (ไม่อยู่ใน dataset) บันทึกว่าถูก/ผิดอะไร: ใช้เป็นหัวข้อ Discuss และ Live demo
+
+### Phase F: ส่งมอบให้ทีม (~2 ชม.)
+1. `predict.py`:
+   ```python
+   def predict_image(image, conf=0.25) -> list[dict]:
+       # [{"ingredient": "egg", "name_th": "ไข่ไก่", "confidence": 0.91, "count": 3}, ...]
+   ```
+   - รวมกล่องของ class เดียวกันเป็น 1 รายการพร้อม `count`, แปลงด้วย `ingredient_map.json`, เลือก `conf` จาก F1–confidence curve (บท 08)
+2. `best.pt` (ถ้าใหญ่เกิน 100 MB ห้ามใส่ git ให้ส่งทาง Drive/Release)
+3. `README.md`: วิธีติดตั้ง วิธีเรียก `predict_image()` ตัวอย่าง input/output
+4. ส่งให้ฝ่าย Integration ลองเรียกจริง แล้วแก้ตาม feedback
+
+### Phase G: คลิปนำเสนอ (ส่วน CV) (~1 วัน)
+ทำตามลำดับหัวข้อของอาจารย์ **Problem → SOTA → Method → Result → Compared → Discuss → Live demo**
+
+| หัวข้อ | เนื้อหาส่วน CV | ภาพที่ใช้ |
+|---|---|---|
+| Problem | ทำไมต้องรู้ว่าในตู้เย็นมีอะไรจากรูป · นิยาม T/P/E (บท 01) | รูปตู้เย็นจริง + ผลลัพธ์ที่อยากได้ |
+| SOTA | ตระกูล YOLO (v8 → YOLO11), detection vs segmentation, งาน food segmentation (ที่มาของ dataset) | timeline YOLO, ตัวอย่างงานอื่น (อ้างอิงให้ครบ) |
+| Method | dataset 75 class / แบ่ง train-val-test / YOLO11 = ANN เทรนด้วย gradient descent + backprop (บท 05) / early stopping (บท 03) / GA tuning (บท 07) | กราฟจำนวนรูปต่อ class, แผนผัง pipeline |
+| Result | mAP50, mAP50-95 บน test, loss curve, confusion matrix, class ที่ดี/แย่สุด | กราฟจาก Ultralytics |
+| Compared | n vs s, ก่อน/หลัง GA tuning, TTA (ensemble), (detect vs seg), (k-NN vs SVM สำหรับสมุนไพร) | ตารางเดียวรวมทุกการทดลอง |
+| Discuss | ข้อจำกัด: ไม่มีข้าว/พาสต้า, class รูปน้อย, กะเพรา vs โหระพาสับสน, val ของสมุนไพรไทยน้อย, รูปตู้เย็นจริงต่างจาก dataset · แนวทางพัฒนาต่อ | confusion matrix ซูมกลุ่มสมุนไพร |
+| Live demo | ถ่ายรูปตู้เย็น → `predict_image()` → รายการวัตถุดิบ → (ต่อกับระบบของทีม) เมนู Top-5 | อัดหน้าจอจริง |
+
+- เขียนบทพูด (`video_script.md`) แยกตามหัวข้อ ระบุเวลาต่อหัวข้อ และตัวเลขทุกตัวต้องมาจากผลรันจริง
+- อัดสำรองคลิป Live demo ไว้เผื่อ demo สดพัง
+- ตรวจว่าทุกบทที่อ้าง (01/03/05/07/...) พูดถึงในคลิปจริง
+
+---
+
+## 3. กติกาการทำงาน (สำหรับเซสชันใหม่)
+- ตอบภาษาไทย อ้างบทในสไลด์ (`../.claude/course-text/`) ส่วนที่เกินสไลด์ติดป้าย "เนื้อหาเสริม"
+- **ก่อนเขียนโค้ดงานใหม่ ให้สัมภาษณ์ผู้ใช้ใน plan mode ก่อน** (กติกาจาก memory) โดยเฉพาะมติ 75 vs 12 class
+- **commit ทันทีหลังแก้แต่ละขั้น** push / PR / merge เฉพาะเมื่อผู้ใช้สั่ง
+- ห้ามแต่งตัวเลข ทุกตัวเลขต้องมาจากการรันจริง
+- ใช้ test ครั้งเดียวตอนจบ (Phase E) ห้ามจูนโดยดูผล test
+- dataset และไฟล์ `runs/` ห้ามเข้า git
