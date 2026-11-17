@@ -13,7 +13,7 @@ cache: ram
 device: ""
 workers: 8
 project: /content/drive/MyDrive/Mini_Project_Finoria_ML/runs/detect
-name: baseline_n-3
+name: baseline_n
 exist_ok: false
 pretrained: true
 cls_remap: true
@@ -112,4 +112,4 @@ auto_augment: randaugment
 erasing: 0.4
 cfg: null
 tracker: tracktrack.yaml
-save_dir: /content/drive/MyDrive/Mini_Project_Finoria_ML/runs/detect/baseline_n-3
+save_dir: /content/drive/MyDrive/Mini_Project_Finoria_ML/runs/detect/baseline_n

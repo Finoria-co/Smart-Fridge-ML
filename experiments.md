@@ -16,7 +16,7 @@
 |---|---|---|---|---|---|---|---|---|---|---|---|
 
 | 0 | 2026-11-17 | YOLO11n detect | smoke test (RTX 4050/WSL): `fraction=0.1` (1,006 รูป), batch 16, imgsz 640 | 1 | 0.0217 | 0.0171 | 0.161 | 0.037 | 2.2 นาที | 13.2 | – |
-| 1 | 2026-11-17 | YOLO11n detect | **baseline** (Colab L4): batch 32, imgsz 640, patience 15, seed 0, cache ram | 50 (best 46) | **0.5101** | **0.4090** | 0.487 | 0.522 | 46.3 นาที | 1.3 (L4) | 01, 03, 05 |
+| 1 | 2026-11-17 | YOLO11n detect | **baseline** (Colab L4): batch 32, imgsz 640, patience 15, seed 0, cache ram | 50 (best 46) | **0.5101** | **0.4090** | 0.487 | 0.522 | 46.1 นาที | 1.3 (L4) | 01, 03, 05 |
 
 ## รายละเอียดแต่ละการทดลอง
 
@@ -30,8 +30,8 @@
 
 ### #1 baseline_n (`results/baseline_n/`)
 - คำสั่ง (Colab L4, `notebooks/colab_train.ipynb` เซลล์ 5): `train.py --name baseline_n --model yolo11n.pt --epochs 50 --patience 15 --batch 32 --workers 8 --cache ram`
-- เวลา 46.3 นาทีตาม `results.csv` (train.py รายงาน 47.4 นาทีรวมโหลดข้อมูล) ≈ 1.5 CU
-- **ทำซ้ำได้ (reproducible)**: เซลล์ 5 ถูกรันจนจบ 2 รอบ (`baseline_n`, `baseline_n-3` ใน Drive) ได้ P/R/mAP/loss ตรงกันทุกคอลัมน์ทั้ง 50 epoch เพราะ `seed=0` + `deterministic=True` · `baseline_n-2` หยุดหลัง epoch 1 (ไม่ใช้)
+- เวลา 46.1 นาทีตาม `results.csv` ≈ 1.5 CU (รอบซ้ำใช้ 46.3 นาที, train.py รายงานรวมโหลดข้อมูล 47.4 นาที)
+- **ทำซ้ำได้ (reproducible)**: เซลล์ 5 ถูกรันจนจบ 2 รอบ (`baseline_n`, `baseline_n-3`) ได้ P/R/mAP/loss ตรงกันทุกคอลัมน์ทั้ง 50 epoch และ mAP ราย class ตรงกันทุกค่า เพราะ `seed=0` + `deterministic=True` · เก็บไว้แค่ `baseline_n` ใน Drive (ลบ `baseline_n-3` ที่ซ้ำ และ `baseline_n-2` ที่หยุดหลัง epoch 1 · 2026-11-17)
 - **best epoch 46** (Ultralytics เลือก best.pt ด้วย fitness = 0.1·mAP50 + 0.9·mAP50-95): P 0.4873 · R 0.5220 · mAP50 0.5101 · mAP50-95 0.4090
   - epoch 50: P 0.5342 · R 0.4898 · mAP50 0.5017 · mAP50-95 0.4028
   - val ซ้ำด้วย best.pt ในเครื่อง (batch 16): mAP50 0.5079 · mAP50-95 0.4073 (ต่างจากตอนเทรนเล็กน้อยเพราะ batch ตอน val ต่างกัน)
