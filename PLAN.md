@@ -1,6 +1,6 @@
 # แผนงาน Computer Vision: Smart Fridge (YOLO) จนถึงคลิปนำเสนอ
 
-เจ้าของงาน: ปฏิมา ถิ่นสำราญ (T-Patima, 6752300461) · โรล **Computer Vision** · เขียนแผน 2026-11-17
+เจ้าของงาน: ปฏิมา ถิ่นสำราญ (T-Patima) · โรล **Computer Vision** · เขียนแผน 2026-11-17
 ภาพรวมโปรเจกต์และผลตรวจ dataset: `../mini-project-smart-fridge.md` (อ่านก่อน)
 
 **เป้าหมาย**: เทรน **YOLO (Ultralytics YOLO11)** ตรวจจับวัตถุดิบในรูปตู้เย็น แล้วส่งมอบ
