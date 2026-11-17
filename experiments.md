@@ -54,3 +54,11 @@
 **สิ่งที่ได้ไปใช้ต่อ (Phase D)**
 - pork / shrimp / chicken คือวัตถุดิบหลักของแผนที่ยังแย่ → ดูใน confusion matrix ว่าสับสนกับอะไร (เนื้อสัตว์ด้วยกัน?)
 - mAP ยังขึ้นช้าๆ ที่ epoch 50 → YOLO11s และ/หรือเทรนนานขึ้นมีโอกาสดีขึ้น
+
+**วิเคราะห์ความผิดพลาด (confusion matrix + ดูรูปจริง)** → `confusions_val.csv`, `scripts/top_confusions.py`, `scripts/inspect/`
+> ⚠️ คอลัมน์ "ทายว่าเป็น X แต่ของจริงคือ background" ใน confusion matrix ของ Ultralytics นับกล่อง conf ต่ำมากด้วย ตัวเลขจึงสูงเกินจริง ใช้ตีความไม่ได้ ใช้เฉพาะฝั่ง "ของจริงคือ X แต่ทายเป็น"
+- **pork** (145 instance): ถูก 30 · ทายเป็น steak 46 (32%) · chicken duck 23 (16%) · ไม่เจอ 12 · mushroom 10
+  - ดูรูปจริง (`example_pork_as_steak.jpg`): รูป pork ใน val มาจาก**อาหารปรุงสุกบนจาน** (หมูย่างราดซอส, มีทโลฟ, หมูสไลซ์) ไม่ใช่หมูดิบในตู้เย็น · แยกจาก steak ด้วยตาก็ยาก → ปัญหาหลักคือ**ข้อมูลไม่ตรงกับงานจริง (domain mismatch)** มากกว่าโมเดล
+- **shrimp** (48): ถูก 19 · chicken duck 8 · fish 3 · **ham** (11): ถูก 4 · cheese butter 3
+- **wild betel**: เจอของจริง 179/180 แต่ precision 0.293 เพราะ**label ไม่ครบ**: ใน 44 รูป val มี label 180 กล่อง แต่โมเดลทาย 633 กล่อง (conf ≥ 0.25) · ตัวอย่าง IMG_7004 มีใบราว 30 ใบ label ไว้ 2 ใบ โมเดลเจอเกือบทุกใบ (`example_wild_betel_label_vs_pred.jpg`) → precision ต่ำเพราะ label ไม่ใช่เพราะโมเดล · รูปทั้งหมดมาจาก `5-thai-herbs` = ต้นชะพลูในสวน ไม่ใช่ใบในตู้เย็น
+- **mango** (12): ทายเป็น apple 3, cheese butter 2, carrot 2 · **ginger** (10): ถูก 1 · **okra** (2): ถูก 0 → รูปใน train น้อย (15–73 รูป) และใน val มีไม่กี่ instance
