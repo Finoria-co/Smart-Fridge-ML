@@ -40,7 +40,7 @@
 - งานนี้ต้องใช้ทำคลิปนำเสนอ: ทุกการทดลองบันทึกลง `experiments.md` พร้อมกราฟ และโยงกับบทที่เรียนตาม `PLAN.md` ข้อ 1
 - สัมภาษณ์ผู้ใช้ (plan mode) ก่อนเขียนโค้ดงานใหม่ · ห้ามแต่งตัวเลข · ใช้ test ครั้งเดียวตอนจบ
 - **git (ผู้ใช้สั่ง 2026-11-17)**: remote = https://github.com/Finoria-co/smart-fridge-cv (public, branch `main`)
-  - commit แยกตามขั้น/เฟส (ข้อความขึ้นต้นด้วย Phase หรือหมวด) เพื่อ `git revert` ทีละขั้นได้ · **push ขึ้น main ได้ทันทีหลังทุก commit ไม่ต้องถาม**
+  - **ทุกครั้งที่แก้หรืออัปเดตไฟล์ใน repo ต้อง commit เก็บไว้เสมอ** (ไม่ปล่อย working tree ค้าง) · commit แยกตามขั้น/เฟส (ข้อความขึ้นต้นด้วย Phase หรือหมวด) เพื่อ `git revert` ทีละขั้นได้ · **push ขึ้น main ได้ทันทีหลังทุก commit ไม่ต้องถาม**
   - ชื่อผู้ commit: `git -c user.name="Patima Tinsumran" commit ...` · ห้ามใส่รหัสนักศึกษาหรือข้อมูลส่วนตัวในไฟล์ (repo เป็น public)
   - PR/merge/force-push/ลบ branch ยังต้องให้ผู้ใช้สั่ง
 - ผลเทรน: copy `results.csv`, `args.yaml` และกราฟหลัก (results.png, confusion_matrix_normalized.png, BoxPR_curve.png, BoxF1_curve.png) ไปไว้ที่ `results/<name>/` แล้ว commit · `runs/` และ `*.pt` ไม่เข้า git (weights อยู่ที่ Drive, best.pt ตัวสุดท้ายแนบเป็น GitHub Release)
