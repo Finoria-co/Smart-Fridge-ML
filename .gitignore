@@ -1,0 +1,7 @@
+# dataset ใหญ่ (1.9 GB) ไม่เก็บใน git
+data/foodseg_yolo/
+*.zip
+runs/
+.venv/
+__pycache__/
+.ipynb_checkpoints/
