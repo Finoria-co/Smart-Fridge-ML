@@ -9,7 +9,8 @@
 เราคือ **คนที่ 2: Computer Vision ML** (ไม่ได้ทำทั้งโปรเจกต์) หน้าที่ตามแผนกลุ่ม:
 - [x] เทรน YOLO บน Colab (`baseline_n`, `baseline_n_v2`)
 - [x] วัดผล mAP, Confusion Matrix, Loss Curve (`results/`, `experiments.md`) · เหลือตัวเลขบน test ครั้งเดียว (Phase E)
-- [ ] เลือกโมเดลสุดท้าย (n vs s) → ส่ง **`best.pt`** (GitHub Release)
+- [x] เลือกโมเดลสุดท้าย: **YOLO11s (`yolo11s_v2`)** val v2 mAP50-95 0.486 vs n 0.436 · ความเร็วเท่ากัน (`experiments.md` #3)
+- [ ] ส่ง **`best.pt`** (GitHub Release) หลังวัดผล test (Phase E)
 - [x] **`predict_image()`** คืนชื่อวัตถุดิบมาตรฐานตาม Data Contract 12 ชนิดของกลุ่ม (`predict.py`, `ingredient_map.json`, `tests/test_predict.py`) · 2026-11-18 ทดสอบกับ `baseline_n_v2` แล้ว · เหลือ: เปลี่ยน weights เป็นตัวสุดท้าย + เลือก conf จาก F1 curve + ให้คนที่ 6 ลองเรียก
 - [ ] **สไลด์หน้า 5**: การเทรนโมเดลตรวจจับรูปภาพ + กราฟวัดผล (คนที่ 6 รวมสไลด์)
 
@@ -79,7 +80,7 @@ Data Contract 12 ชนิด: pork, chicken, shrimp, bacon (เบคอน/แ
 - ✅ **0. Dataset v2 (บท 01 E)** 2026-11-18: เพิ่มวัตถุดิบดิบ 709 รูป → `baseline_n_v2` val ดิบ mAP50-95 0.392 → 0.674, val เดิมไม่ลด (0.407 → 0.417) · รายละเอียด `experiments.md` #2 · **การทดลองต่อจากนี้ใช้ dataset v2**
 
 เลือกตามเวลาที่มี เรียงตามความสำคัญ (2026-11-18: ทำแค่ข้อ 1 · ข้อ 2–5 ไม่อยู่ในแผนกลุ่ม ทำเฉพาะถ้ามีเวลาเหลือ):
-1. 🔄 **YOLO11s** (`yolo11s_v2`, กำลังเทรนบน Colab) เทียบกับ n (ขนาดโมเดล vs ความแม่นยำ vs ความเร็ว)
+1. ✅ **YOLO11s** (`yolo11s_v2`) ดีกว่า n ทุก val · เลือกเป็นโมเดลสุดท้าย (`experiments.md` #3) เทียบกับ n (ขนาดโมเดล vs ความแม่นยำ vs ความเร็ว)
 2. **GA tuning (บท 07)**: `model.tune(data=..., epochs=10, iterations=20–30, fraction=0.3, plots=True)` แล้วเทรนเต็มด้วย hyperparameter ที่ได้ ระวังเวลา: ตั้ง iteration ให้จบได้ภายในคืนเดียว
 3. **TTA (Ensemble)**: `model.val(..., augment=True)` เทียบกับไม่ใช้
 4. (ทางเลือก) **YOLO11n-seg** เทียบกับ detect: label รองรับอยู่แล้ว
