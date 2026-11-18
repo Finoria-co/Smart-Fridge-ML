@@ -10,7 +10,7 @@
 - [x] เทรน YOLO บน Colab (`baseline_n`, `baseline_n_v2`)
 - [x] วัดผล mAP, Confusion Matrix, Loss Curve (`results/`, `experiments.md`) · เหลือตัวเลขบน test ครั้งเดียว (Phase E)
 - [ ] เลือกโมเดลสุดท้าย (n vs s) → ส่ง **`best.pt`** (GitHub Release)
-- [ ] **`predict_image()`** คืนชื่อวัตถุดิบมาตรฐานตาม Data Contract 12 ชนิดของกลุ่ม (`predict.py`, `ingredient_map.json`)
+- [x] **`predict_image()`** คืนชื่อวัตถุดิบมาตรฐานตาม Data Contract 12 ชนิดของกลุ่ม (`predict.py`, `ingredient_map.json`, `tests/test_predict.py`) · 2026-11-18 ทดสอบกับ `baseline_n_v2` แล้ว · เหลือ: เปลี่ยน weights เป็นตัวสุดท้าย + เลือก conf จาก F1 curve + ให้คนที่ 6 ลองเรียก
 - [ ] **สไลด์หน้า 5**: การเทรนโมเดลตรวจจับรูปภาพ + กราฟวัดผล (คนที่ 6 รวมสไลด์)
 
 ไม่ใช่งานเรา (ตัดออก): สำรวจ/เตรียม dataset และสไลด์หน้า 4 = คนที่ 1 · รวมสไลด์ + Live Demo = คนที่ 6 · คลิปทั้งเรื่อง (Phase G เดิม) · GA/TTA/seg/k-NN-SVM เป็นของแถม ไม่อยู่ในแผนกลุ่ม

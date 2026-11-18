@@ -4,9 +4,33 @@
 ตรวจจับวัตถุดิบในรูปตู้เย็นด้วย **YOLO11 (Ultralytics)** แล้วส่งรายการวัตถุดิบให้ระบบแนะนำเมนู
 repo หลักของทีม: [Finoria-co/fridge-chef-ai](https://github.com/Finoria-co/fridge-chef-ai)
 
+## ใช้งาน (สำหรับคนที่ 5 / 6): `predict_image()`
+```bash
+pip install ultralytics          # มี torch, opencv, pillow ติดมาด้วย
+# วาง best.pt ไว้ที่ weights/best.pt (ดาวน์โหลดจาก Releases ของ repo นี้) หรือตั้ง env SMART_FRIDGE_WEIGHTS
+```
+```python
+from predict import predict_image
+
+items = predict_image("fridge.jpg")            # หรือ bytes ของไฟล์ที่อัปโหลด / PIL.Image / numpy (BGR)
+ingredients = [it["ingredient"] for it in items]   # เช่น ["chicken", "tomato", "cheese", "bacon"]
+```
+ผลลัพธ์ (เรียงตาม confidence, ไม่เจออะไร = `[]`):
+```json
+[{"ingredient": "tomato", "name_th": "มะเขือเทศ", "in_contract": true, "confidence": 0.924, "count": 1,
+  "boxes": [[319.3, 119.1, 458.6, 258.9]]}]
+```
+- `ingredient` ใช้ชื่อตาม **Data Contract 12 ชนิด** ของกลุ่ม: pork, chicken, shrimp, bacon, egg, rice, pasta, bread, holy_basil, tomato, cheese, cabbage (ตาราง `ingredient_map.json`: bacon = เบคอน+แฮม, cheese = cheese butter+cream cheese, chicken = chicken duck)
+- ⚠️ **rice, pasta ไม่มีในรูปที่ใช้เทรน → ตรวจจากรูปไม่ได้** ต้องรับจากข้อความพิมพ์ (คนที่ 4)
+- `only_contract=False` คืนวัตถุดิบอื่นที่โมเดลรู้จักด้วย (รวม 75 class เช่น `carrot`, `spring_onion`: `in_contract=False`, `name_th=None`)
+- `count` = จำนวนชิ้นที่เจอ · `boxes` = กรอบ [x1, y1, x2, y2] (pixel ของรูปต้นฉบับ) ไว้วาดบนหน้าเว็บ · `conf` ค่าเริ่มต้น 0.25
+- โหลดโมเดลครั้งแรกช้า (~5 วินาที) ครั้งต่อไปเร็ว (~20–110 ms/รูป บน RTX 4050) → ใน Flask/FastAPI ให้ import ไว้ตอนเริ่ม server
+- ลองจาก command line: `python predict.py รูป.jpg [--all] [--conf 0.4]`
+
 | ไฟล์ | เนื้อหา |
 |---|---|
-| `PLAN.md` | แผนงานทั้งหมด (Phase A–G) + การโยงกับบทที่เรียน + โครงคลิปนำเสนอ |
+| `predict.py`, `ingredient_map.json` | `predict_image()` + ตาราง class → วัตถุดิบมาตรฐาน 12 ชนิด · ทดสอบ: `python tests/test_predict.py` |
+| `PLAN.md` | แผนงานทั้งหมด (Phase A–G) + การโยงกับบทที่เรียน |
 | `experiments.md` | ผลการทดลองทุกครั้ง (ตัวเลขจากการรันจริง) |
 | `results/<name>/` | `results.csv` และกราฟของแต่ละการทดลอง |
 | `data/` | `data.yaml` (75 class), `split_report.md`, รายชื่อรูปใน test |

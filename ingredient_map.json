@@ -1,0 +1,17 @@
+{
+  "_note": "Data Contract 12 ชนิดของกลุ่ม (Smart_Fridge_ML_Project_Plan.pdf ข้อ 2) -> class ของโมเดล YOLO (data/data.yaml) · classes ว่าง = โมเดลตรวจจากรูปไม่ได้ (ไม่มีใน dataset) · cheese butter ใน dataset รวมเนยด้วย",
+  "contract": {
+    "pork":       {"th": "หมูสับ",      "classes": ["pork"]},
+    "chicken":    {"th": "อกไก่",       "classes": ["chicken duck"]},
+    "shrimp":     {"th": "กุ้งสด",      "classes": ["shrimp"]},
+    "bacon":      {"th": "เบคอน/แฮม",   "classes": ["bacon", "ham"]},
+    "egg":        {"th": "ไข่ไก่",      "classes": ["egg"]},
+    "rice":       {"th": "ข้าวสวย",     "classes": []},
+    "pasta":      {"th": "เส้นพาสต้า",  "classes": []},
+    "bread":      {"th": "ขนมปัง",      "classes": ["bread"]},
+    "holy_basil": {"th": "ใบกะเพรา",    "classes": ["holy basil"]},
+    "tomato":     {"th": "มะเขือเทศ",   "classes": ["tomato"]},
+    "cheese":     {"th": "ชีส",         "classes": ["cheese butter", "cream cheese"]},
+    "cabbage":    {"th": "ผักกาดขาว",   "classes": ["cabbage"]}
+  }
+}
