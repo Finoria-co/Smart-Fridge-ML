@@ -31,6 +31,7 @@ ingredients = [it["ingredient"] for it in items]   # เช่น ["chicken", "t
 | ไฟล์ | เนื้อหา |
 |---|---|
 | `predict.py`, `ingredient_map.json` | `predict_image()` + ตาราง class → วัตถุดิบมาตรฐาน 12 ชนิด · ทดสอบ: `python tests/test_predict.py` |
+| `docs/CV_handoff_guide.docx` | **คู่มือส่งต่องานสำหรับเพื่อน** (ใครทำอะไรต่อ, ใช้ไฟล์ไหน, commit, วิธีเชื่อม predict_image) · สร้างใหม่ด้วย `node docs/make_handoff.js <out.docx>` |
 | `PLAN.md` | แผนงานทั้งหมด (Phase A–G) + การโยงกับบทที่เรียน |
 | `experiments.md` | ผลการทดลองทุกครั้ง (ตัวเลขจากการรันจริง) |
 | `results/<name>/` | `results.csv` และกราฟของแต่ละการทดลอง |
