@@ -5,6 +5,17 @@
 
 **เป้าหมาย**: เทรน **YOLO (Ultralytics YOLO11)** ตรวจจับวัตถุดิบในรูปตู้เย็น แล้วส่งมอบ
 `best.pt` + `predict_image()` + กราฟ/ตารางผล + ส่วน CV ของคลิปนำเสนอ
+## ⭐ ขอบเขตงานจริง (ปรับ 2026-11-18 ตามแผนกลุ่ม `../Smart_Fridge_ML_Project_Plan.pdf`)
+เราคือ **คนที่ 2: Computer Vision ML** (ไม่ได้ทำทั้งโปรเจกต์) หน้าที่ตามแผนกลุ่ม:
+- [x] เทรน YOLO บน Colab (`baseline_n`, `baseline_n_v2`)
+- [x] วัดผล mAP, Confusion Matrix, Loss Curve (`results/`, `experiments.md`) · เหลือตัวเลขบน test ครั้งเดียว (Phase E)
+- [ ] เลือกโมเดลสุดท้าย (n vs s) → ส่ง **`best.pt`** (GitHub Release)
+- [ ] **`predict_image()`** คืนชื่อวัตถุดิบมาตรฐานตาม Data Contract 12 ชนิดของกลุ่ม (`predict.py`, `ingredient_map.json`)
+- [ ] **สไลด์หน้า 5**: การเทรนโมเดลตรวจจับรูปภาพ + กราฟวัดผล (คนที่ 6 รวมสไลด์)
+
+ไม่ใช่งานเรา (ตัดออก): สำรวจ/เตรียม dataset และสไลด์หน้า 4 = คนที่ 1 · รวมสไลด์ + Live Demo = คนที่ 6 · คลิปทั้งเรื่อง (Phase G เดิม) · GA/TTA/seg/k-NN-SVM เป็นของแถม ไม่อยู่ในแผนกลุ่ม
+Data Contract 12 ชนิด: pork, chicken, shrimp, bacon (เบคอน/แฮม), egg, rice, pasta, bread, holy_basil, tomato, cheese, cabbage · **rice, pasta ไม่มีใน dataset → ตรวจจากรูปไม่ได้** (แจ้งคนที่ 4/6: ใช้จากข้อความพิมพ์)
+
 **ข้อบังคับ**: ใช้ YOLO · ดึงเนื้อหาที่เรียนในวิชามาใช้และอ้างบทในสไลด์ทุกครั้ง (ส่วนที่ไม่มีในสไลด์ให้ติดป้าย "เนื้อหาเสริม")
 
 ---
@@ -52,7 +63,7 @@
 4. ถ้าเจอ `DLL load failed ... Application Control` ให้รันซ้ำ ใช้ `python -m <module>` แทนตัว `.exe` เสมอ (เช่น `python -m ultralytics ...` หรือเรียกผ่าน Python API)
 5. `requirements.txt` และ commit
 
-### Phase B: ตารางวัตถุดิบมาตรฐาน + สำรวจข้อมูล (~1 ชม.)
+### Phase B: ตารางวัตถุดิบมาตรฐาน + สำรวจข้อมูล · ✂️ ตัดออก 2026-11-18 (สำรวจ dataset = คนที่ 1 · ตารางวัตถุดิบย้ายไปทำใน Phase F เป็น `ingredient_map.json` ตาม Data Contract 12 ชนิด)
 1. `ingredient_map.json`: class id → `{"en": ..., "th": ..., "std": ...}` (ชื่อมาตรฐานต้องตรงกับฝ่าย NLP/Retrieval) · ถ้าทีมเลือก 12 ชนิด ให้เขียน `scripts/filter_classes.py` สร้าง dataset ย่อย
 2. notebook `01_data.ipynb`: จำนวนรูป/instance ต่อ class (กราฟ), ขนาดรูป, ตัวอย่างรูปพร้อม polygon, class imbalance
 3. (ทางเลือก บท 06) k-means บน embedding ของรูปเพื่อดูกลุ่มและหารูปผิดปกติ
@@ -67,8 +78,8 @@
 ### Phase D: ปรับปรุง + Compared (~1 วัน รวมเวลาเทรน)
 - ✅ **0. Dataset v2 (บท 01 E)** 2026-11-18: เพิ่มวัตถุดิบดิบ 709 รูป → `baseline_n_v2` val ดิบ mAP50-95 0.392 → 0.674, val เดิมไม่ลด (0.407 → 0.417) · รายละเอียด `experiments.md` #2 · **การทดลองต่อจากนี้ใช้ dataset v2**
 
-เลือกตามเวลาที่มี เรียงตามความสำคัญ:
-1. **YOLO11s** เทียบกับ n (ขนาดโมเดล vs ความแม่นยำ vs ความเร็ว)
+เลือกตามเวลาที่มี เรียงตามความสำคัญ (2026-11-18: ทำแค่ข้อ 1 · ข้อ 2–5 ไม่อยู่ในแผนกลุ่ม ทำเฉพาะถ้ามีเวลาเหลือ):
+1. 🔄 **YOLO11s** (`yolo11s_v2`, กำลังเทรนบน Colab) เทียบกับ n (ขนาดโมเดล vs ความแม่นยำ vs ความเร็ว)
 2. **GA tuning (บท 07)**: `model.tune(data=..., epochs=10, iterations=20–30, fraction=0.3, plots=True)` แล้วเทรนเต็มด้วย hyperparameter ที่ได้ ระวังเวลา: ตั้ง iteration ให้จบได้ภายในคืนเดียว
 3. **TTA (Ensemble)**: `model.val(..., augment=True)` เทียบกับไม่ใช้
 4. (ทางเลือก) **YOLO11n-seg** เทียบกับ detect: label รองรับอยู่แล้ว
@@ -88,11 +99,16 @@
        # [{"ingredient": "egg", "name_th": "ไข่ไก่", "confidence": 0.91, "count": 3}, ...]
    ```
    - รวมกล่องของ class เดียวกันเป็น 1 รายการพร้อม `count`, แปลงด้วย `ingredient_map.json`, เลือก `conf` จาก F1–confidence curve (บท 08)
+   - ค่าเริ่มต้นคืนเฉพาะ 12 ชนิดของ Data Contract (`only_contract=True`) · class อื่นคืนได้ถ้าตั้ง False · **รอตกลงกับคนที่ 5/6** ว่าจะใช้แบบไหน
 2. `best.pt` (ถ้าใหญ่เกิน 100 MB ห้ามใส่ git ให้ส่งทาง Drive/Release)
 3. `README.md`: วิธีติดตั้ง วิธีเรียก `predict_image()` ตัวอย่าง input/output
 4. ส่งให้ฝ่าย Integration ลองเรียกจริง แล้วแก้ตาม feedback
 
-### Phase G: คลิปนำเสนอ (ส่วน CV) (~1 วัน)
+### Phase G: สไลด์หน้า 5 (ปรับ 2026-11-18)
+แผนกลุ่มให้คนที่ 2 ทำและพูด **สไลด์หน้า 5: Computer Vision Model** (การเทรน + กราฟความแม่นยำ) เท่านั้น: dataset v1 → v2 (เหตุผลบท 01), loss curve (บท 03/05), mAP บน test, confusion matrix, ตารางเทียบ v1/v2 และ n/s · ส่งให้คนที่ 6 รวม
+
+<details><summary>แผนคลิปเดิม (เก็บไว้อ้างอิง ไม่ต้องทำครบ)</summary>
+
 ทำตามลำดับหัวข้อของอาจารย์ **Problem → SOTA → Method → Result → Compared → Discuss → Live demo**
 
 | หัวข้อ | เนื้อหาส่วน CV | ภาพที่ใช้ |
@@ -108,6 +124,8 @@
 - เขียนบทพูด (`video_script.md`) แยกตามหัวข้อ ระบุเวลาต่อหัวข้อ และตัวเลขทุกตัวต้องมาจากผลรันจริง
 - อัดสำรองคลิป Live demo ไว้เผื่อ demo สดพัง
 - ตรวจว่าทุกบทที่อ้าง (01/03/05/07/...) พูดถึงในคลิปจริง
+
+</details>
 
 ---
 
