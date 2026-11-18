@@ -26,7 +26,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 DEFAULT_WEIGHTS = ROOT / "weights" / "best.pt"
 MAP_FILE = ROOT / "ingredient_map.json"
-DEFAULT_CONF = 0.25  # ค่าเริ่มต้นของ Ultralytics · จะเลือกใหม่จาก F1-confidence curve ของโมเดลสุดท้าย (บท 08)
+DEFAULT_CONF = 0.28  # เลือกจาก F1-confidence curve บน val ของ yolo11s_v2: F1 เฉลี่ย 12 class ของ Data Contract สูงสุดที่ 0.282 (results/final/conf_from_val.csv, บท 08)
 MERGE_IOU = 0.7      # กล่องของ class ต่างกันที่รวมเป็นวัตถุดิบเดียวกัน (เช่น bacon + ham) ทับกันเกินนี้ = ชิ้นเดียวกัน
 
 

@@ -8,7 +8,7 @@
 ## ⭐ ขอบเขตงานจริง (ปรับ 2026-11-18 ตามแผนกลุ่ม `../Smart_Fridge_ML_Project_Plan.pdf`)
 เราคือ **คนที่ 2: Computer Vision ML** (ไม่ได้ทำทั้งโปรเจกต์) หน้าที่ตามแผนกลุ่ม:
 - [x] เทรน YOLO บน Colab (`baseline_n`, `baseline_n_v2`)
-- [x] วัดผล mAP, Confusion Matrix, Loss Curve (`results/`, `experiments.md`) · เหลือตัวเลขบน test ครั้งเดียว (Phase E)
+- [x] วัดผล mAP, Confusion Matrix, Loss Curve (`results/`, `experiments.md`) · **test (ครั้งเดียว): mAP50 0.643 / mAP50-95 0.525** (`results/final/`)
 - [x] เลือกโมเดลสุดท้าย: **YOLO11s (`yolo11s_v2`)** val v2 mAP50-95 0.486 vs n 0.436 · ความเร็วเท่ากัน (`experiments.md` #3)
 - [ ] ส่ง **`best.pt`** (GitHub Release) หลังวัดผล test (Phase E)
 - [x] **`predict_image()`** คืนชื่อวัตถุดิบมาตรฐานตาม Data Contract 12 ชนิดของกลุ่ม (`predict.py`, `ingredient_map.json`, `tests/test_predict.py`) · 2026-11-18 ทดสอบกับ `baseline_n_v2` แล้ว · เหลือ: เปลี่ยน weights เป็นตัวสุดท้าย + เลือก conf จาก F1 curve + ให้คนที่ 6 ลองเรียก
@@ -88,7 +88,7 @@ Data Contract 12 ชนิด: pork, chicken, shrimp, bacon (เบคอน/แ
 
 ทุกการทดลองบันทึกลง `experiments.md`: config, mAP50, mAP50-95, precision, recall, เวลาเทรน, ms/รูป
 
-### Phase E: ประเมินผลสุดท้ายบน test (~1 ชม.)
+### Phase E: ประเมินผลสุดท้ายบน test ✅ 2026-11-18 (yolo11s_v2 · conf 0.28 จาก val · test mAP50-95 0.525 · `experiments.md` Phase E) · ข้อ 3 รูปตู้เย็นจริง = ทางเลือก ใช้ร่วมกับ Live Demo ของคนที่ 6
 1. เลือกโมเดลสุดท้ายจากผลบน **val** เท่านั้น
 2. รัน `model.val(split="test")` **ครั้งเดียว** เก็บตาราง mAP ต่อ class + confusion matrix ของ test
 3. ทดสอบกับรูปถ่ายตู้เย็นจริง 10–20 รูป (ไม่อยู่ใน dataset) บันทึกว่าถูก/ผิดอะไร: ใช้เป็นหัวข้อ Discuss และ Live demo

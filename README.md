@@ -23,7 +23,7 @@ ingredients = [it["ingredient"] for it in items]   # เช่น ["chicken", "t
 - `ingredient` ใช้ชื่อตาม **Data Contract 12 ชนิด** ของกลุ่ม: pork, chicken, shrimp, bacon, egg, rice, pasta, bread, holy_basil, tomato, cheese, cabbage (ตาราง `ingredient_map.json`: bacon = เบคอน+แฮม, cheese = cheese butter+cream cheese, chicken = chicken duck)
 - ⚠️ **rice, pasta ไม่มีในรูปที่ใช้เทรน → ตรวจจากรูปไม่ได้** ต้องรับจากข้อความพิมพ์ (คนที่ 4)
 - `only_contract=False` คืนวัตถุดิบอื่นที่โมเดลรู้จักด้วย (รวม 75 class เช่น `carrot`, `spring_onion`: `in_contract=False`, `name_th=None`)
-- `count` = จำนวนชิ้นที่เจอ · `boxes` = กรอบ [x1, y1, x2, y2] (pixel ของรูปต้นฉบับ) ไว้วาดบนหน้าเว็บ · `conf` ค่าเริ่มต้น 0.25
+- `count` = จำนวนชิ้นที่เจอ · `boxes` = กรอบ [x1, y1, x2, y2] (pixel ของรูปต้นฉบับ) ไว้วาดบนหน้าเว็บ · `conf` ค่าเริ่มต้น 0.28 (เลือกจาก F1 curve บน val)
 - โหลดโมเดลครั้งแรกช้า (~5 วินาที) ครั้งต่อไปเร็ว (~20–110 ms/รูป บน RTX 4050) → ใน Flask/FastAPI ให้ import ไว้ตอนเริ่ม server
 - ลองจาก command line: `python predict.py รูป.jpg [--all] [--conf 0.4]`
 

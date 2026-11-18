@@ -132,3 +132,24 @@
 - **ความเร็ว** (RTX 4050, WSL, batch 1 = แบบที่ `predict_image()` ใช้, 200 รูป val, median): inference n 6.0 ms · s 6.0 ms · รวมทั้งหมด n 9.1 ms · s 8.8 ms → ที่ batch 1 GPU ยังไม่เต็ม ขนาดโมเดลไม่ทำให้ช้าลง · ไฟล์ best.pt: n 5.5 MB · s 19.2 MB
 
 **เลือก s เป็นโมเดลสุดท้าย** (เลือกจาก val เท่านั้น): แม่นกว่าทุก val (mAP50-95 +0.05) โดยความเร็วตอนใช้งานจริงเท่ากัน · ไฟล์ 19 MB แนบ GitHub Release ได้
+
+## Phase E: ผลสุดท้าย (yolo11s_v2, 2026-11-18) → `results/final/`, `scripts/final_test.py`
+
+**เลือก confidence threshold บน val (บท 08)** → `conf_from_val.csv`, `val_F1_curve.png`
+- F1 = 2PR/(P+R) ต่อ class ที่ทุก threshold แล้วหาค่าที่ F1 เฉลี่ยสูงสุด
+- ทุก 73 class: conf 0.443 (F1 0.591 · ที่ 0.25 ได้ 0.585) · **12 class ที่ map เข้า Data Contract: conf 0.282 (F1 0.641 · ที่ 0.25 ได้ 0.632)**
+- `predict_image()` คืนเฉพาะ Data Contract → ตั้ง `DEFAULT_CONF = 0.28` · เลือกจาก val ก่อนดู test
+
+**test ครั้งเดียว** (หลังเลือกโมเดลและ conf จาก val แล้ว · ไม่ได้ปรับอะไรหลังจากนี้) → `summary_test.csv`, `per_class_test*.csv`, `test_confusion_matrix_normalized.png`, `test_BoxPR_curve.png`, `test_BoxF1_curve.png`
+- หมายเหตุความโปร่งใส: รอบแรกสคริปต์ล้มหลังรัน test v2 ทั้งชุดตอนเขียนสรุป (บั๊ก `m.seen`) ก่อนพิมพ์ตัวเลขใดๆ · แก้เฉพาะส่วนนับรูปแล้วรันใหม่ด้วยโมเดลเดิม (val ของ Ultralytics deterministic ผลเท่าเดิม)
+
+| test | รูป | instance | P | R | mAP50 | mAP50-95 | เฉลี่ย 12 class Contract (mAP50-95) |
+|---|---|---|---|---|---|---|---|
+| **test v2 ทั้งชุด** | 1,427 | 6,532 | 0.728 | 0.601 | **0.6432** | **0.5248** | 0.508 |
+| test เดิม v1 | 1,317 | 5,790 | 0.711 | 0.548 | 0.6031 | 0.5016 | 0.432 |
+| test วัตถุดิบดิบที่เพิ่ม | 110 | 742 | 0.939 | 0.916 | 0.9503 | 0.7465 | 0.677 |
+
+- test สูงกว่า val (val v2 mAP50-95 0.489) → ไม่มีสัญญาณว่าเลือกโมเดลแบบ overfit กับ val · ความต่างมาจากชุดรูปต่างกัน (class รูปน้อยแกว่งได้มาก)
+- Data Contract บน test v2 (mAP50 / mAP50-95): egg 0.855 / 0.649 · tomato 0.791 / 0.640 · cream cheese 0.939 / 0.698 · cabbage 0.598 / 0.594 · holy basil 0.620 / 0.568 · chicken duck 0.584 / 0.504 · cheese butter 0.621 / 0.478 · ham 0.824 / 0.469 · bread 0.575 / 0.455 · shrimp 0.636 / 0.442 · bacon 0.490 / 0.401 · **pork 0.278 / 0.195** (แย่สุด: รูปอาหารสุก · pork ดิบใน test ส่วนเพิ่ม 0.563 / 0.359)
+- แย่สุดทั้ง 72 class: okra 0.036 · spring onion 0.072 · mango 0.077 · garlic 0.108 · ดีสุด: melon 0.936 · watermelon 0.914 · sugar 0.894
+- ความเร็ว: 6.6 ms/รูป inference (RTX 4050, batch 16) · batch 1 ดู #3
