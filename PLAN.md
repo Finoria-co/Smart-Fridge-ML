@@ -10,7 +10,7 @@
 - [x] เทรน YOLO บน Colab (`baseline_n`, `baseline_n_v2`)
 - [x] วัดผล mAP, Confusion Matrix, Loss Curve (`results/`, `experiments.md`) · **test (ครั้งเดียว): mAP50 0.643 / mAP50-95 0.525** (`results/final/`)
 - [x] เลือกโมเดลสุดท้าย: **YOLO11s (`yolo11s_v2`)** val v2 mAP50-95 0.486 vs n 0.436 · ความเร็วเท่ากัน (`experiments.md` #3)
-- [ ] ส่ง **`best.pt`** (GitHub Release) หลังวัดผล test (Phase E)
+- [x] ส่ง **`best.pt`**: GitHub Release `v1.0-yolo11s` (2026-11-18) https://github.com/Finoria-co/smart-fridge-cv/releases/tag/v1.0-yolo11s
 - [x] **`predict_image()`** คืนชื่อวัตถุดิบมาตรฐานตาม Data Contract 12 ชนิดของกลุ่ม (`predict.py`, `ingredient_map.json`, `tests/test_predict.py`) · 2026-11-18 ทดสอบกับ `baseline_n_v2` แล้ว · เหลือ: เปลี่ยน weights เป็นตัวสุดท้าย + เลือก conf จาก F1 curve + ให้คนที่ 6 ลองเรียก
 - [ ] **สไลด์หน้า 5**: การเทรนโมเดลตรวจจับรูปภาพ + กราฟวัดผล (คนที่ 6 รวมสไลด์)
 

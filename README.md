@@ -7,7 +7,8 @@ repo หลักของทีม: [Finoria-co/fridge-chef-ai](https://github.
 ## ใช้งาน (สำหรับคนที่ 5 / 6): `predict_image()`
 ```bash
 pip install ultralytics          # มี torch, opencv, pillow ติดมาด้วย
-# วาง best.pt ไว้ที่ weights/best.pt (ดาวน์โหลดจาก Releases ของ repo นี้) หรือตั้ง env SMART_FRIDGE_WEIGHTS
+# ดาวน์โหลด best.pt จาก https://github.com/Finoria-co/smart-fridge-cv/releases/tag/v1.0-yolo11s
+# วางไว้ที่ weights/best.pt หรือตั้ง env SMART_FRIDGE_WEIGHTS
 ```
 ```python
 from predict import predict_image
