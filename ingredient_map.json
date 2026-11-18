@@ -1,5 +1,5 @@
 {
-  "_note": "Data Contract 12 ชนิดของกลุ่ม (Smart_Fridge_ML_Project_Plan.pdf ข้อ 2) -> class ของโมเดล YOLO (data/data.yaml) · classes ว่าง = โมเดลตรวจจากรูปไม่ได้ (ไม่มีใน dataset) · cheese butter ใน dataset รวมเนยด้วย",
+  "_note": "Data Contract 12 ชนิดของกลุ่ม (Smart_Fridge_ML_Project_Plan.pdf ข้อ 2) -> class ของโมเดล YOLO (data/data.yaml) · classes ว่าง = โมเดลตรวจจากรูปไม่ได้ (ไม่มีใน dataset) · cheese butter ใน dataset รวมเนยด้วย · cabbage ใน dataset = กะหล่ำปลีหัวกลม (ไม่มี class ผักกาดขาว/napa) และ label ปนกะหล่ำดาว (brussels sprouts) บางส่วน (results/inspect/cabbage_labels_sample.jpg)",
   "contract": {
     "pork":       {"th": "หมูสับ",      "classes": ["pork"]},
     "chicken":    {"th": "อกไก่",       "classes": ["chicken duck"]},

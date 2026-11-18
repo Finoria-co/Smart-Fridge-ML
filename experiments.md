@@ -153,3 +153,8 @@
 - Data Contract บน test v2 (mAP50 / mAP50-95): egg 0.855 / 0.649 · tomato 0.791 / 0.640 · cream cheese 0.939 / 0.698 · cabbage 0.598 / 0.594 · holy basil 0.620 / 0.568 · chicken duck 0.584 / 0.504 · cheese butter 0.621 / 0.478 · ham 0.824 / 0.469 · bread 0.575 / 0.455 · shrimp 0.636 / 0.442 · bacon 0.490 / 0.401 · **pork 0.278 / 0.195** (แย่สุด: รูปอาหารสุก · pork ดิบใน test ส่วนเพิ่ม 0.563 / 0.359)
 - แย่สุดทั้ง 72 class: okra 0.036 · spring onion 0.072 · mango 0.077 · garlic 0.108 · ดีสุด: melon 0.936 · watermelon 0.914 · sugar 0.894
 - ความเร็ว: 6.6 ms/รูป inference (RTX 4050, batch 16) · batch 1 ดู #3
+
+### ตรวจ class `cabbage` (2026-11-18) → `results/inspect/cabbage_labels_sample.jpg`, `scripts/inspect/cabbage_view.py`
+- มี 126 รูป (train + val) · สุ่ม 12 รูปดูด้วยตา: เป็น**กะหล่ำปลีหัวกลม** (ทั้งหัวบนชั้นขาย, ต้ม, ฝอย) **ไม่ใช่ผักกาดขาว (napa)** และใน dataset ไม่มี class ผักกาดขาวเลย
+- label ไม่สะอาด: 5/12 รูปเป็น**กะหล่ำดาว (brussels sprouts)** ที่ถูก label เป็น cabbage (ทั้งที่มี class `brussel sprouts` แยก) และ 1 รูปเป็นหัวหอมผ่าครึ่ง
+- ผลต่อ Data Contract: `cabbage` (ผักกาดขาว) ของกลุ่ม → โมเดลตรวจได้แค่กะหล่ำปลี · ผักกาดขาวจริงอาจไม่เจอหรือถูกทายเป็น lettuce/cabbage
