@@ -158,6 +158,7 @@ def api_recommend():
             for item in raw_p5:
                 rec_info = recipe_lookup.get(item.get("recipe_id")) or recipe_lookup_by_name.get(item.get("name_th"))
                 steps = rec_info["steps"] if rec_info else [f"เตรียมวัตถุดิบ: {', '.join(item.get('have', []))}", "ปรุงอาหารตามสูตรต้นตำรับ"]
+                raw_ings = rec_info.get("raw_ingredients", []) if rec_info else (item.get("have", []) + item.get("missing", []))
 
                 formatted = {
                     "id": item.get("recipe_id", ""),
@@ -174,9 +175,11 @@ def api_recommend():
                     "flavor_profile": rec_info["flavor_profile"] if rec_info else "",
                     "description": item.get("description", ""),
                     "match_score": int(round(item.get("match_pct", 0))),
+                    "cosine_similarity": round(max(0.0, 1.0 - float(item.get("distance", 0.0))), 4),
                     "matched_ingredients": item.get("have", []),
                     "missing_ingredients": item.get("missing", []),
                     "is_ready_to_cook": len(item.get("missing", [])) == 0,
+                    "seasonings": raw_ings,
                     "steps": steps
                 }
                 recipes.append(formatted)
