@@ -1,6 +1,9 @@
 import os
 import pickle
+import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.ensemble import RandomForestClassifier
 
 def load_model(path='models/model.pkl'):
     """โหลด bundle โมเดลของคนที่ 5 (รองรับทั้ง model.pkl และ recipe_model.pkl)"""
@@ -9,7 +12,28 @@ def load_model(path='models/model.pkl'):
         if os.path.exists(alt_path):
             path = alt_path
     with open(path, 'rb') as f:
-        return pickle.load(f)
+        bundle = pickle.load(f)
+
+    # หาก bundle เดิมของคนที่ 5 ยังไม่มี vectorizer หรือ rf_model ให้สร้างเสริมเข้าไปอัตโนมัติ เพื่อให้เลือกใช้ได้จริงครบทุกโมเดล
+    df = bundle.get('df')
+    if df is not None:
+        if bundle.get('vectorizer') is None or bundle.get('tfidf_matrix') is None:
+            corpus = (df['main_ingredients'].fillna('') + ' ' + df['name_th'].fillna('') + ' ' + df.get('description', '').fillna(''))
+            vec = TfidfVectorizer(token_pattern=r'(?u)\b\w+\b')
+            bundle['tfidf_matrix'] = vec.fit_transform(corpus)
+            bundle['vectorizer'] = vec
+
+        if bundle.get('rf_model') is None:
+            ingredient_keywords = bundle.get('ingredient_keywords', {})
+            feature_cols = [c for c in ingredient_keywords.keys() if c in df.columns]
+            if feature_cols:
+                X = df[feature_cols].values
+                y = df['cuisine'].fillna('Thai').values
+                rf = RandomForestClassifier(n_estimators=30, random_state=42)
+                rf.fit(X, y)
+                bundle['rf_model'] = rf
+
+    return bundle
 
 def recommend(user_ingredients, bundle, model='knn', top_n=5):
     """
@@ -44,20 +68,25 @@ def recommend(user_ingredients, bundle, model='knn', top_n=5):
         'has_noodle': 'เส้น',      'has_coconut_milk': 'กะทิ', 'has_mushroom': 'เห็ด',
     }
 
-    if model == 'knn' or not (vectorizer or rf_model):
+    feature_cols = list(ingredient_keywords.keys())
+
+    if model == 'knn' or (not vectorizer and not rf_model):
         distances, indices = knn_model.kneighbors([user_vector], n_neighbors=min(top_n, len(df)))
         top_indices = indices[0]
         dists = distances[0]
     elif model == 'tfidf' and vectorizer is not None and tfidf_matrix is not None:
-        user_str    = ';'.join(user_ingredients)
+        user_str    = ' '.join(user_ingredients)
         user_vec    = vectorizer.transform([user_str])
         scores      = cosine_similarity(user_vec, tfidf_matrix).flatten()
         top_indices = scores.argsort()[::-1][:top_n]
         dists = [1.0 - s for s in scores[top_indices]]
     elif model == 'rf' and rf_model is not None:
-        proba       = rf_model.predict_proba([user_vector])[0]
-        top_indices = proba.argsort()[::-1][:top_n]
-        dists = [1.0 - p for p in proba[top_indices]]
+        importances = rf_model.feature_importances_
+        X = df[feature_cols].values
+        # คำนวณความคล้ายคลึงตามน้ำหนักความสำคัญของต้นไม้ตัดสินใจ (Tree Importance Scoring)
+        scores = (np.array(user_vector) * importances) @ X.T
+        top_indices = scores.argsort()[::-1][:top_n]
+        dists = [1.0 - (scores[i] / (sum(importances) + 1e-5)) for i in top_indices]
     else:
         distances, indices = knn_model.kneighbors([user_vector], n_neighbors=min(top_n, len(df)))
         top_indices = indices[0]
