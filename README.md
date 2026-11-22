@@ -1,6 +1,4 @@
-# Person5 — Recipe Recommender (KNN)
-
-ระบบแนะนำสูตรอาหารจากวัตถุดิบที่มีอยู่ โดยใช้ **K-Nearest Neighbors (KNN)** พร้อมคำนวณเปอร์เซ็นต์วัตถุดิบที่ตรงกัน
+# fridge-chef-ai — Recipe Recommender (KNN)
 
 ---
 
@@ -11,14 +9,14 @@
 | `model.ipynb` | Notebook สำหรับสร้างและเทรนโมเดล |
 | `model.pkl` | ไฟล์โมเดลที่ถูก save ไว้พร้อมใช้งาน |
 | `recipe_recommender.py` | Module สำหรับเรียกใช้งานจากระบบหลัก |
-| `recipes_dataset/recipes_dataset.csv` | Dataset สูตรอาหาร 50 เมนู (ไทย 25 / ตะวันตก 25) |
+| `recipes_dataset.csv` | Dataset สูตรอาหาร 50 เมนู (ไทย 25 / ตะวันตก 25) |
 
 ---
 
 ## วิธีใช้งาน
 
 ```python
-from person5.recipe_recommender import recommend
+from recipe_recommender import recommend
 
 results = recommend(['หมูสับ', 'ไข่', 'กะเพรา'], top_n=5)
 
@@ -65,6 +63,6 @@ for r in results:
 |---|---|
 | Top-1 Accuracy | **90%** |
 | Top-3 Accuracy | **100%** |
-| Average Response Time | **2.75 ms** |
+| Average Response Time | **5.90 ms** |
 
 ทดสอบด้วย 10 test cases ครอบคลุมทั้งอาหารไทยและตะวันตก
