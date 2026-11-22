@@ -35,10 +35,10 @@ def load_model(path='models/model.pkl'):
 
     return bundle
 
-def recommend(user_ingredients, bundle, model='knn', top_n=5):
+def recommend(user_ingredients, bundle, model='knn', cuisine_filter='ทั้งหมด', top_n=6):
     """
     ฟังก์ชันแนะนำเมนูอาหารของคนที่ 5 (รองรับ 18 วัตถุดิบเวอร์ชันล่าสุด):
-    รองรับโมเดล KNN, TF-IDF และ Random Forest
+    รองรับโมเดล KNN, TF-IDF และ Random Forest พร้อมการกรองสัญชาติอาหาร (cuisine_filter)
     """
     df                  = bundle['df']
     ingredient_keywords = bundle['ingredient_keywords']
@@ -70,29 +70,30 @@ def recommend(user_ingredients, bundle, model='knn', top_n=5):
 
     feature_cols = list(ingredient_keywords.keys())
 
+    # ประเมินคะแนนทั้ง 50 เมนู เพื่อให้กรองสัญชาติอาหารได้อย่างสมบูรณ์แบบ
+    total_recipes = len(df)
     if model == 'knn' or (not vectorizer and not rf_model):
-        distances, indices = knn_model.kneighbors([user_vector], n_neighbors=min(top_n, len(df)))
+        distances, indices = knn_model.kneighbors([user_vector], n_neighbors=total_recipes)
         top_indices = indices[0]
         dists = distances[0]
     elif model == 'tfidf' and vectorizer is not None and tfidf_matrix is not None:
         user_str    = ' '.join(user_ingredients)
         user_vec    = vectorizer.transform([user_str])
         scores      = cosine_similarity(user_vec, tfidf_matrix).flatten()
-        top_indices = scores.argsort()[::-1][:top_n]
+        top_indices = scores.argsort()[::-1]
         dists = [1.0 - s for s in scores[top_indices]]
     elif model == 'rf' and rf_model is not None:
         importances = rf_model.feature_importances_
         X = df[feature_cols].values
         # คำนวณความคล้ายคลึงตามน้ำหนักความสำคัญของต้นไม้ตัดสินใจ (Tree Importance Scoring)
         scores = (np.array(user_vector) * importances) @ X.T
-        top_indices = scores.argsort()[::-1][:top_n]
+        top_indices = scores.argsort()[::-1]
         dists = [1.0 - (scores[i] / (sum(importances) + 1e-5)) for i in top_indices]
     else:
-        distances, indices = knn_model.kneighbors([user_vector], n_neighbors=min(top_n, len(df)))
+        distances, indices = knn_model.kneighbors([user_vector], n_neighbors=total_recipes)
         top_indices = indices[0]
         dists = distances[0]
 
-    feature_cols = list(ingredient_keywords.keys())
     user_has = {
         col for col, keywords in ingredient_keywords.items()
         if any(
@@ -105,7 +106,15 @@ def recommend(user_ingredients, bundle, model='knn', top_n=5):
 
     results = []
     for d_idx, idx in enumerate(top_indices):
-        row          = df.iloc[idx]
+        row = df.iloc[idx]
+        
+        # กรองตามสัญชาติอาหาร (ถ้าเลือก)
+        row_c = str(row.get('cuisine', '')).strip().lower()
+        if cuisine_filter == 'ไทย' and 'thai' not in row_c and 'ไทย' not in row_c:
+            continue
+        if cuisine_filter == 'ฝรั่ง' and 'western' not in row_c and 'ฝรั่ง' not in row_c:
+            continue
+
         recipe_needs = [c for c in feature_cols if row.get(c, 0) == 1]
         have         = [_col_to_name.get(c, c) for c in recipe_needs if c in user_has]
         missing      = [_col_to_name.get(c, c) for c in recipe_needs if c not in user_has]
@@ -117,7 +126,7 @@ def recommend(user_ingredients, bundle, model='knn', top_n=5):
             'recipe_id': row.get('recipe_id', ''),
             'name_th':   row.get('name_th', ''),
             'name_en':   row.get('name_en', ''),
-            'cuisine':   row.get('cuisine', ''),
+            'cuisine':   'ไทย' if ('thai' in row_c or 'ไทย' in row_c) else 'ฝรั่ง',
             'match_pct': match_pct,
             'have':      have,
             'missing':   missing,
@@ -132,5 +141,5 @@ def recommend(user_ingredients, bundle, model='knn', top_n=5):
         })
 
     results.sort(key=lambda r: (-r['match_pct'], r['distance']))
-    return results
+    return results[:top_n]
 

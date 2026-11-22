@@ -148,7 +148,7 @@ def api_recommend():
 
         # กรณีเลือกโมเดลของคนที่ 5 (KNN, TF-IDF, Random Forest)
         if model_type in ["knn", "tfidf", "rf"] and person5_bundle:
-            raw_p5 = recommend_p5(ingredients, person5_bundle, model=model_type, top_n=top_k * 2)
+            raw_p5 = recommend_p5(ingredients, person5_bundle, model=model_type, cuisine_filter=cuisine, top_n=top_k)
             
             # ทำ Dictionary สำหรับดึงข้อมูลวิธีปรุง (steps)
             recipe_lookup = {r["id"]: r for r in recommender.recipes}
@@ -156,12 +156,6 @@ def api_recommend():
 
             recipes = []
             for item in raw_p5:
-                # กรองสัญชาติอาหาร (ถ้าเลือก)
-                raw_c = item.get("cuisine", "").strip().lower()
-                c_th = "ไทย" if (raw_c == "thai" or raw_c == "ไทย") else "ฝรั่ง"
-                if cuisine != "ทั้งหมด" and c_th != cuisine:
-                    continue
-
                 rec_info = recipe_lookup.get(item.get("recipe_id")) or recipe_lookup_by_name.get(item.get("name_th"))
                 steps = rec_info["steps"] if rec_info else [f"เตรียมวัตถุดิบ: {', '.join(item.get('have', []))}", "ปรุงอาหารตามสูตรต้นตำรับ"]
 
@@ -169,7 +163,7 @@ def api_recommend():
                     "id": item.get("recipe_id", ""),
                     "name": item.get("name_th", ""),
                     "name_en": item.get("name_en", ""),
-                    "cuisine": c_th,
+                    "cuisine": item.get("cuisine", "ไทย"),
                     "origin": rec_info["origin"] if rec_info else "",
                     "course": rec_info["course"] if rec_info else "จานหลัก",
                     "cooking_method": item.get("cooking_method", "ผัด"),

@@ -165,19 +165,34 @@
         let matchScore = 0;
         let isReady = false;
 
-        if (missingRaw.length === 0) {
-          matchScore = 100;
-          isReady = true;
+        if (modelType === "knn") {
+          // KNN Model (คนที่ 5): Unweighted Feature Coverage
+          matchScore = Math.round(covRatio * 100);
+          isReady = missingRaw.length === 0;
+        } else if (modelType === "tfidf") {
+          // TF-IDF Model (คนที่ 5): Keyword Text Match Scoring
+          matchScore = Math.round(Math.min(100, Math.max(20, (covRatio * 60) + (cosSim * 40))));
+          isReady = missingRaw.length === 0;
+        } else if (modelType === "rf") {
+          // Random Forest (คนที่ 5): Tree-Weighted Feature Scoring
+          matchScore = Math.round(Math.min(100, Math.max(15, (covRatio * 70) + (cosSim * 30))));
+          isReady = missingRaw.length === 0;
         } else {
-          isReady = false;
-          let calc = (covRatio * 75.0) + (cosSim * 25.0);
-          const hasMajor = ["หมูสับ", "อกไก่", "กุ้งสด", "เบคอน", "เส้นพาสต้า", "ข้าวสวย"].some(s => matchedStd.has(s));
-          if (hasMajor) calc += 6.0;
+          // Weighted Cosine Similarity (โมเดลหลัก)
+          if (missingRaw.length === 0) {
+            matchScore = 100;
+            isReady = true;
+          } else {
+            isReady = false;
+            let calc = (covRatio * 75.0) + (cosSim * 25.0);
+            const hasMajor = ["หมูสับ", "อกไก่", "กุ้งสด", "เบคอน", "เส้นพาสต้า", "ข้าวสวย"].some(s => matchedStd.has(s));
+            if (hasMajor) calc += 6.0;
 
-          if (missingRaw.length === 1) matchScore = Math.round(Math.min(85, Math.max(75, calc)));
-          else if (missingRaw.length === 2) matchScore = Math.round(Math.min(70, Math.max(58, calc)));
-          else if (missingRaw.length === 3) matchScore = Math.round(Math.min(48, Math.max(38, calc)));
-          else matchScore = Math.round(Math.min(25, Math.max(12, covRatio * 100)));
+            if (missingRaw.length === 1) matchScore = Math.round(Math.min(85, Math.max(75, calc)));
+            else if (missingRaw.length === 2) matchScore = Math.round(Math.min(70, Math.max(58, calc)));
+            else if (missingRaw.length === 3) matchScore = Math.round(Math.min(48, Math.max(38, calc)));
+            else matchScore = Math.round(Math.min(25, Math.max(12, covRatio * 100)));
+          }
         }
 
         const totalTime = r.total_time_min || "15";
