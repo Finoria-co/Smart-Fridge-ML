@@ -1,0 +1,184 @@
+true,pred,count,share_of_true
+background,egg,967,
+background,cheese butter,941,
+background,bread,537,
+background,milk,522,
+background,carrot,517,
+background,flour,455,
+background,meat,441,
+background,tomato,435,
+background,corn,428,
+background,cilantro mint,412,
+background,chicken duck,401,
+background,lemon,386,
+background,potato,383,
+background,sugar,369,
+background,olive,368,
+background,apple,358,
+background,steak,321,
+background,yogurt,296,
+background,onion,294,
+background,cream,275,
+background,mushroom,274,
+background,lettuce,244,
+background,pepper,235,
+background,spinach,234,
+background,strawberry,225,
+background,lime,211,
+background,orange,210,
+background,green beans,208,
+background,sausage,202,
+background,sweet potato,174,
+background,shrimp,164,
+background,pork,160,
+background,broccoli,145,
+background,fish,136,
+background,blueberries,117,
+background,tofu,114,
+background,cabbage,110,
+background,cauliflower,108,
+background,banana,86,
+background,wild betel,82,
+background,spring onion,71,
+background,garlic,64,
+background,asparagus,64,
+background,pumpkin,62,
+background,salad,60,
+background,zucchini,53,
+background,grape,51,
+background,cucumber,49,
+background,eggplant,45,
+background,ham,43,
+background,sauce,32,
+background,avocado,31,
+background,mango,28,
+background,ginger,28,
+background,beans,28,
+background,sweet basil,26,
+background,bean sprouts,25,
+background,cream cheese,25,
+background,rape,24,
+background,shellfish,21,
+background,melon,20,
+background,bacon,20,
+background,white radish,19,
+background,french beans,16,
+background,holy basil,14,
+background,brussel sprouts,10,
+background,celery stick,9,
+background,peach,9,
+background,squash,9,
+background,kaffir lime,9,
+background,okra,8,
+background,snow peas,6,
+background,watermelon,5,
+background,raspberries,4,
+background,plum,2,
+bacon,pork,3,0.167
+bacon,background,3,0.167
+bacon,egg,2,0.111
+bacon,fish,2,0.111
+bacon,bread,2,0.111
+bacon,cheese butter,1,0.056
+bacon,milk,1,0.056
+bacon,orange,1,0.056
+bacon,steak,1,0.056
+bacon,shrimp,1,0.056
+bacon,meat,1,0.056
+banana,apple,1,0.04
+banana,lemon,1,0.04
+banana,corn,1,0.04
+banana,potato,1,0.04
+blueberries,olive,7,0.318
+blueberries,corn,4,0.182
+blueberries,meat,1,0.045
+bread,potato,3,0.3
+bread,cheese butter,1,0.1
+bread,chicken duck,1,0.1
+bread,sweet potato,1,0.1
+carrot,tomato,4,0.235
+cheese butter,milk,5,0.078
+cheese butter,corn,5,0.078
+cheese butter,yogurt,5,0.078
+cheese butter,meat,4,0.062
+cheese butter,cream,3,0.047
+cheese butter,steak,2,0.031
+cheese butter,background,2,0.031
+cheese butter,cilantro mint,1,0.016
+chicken duck,meat,11,0.196
+chicken duck,background,8,0.143
+chicken duck,fish,3,0.054
+chicken duck,egg,2,0.036
+chicken duck,bread,2,0.036
+chicken duck,strawberry,1,0.018
+chicken duck,pork,1,0.018
+chicken duck,corn,1,0.018
+corn,cheese butter,5,0.217
+corn,milk,3,0.13
+corn,spring onion,2,0.087
+corn,cream,2,0.087
+corn,sugar,2,0.087
+corn,yogurt,1,0.043
+cream,milk,18,0.783
+cream,cheese butter,1,0.043
+cream,corn,1,0.043
+flour,sugar,12,0.364
+flour,cheese butter,4,0.121
+flour,mushroom,3,0.091
+flour,cream,3,0.091
+flour,corn,2,0.061
+flour,milk,1,0.03
+flour,potato,1,0.03
+green beans,spinach,5,0.238
+ham,meat,7,0.636
+ham,cheese butter,2,0.182
+ham,steak,1,0.091
+ham,bread,1,0.091
+lime,apple,7,0.304
+lime,lemon,2,0.087
+mushroom,milk,1,0.048
+mushroom,corn,1,0.048
+mushroom,potato,1,0.048
+mushroom,flour,1,0.048
+mushroom,sweet potato,1,0.048
+onion,egg,2,0.133
+pork,egg,4,0.154
+pork,bread,3,0.115
+pork,background,3,0.115
+pork,cheese butter,2,0.077
+pork,orange,2,0.077
+pork,fish,2,0.077
+pork,meat,2,0.077
+pork,strawberry,1,0.038
+pork,steak,1,0.038
+pork,cucumber,1,0.038
+pork,cilantro mint,1,0.038
+pork,wild betel,1,0.038
+potato,onion,7,0.226
+potato,egg,1,0.032
+potato,chicken duck,1,0.032
+potato,meat,1,0.032
+shrimp,olive,11,0.393
+shrimp,bread,5,0.179
+shrimp,potato,1,0.036
+shrimp,carrot,1,0.036
+shrimp,mushroom,1,0.036
+spinach,green beans,6,0.261
+steak,meat,22,0.667
+steak,background,3,0.091
+steak,bread,2,0.061
+steak,strawberry,1,0.03
+strawberry,tomato,2,0.071
+strawberry,cheese butter,1,0.036
+strawberry,milk,1,0.036
+strawberry,corn,1,0.036
+sugar,milk,20,0.69
+sugar,cheese butter,2,0.069
+sugar,yogurt,1,0.034
+sugar,flour,1,0.034
+sugar,background,1,0.034
+sweet potato,orange,2,0.08
+sweet potato,onion,2,0.08
+sweet potato,egg,1,0.04
+sweet potato,lemon,1,0.04
+tomato,background,1,0.03
