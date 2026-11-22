@@ -1,0 +1,80 @@
+train: images/train
+val: images/val
+test: images/test
+nc: 75
+names:
+  0: cheese butter
+  1: milk
+  2: egg
+  3: apple
+  4: avocado
+  5: banana
+  6: strawberry
+  7: mango
+  8: lemon
+  9: grape
+  10: orange
+  11: steak
+  12: pork
+  13: chicken duck
+  14: sausage
+  15: fish
+  16: shellfish
+  17: shrimp
+  18: bread
+  19: corn
+  20: tofu
+  21: eggplant
+  22: potato
+  23: garlic
+  24: cauliflower
+  25: tomato
+  26: spring onion
+  27: rape
+  28: ginger
+  29: okra
+  30: lettuce
+  31: pumpkin
+  32: cucumber
+  33: white radish
+  34: carrot
+  35: asparagus
+  36: broccoli
+  37: celery stick
+  38: cilantro mint
+  39: snow peas
+  40: cabbage
+  41: bean sprouts
+  42: onion
+  43: pepper
+  44: green beans
+  45: french beans
+  46: mushroom
+  47: beans
+  48: blueberries
+  49: brussel sprouts
+  50: melon
+  51: meat
+  52: peach
+  53: plum
+  54: raspberries
+  55: salad
+  56: sauce
+  57: spinach
+  58: squash
+  59: watermelon
+  60: yogurt
+  61: zucchini
+  62: bacon
+  63: cream
+  64: cream cheese
+  65: flour
+  66: ham
+  67: lime
+  68: olive
+  69: sugar
+  70: sweet potato
+  71: sweet basil
+  72: kaffir lime
+  73: holy basil
+  74: wild betel
