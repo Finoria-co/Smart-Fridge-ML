@@ -577,64 +577,93 @@
 
       showScanAnimation(true);
 
-      if (!IS_STANDALONE) {
-        try {
-          const formData = new FormData();
-          formData.append("file", file);
-          const res = await fetch("/api/detect-image", { method: "POST", body: formData });
-          if (res.ok) {
-            const data = await res.json();
+      // ลองเรียก Flask backend เสมอก่อน ไม่ว่าจะรันผ่านพอร์ตไหน
+      try {
+        const formData = new FormData();
+        formData.append("image", file);
+        formData.append("file", file);
+        const res = await fetch("/api/detect-image", { method: "POST", body: formData });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
             state.activePreset = 'custom';
-            state.imageSrc = data.annotated_image || URL.createObjectURL(file);
-            state.imageCaption = `ตรวจพบ ${data.detected_count || (data.detections || []).length} วัตถุดิบ (YOLO11s)`;
+            state.imageSrc = data.annotated_image_url || data.annotated_image || URL.createObjectURL(file);
             
-            state.detections = (data.detections || []).map((d, i) => ({
-              name: d.name,
-              confidence: Math.round((d.confidence || 0.9) * 100),
-              x: d.box ? Math.round(((d.box[0] + d.box[2]) / 2) * 100) : (25 + (i * 20)),
-              y: d.box ? Math.round(((d.box[1] + d.box[3]) / 2) * 100) : (35 + (i * 15))
-            }));
+            const rawDets = data.detections || [];
+            state.detections = rawDets.map((d, i) => {
+              const conf = typeof d.confidence === 'number'
+                ? (d.confidence <= 1.0 ? Math.round(d.confidence * 100) : Math.round(d.confidence))
+                : 90;
+              let cx = d.x !== undefined ? d.x : (d.box ? Math.round(((d.box[0] + d.box[2]) / 2) * 100) : (25 + (i * 20)));
+              let cy = d.y !== undefined ? d.y : (d.box ? Math.round(((d.box[1] + d.box[3]) / 2) * 100) : (35 + (i * 15)));
+              cx = Math.max(8, Math.min(92, cx));
+              cy = Math.max(8, Math.min(92, cy));
+              return {
+                name: d.name || d.label,
+                confidence: conf,
+                x: cx,
+                y: cy
+              };
+            });
+
+            // เคลียร์ pantry เสริมเพื่อให้ตรงกับวัตถุดิบที่ตรวจพบจากภาพจริง
+            state.pantry = [];
+
+            const detectedNames = state.detections.map(d => d.name);
+            state.imageCaption = detectedNames.length > 0
+              ? `ตรวจพบ ${detectedNames.length} รายการ (YOLO11s): ${detectedNames.join(', ')}`
+              : `ไม่พบวัตถุดิบในภาพ (พิมพ์เพิ่มได้ด้านล่าง)`;
 
             const imgEl = document.getElementById('ingredientPreviewImg');
             imgEl.src = state.imageSrc;
             document.getElementById('imageSourceCaption').innerHTML = `
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span class="w-2 h-2 rounded-full ${detectedNames.length > 0 ? 'bg-emerald-400' : 'bg-amber-400'}"></span>
               ${state.imageCaption}
             `;
 
             showScanAnimation(false);
             renderVisionOverlay();
             renderIngredientChips();
-            triggerAIAnalysis("YOLO11s ตรวจจับวัตถุดิบและจับคู่สูตรสำเร็จ");
+            triggerAIAnalysis(detectedNames.length > 0 
+              ? `YOLO11s ตรวจพบ: ${detectedNames.join(', ')}`
+              : 'โมเดลไม่พบวัตถุดิบในภาพ สามารถพิมพ์เพิ่มได้ที่ช่องด้านล่าง');
             return;
           }
-        } catch (err) {
-          console.warn("Backend unavailable, using client preview...", err);
         }
+      } catch (err) {
+        console.warn("Backend unavailable, using static fallback...", err);
       }
 
-      // Offline Standalone FileReader fallback
+      // Offline / GitHub Pages Standalone FileReader fallback
+      // สำคัญ: ห้าม Mock หมูสับ/ไข่ไก่ หลอกเด็ดขาด!
       const reader = new FileReader();
       reader.onload = function(e) {
         state.activePreset = 'custom';
         state.imageSrc = e.target.result;
+        state.detections = []; // ไม่มี dummy mock อีกต่อไป
+        state.pantry = [];
         state.imageCaption = `ภาพอัปโหลด: ${file.name.slice(0, 18)}`;
-        state.detections = [
-          { name: 'หมูสับ', confidence: 95, x: 35, y: 45 },
-          { name: 'ไข่ไก่', confidence: 92, x: 65, y: 38 }
-        ];
 
         const imgEl = document.getElementById('ingredientPreviewImg');
         imgEl.src = state.imageSrc;
+
+        const isGhPages = window.location.hostname.includes("github.io");
+        const statusNote = isGhPages ? 'GitHub Pages Static' : 'Backend Offline';
+
         document.getElementById('imageSourceCaption').innerHTML = `
-          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          ${state.imageCaption}
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+          ${state.imageCaption} <span class="text-[10px] text-stone-400 font-mono">(${statusNote})</span>
         `;
 
         showScanAnimation(false);
         renderVisionOverlay();
         renderIngredientChips();
-        triggerAIAnalysis("วิเคราะห์วัตถุดิบและจับคู่สูตรแล้ว");
+        triggerAIAnalysis('อัปโหลดรูปภาพแล้ว (พิมพ์เพิ่มวัตถุดิบที่ต้องการได้ที่ช่องด้านล่าง)');
+        
+        showToast(isGhPages
+          ? "บน GitHub Pages ไม่สามารถรัน PyTorch YOLO11s ได้โดยตรง — รัน 'python app.py' บนเครื่อง หรือพิมพ์เพิ่มวัตถุดิบได้ทันทีที่ช่องด้านล่าง"
+          : "ยังไม่ได้เริ่มระบบ Flask Backend — รัน 'python app.py' เพื่อใช้งาน YOLO11s อัตโนมัติ หรือพิมพ์เพิ่มวัตถุดิบได้ด้านล่าง"
+        );
       };
       reader.readAsDataURL(file);
     }

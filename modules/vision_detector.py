@@ -201,7 +201,9 @@ def draw_bounding_boxes(image_path, detections, output_path):
                     draw.rectangle([x1 - offset, y1 - offset, x2 + offset, y2 + offset], outline=color)
 
                 # ป้ายข้อความภาษาไทยพร้อมคำนวณขนาดกรอบอย่างแม่นยำ
-                label_text = f" {det['label']} {int(det['confidence'] * 100)}% "
+                conf_val = det.get('confidence', 0.9)
+                conf_pct = int(round(conf_val * 100)) if conf_val <= 1.0 else int(conf_val)
+                label_text = f" {det.get('name') or det.get('label')} {conf_pct}% "
                 
                 # หาพิกัดกล่องป้ายชื่อ
                 tag_y = max(2, y1 - font_size - 8)
@@ -268,6 +270,13 @@ def detect_ingredients_from_image(image_path, annotated_save_path=None, model_pa
         # ตรวจจับแบบครอบคลุมทั้ง 75 คลาสของโมเดล (only_contract=False)
         items = predict_image(image_path, conf=0.25, only_contract=False, weights=actual_weights if os.path.exists(actual_weights) else None)
         
+        img_w, img_h = 1, 1
+        try:
+            with Image.open(image_path) as _im:
+                img_w, img_h = _im.size
+        except Exception:
+            pass
+
         detections = []
         detected_names = set()
         
@@ -279,12 +288,33 @@ def detect_ingredients_from_image(image_path, annotated_save_path=None, model_pa
             
             detected_names.add(th_name)
             conf = it.get("confidence", 0.0)
+            conf_int = int(round(conf * 100)) if conf <= 1.0 else int(conf)
             for b in it.get("boxes", []):
+                x1, y1, x2, y2 = b
+                is_pixel = (x2 > 1.0 or y2 > 1.0)
+                if is_pixel and img_w > 0 and img_h > 0:
+                    norm_box = [
+                        round(x1 / img_w, 4),
+                        round(y1 / img_h, 4),
+                        round(x2 / img_w, 4),
+                        round(y2 / img_h, 4)
+                    ]
+                    cx = round(((x1 + x2) / 2 / img_w) * 100)
+                    cy = round(((y1 + y2) / 2 / img_h) * 100)
+                else:
+                    norm_box = b
+                    cx = round(((x1 + x2) / 2) * 100)
+                    cy = round(((y1 + y2) / 2) * 100)
+
                 detections.append({
+                    "name": th_name,
                     "label": th_name,
                     "en": raw_ing,
-                    "confidence": round(conf, 2),
-                    "box": b
+                    "confidence": conf_int,
+                    "box": norm_box,
+                    "pixel_box": b,
+                    "x": max(8, min(92, cx)),
+                    "y": max(8, min(92, cy))
                 })
 
         # เลือกข้อความแจ้งเตือนที่ชัดเจนและถูกต้องตามความเป็นจริง

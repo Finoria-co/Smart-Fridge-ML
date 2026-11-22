@@ -65,8 +65,8 @@ def api_detect_image():
                 return jsonify({"success": False, "error": f"ไม่พบไฟล์เดโม่ {sample_name}"}), 404
         
         # กรณีอัปโหลดไฟล์ใหม่ผ่าน File Upload / Drag & Drop
-        elif "image" in request.files:
-            file = request.files["image"]
+        elif "image" in request.files or "file" in request.files:
+            file = request.files.get("image") or request.files.get("file")
             if file.filename == "":
                 return jsonify({"success": False, "error": "ไม่ได้เลือกไฟล์รูปภาพ"}), 400
             
@@ -87,9 +87,16 @@ def api_detect_image():
 
         # เรียกใช้โมดูลของคนที่ 2
         result = detect_ingredients_from_image(image_path, annotated_save_path=annotated_save_path)
+        if not result.get("success", True):
+            return jsonify({
+                "success": False,
+                "error": result.get("error", "ไม่สามารถตรวจจับวัตถุดิบได้"),
+                "detected_ingredients": [],
+                "detections": []
+            }), 500
 
         # จัดเตรียม URL สำหรับเรียกแสดงผลบนหน้าเว็บ
-        annotated_url = f"/static/uploads/{annotated_filename}"
+        annotated_url = f"/static/uploads/{annotated_filename}" if os.path.exists(annotated_save_path) else None
 
         return jsonify({
             "success": True,
