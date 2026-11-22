@@ -1,1 +1,0 @@
-# fridge-chef-ai
