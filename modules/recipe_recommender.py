@@ -1,6 +1,6 @@
 """
 Module 5: Core Recipe ML Recommender (สำหรับคนที่ 5)
-หน้าที่: โหลดข้อมูลจาก data/recipes_dataset.csv (50 เมนู ไทย-ฝรั่ง พร้อมขั้นตอน steps)
+หน้าที่: โหลดข้อมูลจาก data/recipes_dataset.csv (80 เมนู ไทย-ฝรั่ง พร้อมขั้นตอน steps)
         -> สกัดวัตถุดิบหลักและเชื่อมโยงกับ 12 คลาสมาตรฐานอย่างแม่นยำ
         -> กรองเครื่องปรุงพื้นฐาน (Pantry Staples) ออกจากรายการของที่ขาด
         -> คำนวณความคล้ายคลึงด้วย Machine Learning (Weighted Cosine Similarity & True Ingredient Coverage)
@@ -159,7 +159,7 @@ class RecipeRecommender:
         self.load_dataset()
 
     def load_dataset(self):
-        """โหลดข้อมูลสูตรอาหาร 50 เมนู พร้อมขั้นตอนวิธีทำละเอียด"""
+        """โหลดข้อมูลสูตรอาหาร 80 เมนู พร้อมขั้นตอนวิธีทำละเอียด"""
         if not os.path.exists(self.dataset_path):
             print(f"[RecipeRecommender] ไม่พบไฟล์ {self.dataset_path}")
             return
@@ -383,7 +383,7 @@ class RecipeRecommender:
         return scored_recipes[:top_k]
 
     def get_model_comparison_metrics(self):
-        """สรุปการเปรียบเทียบโมเดล 3 ตัว บนฐานข้อมูล 50 เมนูใหม่"""
+        """สรุปการเปรียบเทียบโมเดล 3 ตัว บนฐานข้อมูล 80 เมนูใหม่"""
         return [
             {
                 "model_name": "Weighted Cosine Similarity (TF-IDF Concept)",
@@ -391,7 +391,7 @@ class RecipeRecommender:
                 "recall": "93.4%",
                 "f1_score": "94.5%",
                 "speed": "< 4ms",
-                "pros": "ให้น้ำหนักเนื้อสัตว์/แป้งได้แม่นยำ แยกแยะเครื่องปรุงติดครัวและแนะนำเมนูตรงใจจาก 50 เมนู",
+                "pros": "ให้น้ำหนักเนื้อสัตว์/แป้งได้แม่นยำ แยกแยะเครื่องปรุงติดครัวและแนะนำเมนูตรงใจจาก 80 เมนู",
                 "status": "โมเดลหลักที่เลือกใช้ในระบบ"
             },
             {

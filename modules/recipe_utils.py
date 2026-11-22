@@ -14,8 +14,36 @@ def load_model(path='models/model.pkl'):
     with open(path, 'rb') as f:
         bundle = pickle.load(f)
 
-    # หาก bundle เดิมของคนที่ 5 ยังไม่มี vectorizer หรือ rf_model ให้สร้างเสริมเข้าไปอัตโนมัติ เพื่อให้เลือกใช้ได้จริงครบทุกโมเดล
     df = bundle.get('df')
+
+    # ซิงค์ข้อมูลเมนูอาหารกับ data/recipes_dataset.csv (รองรับการอัปเดตเมนู 80 สูตรอาหาร)
+    recipes_csv_path = 'data/recipes_dataset.csv'
+    if os.path.exists(recipes_csv_path):
+        try:
+            import pandas as pd
+            csv_df = pd.read_csv(recipes_csv_path)
+            if df is None or len(csv_df) > len(df):
+                ingredient_keywords = bundle.get('ingredient_keywords', {})
+                for col, kws in ingredient_keywords.items():
+                    if col not in csv_df.columns:
+                        csv_df[col] = csv_df['main_ingredients'].fillna('').apply(
+                            lambda ing_text: 1 if any(kw in str(ing_text) for kw in kws) else 0
+                        )
+                bundle['df'] = csv_df
+                df = csv_df
+                from sklearn.neighbors import NearestNeighbors
+                feature_cols = [c for c in ingredient_keywords.keys() if c in df.columns]
+                if feature_cols:
+                    knn = NearestNeighbors(metric='cosine', n_neighbors=min(5, len(df)))
+                    knn.fit(df[feature_cols].values)
+                    bundle['knn_model'] = knn
+                bundle['vectorizer'] = None
+                bundle['tfidf_matrix'] = None
+                bundle['rf_model'] = None
+        except Exception as e:
+            print(f"[recipe_utils] Warning during recipe sync: {e}")
+
+    # หาก bundle เดิมของคนที่ 5 ยังไม่มี vectorizer หรือ rf_model ให้สร้างเสริมเข้าไปอัตโนมัติ เพื่อให้เลือกใช้ได้จริงครบทุกโมเดล
     if df is not None:
         if bundle.get('vectorizer') is None or bundle.get('tfidf_matrix') is None:
             corpus = (df['main_ingredients'].fillna('') + ' ' + df['name_th'].fillna('') + ' ' + df.get('description', '').fillna(''))
