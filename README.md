@@ -6,18 +6,18 @@
 
 ## 📌 บทนำและวัตถุประสงค์ (Overview)
 ปัญหาของสดเหลือในตู้เย็นจนหมดอายุ (Food Waste) และความลังเลในการทำอาหาร ("เย็นนี้กินอะไรดี?") เป็นปัญหาที่พบบ่อยในชีวิตประจำวัน  
-โปรเจกต์นี้จึงผสานเทคโนโลยี **Computer Vision (YOLO11s)** เพื่อตรวจจับของสดจากรูปถ่าย เข้ากับ **Thai NLP** และ **Recommender System (Weighted Cosine Similarity)** เพื่อแนะนำเมนูอาหารที่เหมาะสมที่สุดจากวัตถุดิบที่มีจริง พร้อมคำนวณวัตถุดิบที่ยังขาดและแสดงขั้นตอนการปรุงทีละสเต็ป
+โปรเจกต์นี้จึงผสานเทคโนโลยี **Computer Vision (YOLO11s)** เพื่อตรวจจับของสดจากรูปถ่าย เข้ากับ **Recommender System (Weighted Cosine Similarity & KNN)** เพื่อแนะนำเมนูอาหารที่เหมาะสมที่สุดจากวัตถุดิบที่มีจริง พร้อมคำนวณวัตถุดิบที่ยังขาดและแสดงขั้นตอนการปรุงทีละสเต็ป
 
 ---
 
 ## 🏗️ สถาปัตยกรรมระบบ (System Architecture)
 ระบบทำงานแบบแยกโมดูลอิสระ (Modular Design) ผ่าน **4-Stage Pipeline**:
-1. **Input Layer:** รับรูปถ่ายตู้เย็น (Drag & Drop) หรือข้อความภาษาไทย
-2. **Detection & Extraction Layer:**
-   - *รูปภาพ:* ประมวลผลด้วยโมเดล **YOLO11s** เพื่อระบุตำแหน่ง (Bounding Box) และประเภทวัตถุดิบ
-   - *ข้อความ:* ทำ Preprocessing ตัดคำ และแมปคำพ้อง (Synonyms) เช่น หมูบด -> หมูสับ
+1. **Input Layer (Computer Vision):** รับรูปถ่ายตู้เย็นและวัตถุดิบ (Upload / Drag & Drop / Live Demo Presets)
+2. **Detection Layer:**
+   - ประมวลผลภาพด้วยโมเดล **YOLO11s** เพื่อระบุตำแหน่ง (Bounding Box) และประเภทวัตถุดิบพร้อมค่าความมั่นใจ (Confidence Score)
+   - แมปคลาสวัตถุดิบเข้าสู่มาตรฐานของระบบ (Standard Ingredients)
 3. **Core ML Recommender Layer:**
-   - คำนวณความคล้ายคลึงด้วย **Weighted Cosine Similarity**
+   - คำนวณความคล้ายคลึงด้วย **Weighted Cosine Similarity** และ **K-Nearest Neighbors (KNN)**
    - คำนวณสัดส่วนความครอบคลุมของวัตถุดิบจริง (True Ingredient Coverage)
    - กรองเครื่องปรุงพื้นฐานประจำครัว (Pantry Staples) ออกจากรายการของที่ขาด
 4. **Output Layer:**

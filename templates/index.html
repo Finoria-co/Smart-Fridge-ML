@@ -82,17 +82,6 @@
       "ผักกาดขาว": "ผักกาดขาว", "ผักกาด": "ผักกาดขาว", "ลุ้ย": "ผักกาดขาว", "กะหล่ำปลี": "ผักกาดขาว"
     };
 
-    function extractIngredientsClientSide(text) {
-      const cleaned = text.replace(/[0-9.,()\/#@$!?-]/g, " ");
-      const found = new Set();
-      for (const [kw, std] of Object.entries(CLIENT_SYNONYMS)) {
-        if (cleaned.includes(kw)) {
-          found.add(std);
-        }
-      }
-      return Array.from(found);
-    }
-
     // Client-side Recommender Engine
     const CLIENT_FEATURE_WEIGHTS = {
       "หมูสับ": 2.2, "อกไก่": 2.2, "กุ้งสด": 2.5, "เบคอน": 2.2, "ไข่ไก่": 2.0,
@@ -301,34 +290,12 @@
 
         <!-- Input Section Card -->
         <section class="bg-white rounded-xl border border-stone-200 p-5 shadow-xs space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-stone-100">
-            <div>
-              <h2 class="text-sm font-semibold text-stone-900">ตรวจหาวัตถุดิบ</h2>
-              <p class="text-xs text-stone-500 mt-0.5">เลือกอัปโหลดรูปถ่ายตู้เย็น หรือพิมพ์รายการของที่เหลือ</p>
-            </div>
-            
-            <!-- Input Mode Segmented Control -->
-            <div class="inline-flex p-0.5 rounded-lg bg-stone-100 border border-stone-200 text-xs font-medium">
-              <button 
-                id="tab-btn-image" 
-                type="button"
-                onclick="setMode('image')" 
-                class="px-2.5 py-1 rounded-md bg-white shadow-xs text-stone-900 transition"
-              >
-                รูปถ่ายตู้เย็น
-              </button>
-              <button 
-                id="tab-btn-text" 
-                type="button"
-                onclick="setMode('text')" 
-                class="px-2.5 py-1 rounded-md text-stone-600 hover:text-stone-900 transition"
-              >
-                พิมพ์ข้อความ
-              </button>
-            </div>
+          <div class="pb-3 border-b border-stone-100">
+            <h2 class="text-sm font-semibold text-stone-900">ตรวจจับวัตถุดิบจากภาพถ่าย (Computer Vision)</h2>
+            <p class="text-xs text-stone-500 mt-0.5">อัปโหลดภาพถ่ายตู้เย็นหรือวัตถุดิบ ระบบจะตรวจจับและระบุชนิดด้วยโมเดล YOLO11s อัตโนมัติ</p>
           </div>
 
-          <!-- PANEL A: IMAGE MODE -->
+          <!-- PANEL: IMAGE MODE -->
           <div id="panel-image" class="space-y-4">
             
             <!-- Preset Test Scenarios -->
@@ -390,30 +357,6 @@
               <div id="detection-feedback-msg" class="text-[11px] text-stone-600 bg-stone-50 px-2.5 py-1.5 rounded border border-stone-200 hidden leading-relaxed"></div>
             </div>
 
-          </div>
-
-          <!-- PANEL B: TEXT INPUT MODE -->
-          <div id="panel-text" class="hidden space-y-3">
-            <textarea
-              id="raw-text-input"
-              rows="3"
-              class="w-full rounded-lg border border-stone-200 p-3 text-xs focus:ring-1 focus:ring-teal-700 focus:border-teal-700 focus:outline-none placeholder:text-stone-400"
-              placeholder="พิมพ์รายการของ เช่น มีหมูสับ 2 ขีด ไข่ไก่ 2 ฟอง ใบกะเพรา เส้นสปาเก็ตตี้"
-            ></textarea>
-            
-            <div class="flex flex-wrap gap-1.5 items-center">
-              <span class="text-[11px] text-stone-400">ตัวอย่าง:</span>
-              <button type="button" onclick="setTextPreset('มีหมูสับ 2 ขีด ไข่ไก่ 2 ฟอง ใบกะเพรา')" class="text-[11px] bg-stone-100 hover:bg-stone-200 text-stone-700 px-2 py-0.5 rounded transition">หมู/ไข่/กะเพรา</button>
-              <button type="button" onclick="setTextPreset('เหลือเส้นสปาเก็ตตี้ เบคอน ชีส ไข่ไก่')" class="text-[11px] bg-stone-100 hover:bg-stone-200 text-stone-700 px-2 py-0.5 rounded transition">พาสต้า/เบคอน/ชีส</button>
-            </div>
-
-            <button 
-              type="button" 
-              onclick="submitTextInput()" 
-              class="w-full bg-stone-900 hover:bg-stone-800 text-white font-medium py-2 rounded-lg text-xs transition flex items-center justify-center gap-1.5"
-            >
-              สกัดคำวัตถุดิบ (Extract Ingredients)
-            </button>
           </div>
 
         </section>
@@ -586,25 +529,6 @@
       runRecipeRecommendation();
     });
 
-    function setMode(mode) {
-      const tabImg = document.getElementById("tab-btn-image");
-      const tabTxt = document.getElementById("tab-btn-text");
-      const panelImg = document.getElementById("panel-image");
-      const panelTxt = document.getElementById("panel-text");
-
-      if (mode === "image") {
-        tabImg.className = "px-2.5 py-1 rounded-md bg-white shadow-xs text-stone-900 transition";
-        tabTxt.className = "px-2.5 py-1 rounded-md text-stone-600 hover:text-stone-900 transition";
-        panelImg.classList.remove("hidden");
-        panelTxt.classList.add("hidden");
-      } else {
-        tabTxt.className = "px-2.5 py-1 rounded-md bg-white shadow-xs text-stone-900 transition";
-        tabImg.className = "px-2.5 py-1 rounded-md text-stone-600 hover:text-stone-900 transition";
-        panelTxt.classList.remove("hidden");
-        panelImg.classList.add("hidden");
-      }
-    }
-
     function setupDragAndDrop() {
       const dropZone = document.getElementById("drop-zone");
       const fileInput = document.getElementById("file-input");
@@ -753,52 +677,6 @@
         currentConfirmedIngredients = [...data.detected_ingredients];
       }
 
-      renderConfirmedIngredients();
-      renderQuickAddTags();
-      runRecipeRecommendation();
-    }
-
-    function setTextPreset(text) {
-      document.getElementById("raw-text-input").value = text;
-      submitTextInput();
-    }
-
-    async function submitTextInput() {
-      const text = document.getElementById("raw-text-input").value;
-      if (!text.trim()) {
-        alert("กรุณากรอกข้อความ");
-        return;
-      }
-
-      try {
-        if (!IS_STANDALONE) {
-          const response = await fetch("/api/extract-text", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: text })
-          });
-          if (response.ok) {
-            const data = await response.json();
-            if (data.success) {
-              currentConfirmedIngredients = [...data.extracted_ingredients];
-              renderConfirmedIngredients();
-              renderQuickAddTags();
-              runRecipeRecommendation();
-              return;
-            }
-          }
-        }
-      } catch (err) {
-        console.log("Switching to Client-Side NLP extraction...");
-      }
-
-      // Standalone NLP extraction
-      const extracted = extractIngredientsClientSide(text);
-      if (extracted.length > 0) {
-        currentConfirmedIngredients = Array.from(new Set([...currentConfirmedIngredients, ...extracted]));
-      } else {
-        alert("ไม่พบวัตถุดิบมาตรฐานในข้อความที่พิมพ์");
-      }
       renderConfirmedIngredients();
       renderQuickAddTags();
       runRecipeRecommendation();
