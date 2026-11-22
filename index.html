@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KruaAI — สำรับอาหารและระบบวิเคราะห์โภชนาการอัจฉริยะ (Clean Editorial Edition)</title>
+  <title>Smart Fridge — ระบบวิเคราะห์เมนูอาหารจากของในตู้เย็น</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Prompt:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
             sans: ['Prompt', 'sans-serif'],
-            serif: ['Playfair Display', 'serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
@@ -331,41 +330,40 @@
         <!-- Input Section Card -->
         <section class="bg-white rounded-xl border border-stone-200 p-5 shadow-xs space-y-4">
           <div class="pb-3 border-b border-stone-100">
-            <span class="text-[10px] font-mono uppercase tracking-wider text-stone-500 font-medium">Phase 1</span>
-            <h2 class="text-sm font-semibold text-stone-900 mt-0.5">วิเคราะห์วัตถุดิบทางสายตา (Visual Ingredient Intake)</h2>
-            <p class="text-xs text-stone-500 mt-0.5 leading-relaxed">อัปโหลดภาพถ่ายวัตถุดิบจริงเพื่อให้โมเดล YOLO11s วิเคราะห์และระบุชนิดวัตถุดิบหลัก</p>
+            <h2 class="text-sm font-semibold text-stone-900">ตรวจจับวัตถุดิบจากภาพถ่าย (Computer Vision)</h2>
+            <p class="text-xs text-stone-500 mt-0.5">อัปโหลดภาพถ่ายตู้เย็นหรือวัตถุดิบ ระบบจะตรวจจับและระบุชนิดด้วยโมเดล YOLO11s อัตโนมัติ</p>
           </div>
 
           <!-- PANEL: IMAGE MODE -->
           <div id="panel-image" class="space-y-4">
             
-            <!-- Preset Test Scenarios (Editorial Tasting Sets) -->
+            <!-- Preset Test Scenarios -->
             <div class="space-y-1.5">
-              <span class="text-[11px] font-medium text-stone-500 uppercase tracking-wider font-mono">สำรับทดสอบมาตรฐาน (Editorial Tasting Sets):</span>
+              <span class="text-[11px] font-medium text-stone-500 uppercase tracking-wider">ชุดทดสอบสำหรับ Live Demo:</span>
               <div class="grid grid-cols-3 gap-2">
                 <button 
                   type="button" 
-                  onclick="loadDemoSample('fridge_thai_basil.jpg', 'สำรับกะเพราไทย')" 
+                  onclick="loadDemoSample('fridge_thai_basil.jpg', 'ตู้เย็นอาหารไทย')" 
                   class="p-2.5 rounded-lg border border-stone-200 hover:border-stone-400 hover:bg-stone-50 text-left transition"
                 >
-                  <div class="text-xs font-semibold text-stone-900 font-serif">สำรับกะเพราไทย</div>
-                  <div class="text-[10px] text-stone-500 mt-0.5 font-mono">หมูสับ, ไข่ไก่, ใบกะเพรา</div>
+                  <div class="text-xs font-medium text-stone-900">ตู้เย็นไทย</div>
+                  <div class="text-[10px] text-stone-500 mt-0.5">หมูสับ, ไข่, กะเพรา</div>
                 </button>
                 <button 
                   type="button" 
-                  onclick="loadDemoSample('fridge_western_carbonara.jpg', 'สำรับคาร์โบนาร่า')" 
+                  onclick="loadDemoSample('fridge_western_carbonara.jpg', 'ตู้เย็นอาหารฝรั่ง')" 
                   class="p-2.5 rounded-lg border border-stone-200 hover:border-stone-400 hover:bg-stone-50 text-left transition"
                 >
-                  <div class="text-xs font-semibold text-stone-900 font-serif">สำรับคาร์โบนาร่า</div>
-                  <div class="text-[10px] text-stone-500 mt-0.5 font-mono">เส้นพาสต้า, เบคอน, ชีส</div>
+                  <div class="text-xs font-medium text-stone-900">ตู้เย็นฝรั่ง</div>
+                  <div class="text-[10px] text-stone-500 mt-0.5">พาสต้า, เบคอน, ชีส</div>
                 </button>
                 <button 
                   type="button" 
-                  onclick="loadDemoSample('fridge_brunch_sandwich.jpg', 'สำรับโทสต์บรันช์')" 
+                  onclick="loadDemoSample('fridge_brunch_sandwich.jpg', 'ตู้เย็นบรันช์')" 
                   class="p-2.5 rounded-lg border border-stone-200 hover:border-stone-400 hover:bg-stone-50 text-left transition"
                 >
-                  <div class="text-xs font-semibold text-stone-900 font-serif">สำรับโทสต์บรันช์</div>
-                  <div class="text-[10px] text-stone-500 mt-0.5 font-mono">ขนมปัง, เบคอน, มะเขือเทศ</div>
+                  <div class="text-xs font-medium text-stone-900">ตู้เย็นบรันช์</div>
+                  <div class="text-[10px] text-stone-500 mt-0.5">ขนมปัง, เบคอน, มะเขือเทศ</div>
                 </button>
               </div>
             </div>
@@ -473,28 +471,11 @@
       <!-- RIGHT COLUMN: Output Ledger & Ranked Recipes (7 cols) -->
       <div class="lg:col-span-7 space-y-4">
 
-        <!-- Chef & Nutritionist Editorial Banner -->
-        <div id="chef-editorial-banner" class="rounded-xl border border-stone-200/90 bg-white p-4 shadow-xs space-y-2">
-          <div class="flex items-center justify-between border-b border-stone-100 pb-2">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-stone-900"></span>
-              <span class="text-[11px] font-mono uppercase tracking-wider text-stone-800 font-semibold">
-                Culinary Director &amp; AI Nutritionist Insight
-              </span>
-            </div>
-            <span class="text-[10px] font-mono text-stone-400">KruaAI Editorial</span>
-          </div>
-          <p id="chef-editorial-text" class="text-xs text-stone-700 leading-relaxed">
-            ระบบคัดสรรและจัดอันดับสำรับอาหารตามความพร้อมของวัตถุดิบสด ความสมดุลของโภชนาการ และความกลมกล่อมตามมาตรฐานนิตยสารอาหารระดับพรีเมียม
-          </p>
-        </div>
-
         <section class="bg-white rounded-xl border border-stone-200 p-5 shadow-xs space-y-4">
           <div class="flex items-center justify-between pb-3 border-b border-stone-100">
             <div>
-              <span class="text-[10px] font-mono uppercase tracking-wider text-stone-500 font-medium">Phase 2</span>
-              <h2 class="text-sm font-semibold text-stone-900 mt-0.5">คอลัมน์สำรับอาหารแนะนำ (Curated Recipe Collection)</h2>
-              <p class="text-xs text-stone-500 mt-0.5">จัดอันดับตามความพร้อมของวัตถุดิบและค่าความคล้ายคลึงเวกเตอร์จากฐานข้อมูล 80 เมนู</p>
+              <h2 class="text-sm font-semibold text-stone-900">ผลการวิเคราะห์เมนูแนะนำ</h2>
+              <p class="text-xs text-stone-500 mt-0.5">จัดอันดับตามความพร้อมของวัตถุดิบและค่าความคล้ายคลึงเวกเตอร์</p>
             </div>
             <span id="results-count-badge" class="font-mono text-xs px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-600 border border-stone-200">
               0 recipes
@@ -565,7 +546,7 @@
   <!-- Footer -->
   <footer class="border-t border-stone-200 bg-white py-3">
     <div class="max-w-7xl mx-auto px-4 text-center text-xs text-stone-400 font-mono">
-      KruaAI Platform • Culinary Director & AI Nutritionist Studio
+      Smart Fridge ML Project • Student Group Integration
     </div>
   </footer>
 
@@ -880,53 +861,40 @@
         return;
       }
 
-      // Update Chef & Nutritionist Commentary for top recipe
-      const topRecipe = recipes[0];
-      const chefBannerText = document.getElementById("chef-editorial-text");
-      if (chefBannerText && topRecipe) {
-        let note = `ขอแนะนำสำรับอันดับหนึ่ง "${topRecipe.name}" (${topRecipe.cuisine === "ไทย" ? "อาหารไทยตำรับคลาสสิก" : "อาหารตะวันตก"}) ให้พลังงาน ${topRecipe.calories} เหมาะสำหรับมื้อหลัก `;
-        if (topRecipe.is_ready_to_cook) {
-          note += "ความพร้อมของวัตถุดิบสมบูรณ์พร้อมปรุง (Ready to cook) สามารถลงมือปรุงได้ทันทีโดยใช้วัตถุดิบและเครื่องปรุงติดครัว";
-        } else {
-          note += `ขาดวัตถุดิบหลักเพียง ${topRecipe.missing_ingredients.length} อย่าง (${topRecipe.missing_ingredients.join(", ")}) สามารถจัดเตรียมเพิ่มเติมเพื่อปรุงสำรับได้อย่างลงตัว`;
-        }
-        chefBannerText.textContent = note;
-      }
-
       container.innerHTML = recipes.map((r, idx) => {
         const isThai = r.cuisine === "ไทย";
         const isReady = r.is_ready_to_cook;
         
         const statusIndicator = isReady
-          ? `<span class="inline-flex items-center gap-1.5 font-mono text-[11px] text-emerald-800 bg-emerald-50/80 px-2.5 py-0.5 rounded border border-emerald-200/80">
-               <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> พร้อมปรุงทันที (Ready)
+          ? `<span class="inline-flex items-center gap-1 font-mono text-[11px] text-teal-800 bg-teal-50 px-2 py-0.5 rounded border border-teal-200">
+               <span class="w-1.5 h-1.5 rounded-full bg-teal-600"></span> พร้อมปรุงทันที
              </span>`
-          : `<span class="inline-flex items-center gap-1.5 font-mono text-[11px] text-stone-600 bg-stone-100 px-2.5 py-0.5 rounded border border-stone-200">
-               <span class="w-1.5 h-1.5 rounded-full bg-stone-400"></span> ขาดวัตถุดิบ ${r.missing_ingredients.length} อย่าง (Missing few)
+          : `<span class="inline-flex items-center gap-1 font-mono text-[11px] text-stone-600 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">
+               ขาดอีก ${r.missing_ingredients.length} อย่าง
              </span>`;
 
         return `
-          <article class="rounded-xl border ${idx === 0 ? 'border-stone-900/40 bg-white ring-1 ring-stone-900/10 shadow-xs' : 'border-stone-200 bg-white'} p-4 sm:p-5 space-y-3.5 transition hover:border-stone-300">
+          <article class="rounded-xl border ${idx === 0 ? 'border-teal-700/40 bg-white ring-1 ring-teal-700/10' : 'border-stone-200 bg-white'} p-4 space-y-3 transition hover:border-stone-300">
             
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5 pb-3 border-b border-stone-100">
-              <div class="space-y-1.5">
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-stone-100 text-stone-700 border border-stone-200">
-                    ${isThai ? 'Thai Cuisine' : 'Western Classics'}
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2 pb-2.5 border-b border-stone-100">
+              <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-stone-100 text-stone-700 border border-stone-200">
+                    ${isThai ? 'Thai Cuisine' : 'Western'}
                   </span>
                   ${r.origin ? `<span class="text-[10px] text-stone-500 font-mono">${r.origin}</span>` : ''}
-                  <span class="text-[10px] text-stone-300">•</span>
-                  <span class="text-[10px] text-stone-600 font-mono">${r.prep_time}</span>
-                  <span class="text-[10px] text-stone-300">•</span>
-                  <span class="text-[10px] text-stone-700 font-mono font-medium">${r.calories}</span>
+                  <span class="text-[10px] text-stone-400">•</span>
+                  <span class="text-[10px] text-stone-500 font-mono">${r.prep_time}</span>
+                  <span class="text-[10px] text-stone-400">•</span>
+                  <span class="text-[10px] text-stone-500 font-mono">${r.calories}</span>
                 </div>
                 
-                <h3 class="font-serif text-base font-bold text-stone-900 tracking-tight">${r.name}</h3>
+                <h3 class="text-sm font-semibold text-stone-900">${r.name}</h3>
                 ${r.name_en ? `<div class="text-xs text-stone-500 font-mono">${r.name_en}</div>` : ''}
               </div>
 
               <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-1">
-                <div class="font-mono text-xs font-bold text-stone-900 bg-stone-50 px-2 py-1 rounded border border-stone-200">
+                <div class="font-mono text-xs font-semibold text-stone-900">
                   ${r.match_score}% match
                 </div>
                 <div class="text-[10px] font-mono text-stone-400">
@@ -935,38 +903,33 @@
               </div>
             </div>
 
-            <!-- Editorial Description -->
+            <!-- Description -->
             ${r.description ? `<p class="text-xs text-stone-600 leading-relaxed">${r.description}</p>` : ''}
 
             <!-- Availability Details -->
-            <div class="space-y-2 text-xs pt-1">
+            <div class="space-y-1.5 text-xs">
               <div>${statusIndicator}</div>
-              <div class="flex flex-wrap gap-1.5">
-                ${r.matched_ingredients.map(m => `<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50/70 text-emerald-900 border border-emerald-200">มีในครัว: ${m}</span>`).join("")}
-                ${r.missing_ingredients.map(mis => `<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-stone-50 text-stone-600 border border-stone-200">ต้องเตรียมเพิ่ม: ${mis}</span>`).join("")}
+              <div class="flex flex-wrap gap-1">
+                ${r.matched_ingredients.map(m => `<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-teal-50 text-teal-900 border border-teal-200">มี: ${m}</span>`).join("")}
+                ${r.missing_ingredients.map(mis => `<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-stone-50 text-stone-600 border border-stone-200">ขาด: ${mis}</span>`).join("")}
               </div>
             </div>
 
             <!-- Steps & Recipe Accordion -->
             <details class="text-xs group pt-1">
-              <summary class="cursor-pointer font-medium text-stone-700 hover:text-stone-900 flex items-center justify-between py-1.5 select-none border-t border-stone-100">
-                <span class="font-mono text-[11px] uppercase tracking-wider text-stone-600">ตำรับและวิธีปรุงอย่างละเอียด (${r.steps.length} ขั้นตอน)</span>
+              <summary class="cursor-pointer font-medium text-stone-700 hover:text-stone-900 flex items-center justify-between py-1 select-none">
+                <span>วัตถุดิบและขั้นตอนการปรุง (${r.steps.length} ขั้นตอน)</span>
                 <span class="text-stone-400 group-open:rotate-180 transition-transform text-[10px]">▼</span>
               </summary>
-              <div class="mt-2.5 pt-2.5 border-t border-stone-100 space-y-3 text-stone-700 bg-stone-50/60 p-3 rounded-lg border">
+              <div class="mt-2 pt-2 border-t border-stone-100 space-y-2 text-stone-700">
                 <div>
-                  <div class="text-[11px] font-mono uppercase tracking-wider text-stone-500 font-medium">เครื่องปรุงและวัตถุดิบทั้งหมด:</div>
-                  <div class="text-xs text-stone-800 mt-1 leading-relaxed">${(r.seasonings && Array.isArray(r.seasonings) ? r.seasonings : (r.matched_ingredients || [])).join(", ")}</div>
+                  <div class="text-[11px] font-semibold text-stone-800">วัตถุดิบทั้งหมดที่ใช้:</div>
+                  <div class="text-xs text-stone-600 mt-0.5">${(r.seasonings && Array.isArray(r.seasonings) ? r.seasonings : (r.matched_ingredients || [])).join(", ")}</div>
                 </div>
                 <div>
-                  <div class="text-[11px] font-mono uppercase tracking-wider text-stone-500 font-medium">ขั้นตอนการปรุงอาหาร:</div>
-                  <ol class="space-y-2 mt-1.5 text-xs text-stone-700 leading-relaxed">
-                    ${r.steps.map((s, sIdx) => `
-                      <li class="flex items-start gap-2">
-                        <span class="font-mono text-[11px] text-stone-400 font-semibold shrink-0">${sIdx + 1}.</span>
-                        <span>${s.replace(/^[0-9]+[\.\s]+/, '')}</span>
-                      </li>
-                    `).join("")}
+                  <div class="text-[11px] font-semibold text-stone-800">ขั้นตอน:</div>
+                  <ol class="list-decimal list-inside space-y-1 mt-1 text-xs text-stone-600">
+                    ${r.steps.map(s => `<li>${s}</li>`).join("")}
                   </ol>
                 </div>
               </div>
