@@ -563,36 +563,63 @@
       const formData = new FormData();
       formData.append("image", file);
 
-      showLoading(true, "กำลังวิเคราะห์ภาพ...");
+      showLoading(true, "กำลังวิเคราะห์ภาพด้วย YOLO11s...");
 
       try {
-        if (!IS_STANDALONE) {
-          const response = await fetch("/api/detect-image", {
-            method: "POST",
-            body: formData
-          });
-          if (response.ok) {
-            const data = await response.json();
-            handleDetectionResponse(data);
-            showLoading(false);
-            return;
-          }
+        const response = await fetch("/api/detect-image", {
+          method: "POST",
+          body: formData
+        });
+        if (response.ok) {
+          const data = await response.json();
+          handleDetectionResponse(data);
+          showLoading(false);
+          return;
         }
       } catch (err) {
-        console.log("Switching to Standalone image preview...");
+        console.log("Local Python API not reached, switching to Standalone detection preview...");
       }
 
-      // Standalone FileReader preview
+      // Standalone FileReader preview & client-side detection simulation
       const reader = new FileReader();
       reader.onload = (e) => {
         const previewContainer = document.getElementById("image-preview-container");
         const annotatedImg = document.getElementById("annotated-image");
         const modelBadge = document.getElementById("model-status-badge");
+        const feedbackMsg = document.getElementById("detection-feedback-msg");
 
         previewContainer.classList.remove("hidden");
         annotatedImg.src = e.target.result;
-        modelBadge.textContent = "Client Preview (YOLO11s requires Python API)";
+
+        // วิเคราะห์ชื่อไฟล์หรือจำลองวัตถุดิบเพื่อให้ผู้ใช้ทดสอบฟังก์ชันจับคู่เมนูได้ทันที
+        const fname = (file.name || "").toLowerCase();
+        let detected = [];
+        if (fname.includes("thai") || fname.includes("pork") || fname.includes("หมู") || fname.includes("basil") || fname.includes("กะเพรา")) {
+          detected = ["หมูสับ", "ไข่ไก่", "ใบกะเพรา"];
+        } else if (fname.includes("pasta") || fname.includes("carbonara") || fname.includes("พาสต้า") || fname.includes("bacon") || fname.includes("เบคอน")) {
+          detected = ["เส้นพาสต้า", "เบคอน", "ชีส", "ไข่ไก่"];
+        } else if (fname.includes("bread") || fname.includes("sandwich") || fname.includes("ขนมปัง") || fname.includes("tomato") || fname.includes("มะเขือเทศ")) {
+          detected = ["ขนมปัง", "ชีส", "เบคอน", "มะเขือเทศ"];
+        } else if (fname.includes("chicken") || fname.includes("ไก่")) {
+          detected = ["อกไก่", "ไข่ไก่", "มะเขือเทศ"];
+        } else if (fname.includes("shrimp") || fname.includes("กุ้ง") || fname.includes("fish") || fname.includes("ปลา")) {
+          detected = ["กุ้งสด", "ไข่ไก่", "ผักกาดขาว"];
+        } else {
+          detected = ["หมูสับ", "ไข่ไก่", "ใบกะเพรา"];
+        }
+
+        modelBadge.textContent = "Standalone Preview (รัน python app.py เพื่อใช้ YOLO11s จริง)";
         modelBadge.className = "font-mono text-[10px] px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200";
+
+        if (feedbackMsg) {
+          feedbackMsg.innerHTML = `<strong>ตรวจพบวัตถุดิบ (Standalone Simulation):</strong> ${detected.join(", ")}<br><span class="text-stone-500 text-[10px]">💡 เพื่อรันโมเดล YOLO11s จริง (best.pt): ให้เปิด Terminal รัน <code>.\\.venv\\Scripts\\python.exe app.py</code> แล้วเปิดเบราว์เซอร์ไปที่ <code>http://127.0.0.1:5000</code></span>`;
+          feedbackMsg.classList.remove("hidden");
+        }
+
+        currentConfirmedIngredients = [...detected];
+        renderConfirmedIngredients();
+        renderQuickAddTags();
+        runRecipeRecommendation();
         showLoading(false);
       };
       reader.readAsDataURL(file);
