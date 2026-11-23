@@ -1,0 +1,76 @@
+# แปลงชื่อ class ของ dataset จาก Roboflow → ชื่อ class ของเรา (75 class ใน data/data.yaml)
+# DROP = รูปที่มี class นี้ถูกตัดทั้งรูป (ผู้ใช้เลือก 2026-11-17: ไม่ให้มีวัตถุที่ไม่มี label อยู่ในรูป)
+# เนื้อวัวดิบ (beef, ground_beef) → steak (ผู้ใช้เลือก 2026-11-17)
+# ต่อยอดจาก RENAME ใน fridge-chef-ai/roboflow_fridge_merge.ipynb
+
+aicook-lcv4d:
+  apple: apple
+  banana: banana
+  beef: steak
+  blueberries: blueberries
+  bread: bread
+  butter: cheese butter
+  carrot: carrot
+  cheese: cheese butter
+  chicken: chicken duck
+  chicken_breast: chicken duck
+  chocolate: DROP
+  corn: corn
+  eggs: egg
+  flour: flour
+  goat_cheese: cheese butter
+  green_beans: green beans
+  ground_beef: steak
+  ham: ham
+  heavy_cream: cream
+  lime: lime
+  milk: milk
+  mushrooms: mushroom
+  onion: onion
+  potato: potato
+  shrimp: shrimp
+  spinach: spinach
+  strawberries: strawberry
+  sugar: sugar
+  sweet_potato: sweet potato
+  tomato: tomato
+
+fridge-objects:
+  avocado: avocado
+  bacon: bacon
+  butter: cheese butter
+  cheese: cheese butter
+  eggs: egg
+  lemon: lemon
+  milk: milk
+  pepper: pepper
+  tomatoes: tomato
+  yogurt: yogurt
+
+food-ingredients-x2:
+  bean_sprouts: bean sprouts
+  beef: steak
+  bread: bread
+  chicken: chicken duck
+  cucumber: cucumber
+  cut_mackerel: fish
+  eggplant: eggplant
+  fishcake: DROP
+  leek: DROP          # ต้นหอมญี่ปุ่น ไม่ตรงกับ spring onion
+  mackerel: fish
+  perilla: DROP
+  pork: pork
+  radish: white radish
+  squid: DROP
+  sweet_potato: sweet potato
+
+meat-data-sets:
+  Bangus: fish
+  Beef: steak
+  Galungong: fish
+  Pork Belly: pork
+  Pork Leg: pork
+  Pork Ribs: pork
+  Shrimp: shrimp
+  Squid: DROP
+  Tilapia: fish

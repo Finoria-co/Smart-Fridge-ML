@@ -1,0 +1,1627 @@
+[
+ {
+  "file": "fridge_test_vid4_130_jpg.rf.fc735c64c86239e3e1f0d8f6b9ce1f1e_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "cheese;tomato",
+  "pred": "cheese;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.962",
+  "pred_detail": "cheesex2@0.978;tomatox1@0.962",
+  "input_th": [
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "fridge_valid_vid4_139_jpg.rf.1f802663d714dc33ead4b2192194ead8_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "cheese;tomato",
+  "pred": "cheese;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.956",
+  "pred_detail": "cheesex1@0.956;tomatox1@0.962",
+  "input_th": [
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "fridge_valid_vid7_161_jpg.rf.e69272b69afc6ba747fa4f8b60d77661_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "cheese;egg",
+  "pred": "cheese;egg",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.956",
+  "pred_detail": "cheesex1@0.956;eggx1@0.959",
+  "input_th": [
+   "ชีส",
+   "ไข่ไก่"
+  ],
+  "top1_buggy": [
+   "R046",
+   "ปีกไก่ทอดซอสบัฟฟาโล",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R048",
+   "ทีรามิสุ",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_6047_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bread;cheese",
+  "pred": "bread;cheese",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.947",
+  "pred_detail": "breadx1@0.994;cheesex2@0.947",
+  "input_th": [
+   "ขนมปัง",
+   "ชีส"
+  ],
+  "top1_buggy": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "fridge_valid_vid4_36_jpg.rf.93c3f5767562525e77c37f69f62f500a_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "cheese;tomato",
+  "pred": "cheese;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.93",
+  "pred_detail": "cheesex3@0.974;tomatox1@0.93",
+  "input_th": [
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "fridge_test_vid1_249_jpg.rf.617b3fe3ba0c19fa3561ae352a01564d_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "cheese;tomato",
+  "pred": "cheese;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.929",
+  "pred_detail": "cheesex1@0.956;tomatox1@0.929",
+  "input_th": [
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "fridge_test_fridge11_jpg.rf.019b8e97530c45d87c430f9698b88042_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "egg;tomato",
+  "pred": "egg;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.916",
+  "pred_detail": "eggx1@0.916;tomatox2@0.974",
+  "input_th": [
+   "ไข่ไก่",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.423
+  ],
+  "top1_fixed": [
+   "R036",
+   "กาสปาโช่",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5922_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "shrimp;tomato",
+  "pred": "shrimp;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.914",
+  "pred_detail": "shrimpx1@0.914;tomatox1@0.919",
+  "input_th": [
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5856_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;tomato",
+  "pred": "cheese;chicken;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.911",
+  "pred_detail": "cheesex3@0.965;chickenx1@0.957;tomatox1@0.911",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "fridge_test_DSC_6098_JPG_jpg.rf.df3fca81e21f0260abbb46b3caaffc77_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "chicken;egg;tomato",
+  "pred": "chicken;egg;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.907",
+  "pred_detail": "chickenx1@0.929;eggx1@0.933;tomatox1@0.907",
+  "input_th": [
+   "อกไก่",
+   "ไข่ไก่",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.423
+  ],
+  "top1_fixed": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.423
+  ]
+ },
+ {
+  "file": "fridge_valid_vid1_242_jpg.rf.f1c23836d7103f6e4ec948fd20e62555_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "bread;cheese;tomato",
+  "pred": "bread;cheese;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.907",
+  "pred_detail": "breadx1@0.963;cheesex2@0.971;tomatox1@0.907",
+  "input_th": [
+   "ขนมปัง",
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "fridge_test_DSC_5994_JPG_jpg.rf.e53be9c62dc4d00f13decba6ccded6f9_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "bread;chicken;egg",
+  "pred": "bread;chicken;egg",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.904",
+  "pred_detail": "breadx1@0.904;chickenx1@0.944;eggx2@0.915",
+  "input_th": [
+   "ขนมปัง",
+   "อกไก่",
+   "ไข่ไก่"
+  ],
+  "top1_buggy": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.423
+  ],
+  "top1_fixed": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.423
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5680_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;shrimp;tomato",
+  "pred": "cheese;chicken;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.903",
+  "pred_detail": "cheesex1@0.94;chickenx1@0.934;shrimpx1@0.903;tomatox1@0.938",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5747_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bacon;cheese;chicken",
+  "pred": "bacon;cheese;chicken",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.899",
+  "pred_detail": "baconx1@0.899;cheesex1@0.923;chickenx1@0.957",
+  "input_th": [
+   "เบคอน",
+   "ชีส",
+   "อกไก่"
+  ],
+  "top1_buggy": [
+   "R046",
+   "ปีกไก่ทอดซอสบัฟฟาโล",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R046",
+   "ปีกไก่ทอดซอสบัฟฟาโล",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5763_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;tomato",
+  "pred": "cheese;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.897",
+  "pred_detail": "cheesex1@0.966;tomatox1@0.897",
+  "input_th": [
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5742_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;shrimp;tomato",
+  "pred": "cheese;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.892",
+  "pred_detail": "cheesex1@0.899;shrimpx1@0.892;tomatox1@0.95",
+  "input_th": [
+   "ชีส",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "fridge_valid_vid1_252_jpg.rf.dbf805ef0077e3890cd5b8ef7ab57cb1_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "cheese;tomato",
+  "pred": "cheese;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.891",
+  "pred_detail": "cheesex3@0.891;tomatox1@0.905",
+  "input_th": [
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5857_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;tomato",
+  "pred": "cheese;chicken;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.891",
+  "pred_detail": "cheesex3@0.891;chickenx1@0.953;tomatox1@0.91",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5934_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;shrimp;tomato",
+  "pred": "cheese;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.882",
+  "pred_detail": "cheesex1@0.942;shrimpx1@0.908;tomatox1@0.882",
+  "input_th": [
+   "ชีส",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5730_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "chicken;tomato",
+  "pred": "chicken;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.881",
+  "pred_detail": "chickenx1@0.944;tomatox1@0.881",
+  "input_th": [
+   "อกไก่",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5887_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;shrimp;tomato",
+  "pred": "cheese;chicken;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.874",
+  "pred_detail": "cheesex1@0.874;chickenx1@0.961;shrimpx1@0.877;tomatox1@0.916",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "fridge_valid_vid1_198_jpg.rf.8d20514582cb7f4b0adc3ac9fd801e6b_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "cheese;tomato",
+  "pred": "cheese;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.873",
+  "pred_detail": "cheesex1@0.873;tomatox1@0.937",
+  "input_th": [
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "fridge_valid_vid4_31_jpg.rf.41aed4956424aa65ef23118aea1471d6_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "cheese;tomato",
+  "pred": "cheese;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.873",
+  "pred_detail": "cheesex3@0.973;tomatox1@0.873",
+  "input_th": [
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "fridge_valid_vid2_314_jpg.rf.c9424dc6e31a14bc9b0944f4799bbdc2_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "bread;cheese;tomato",
+  "pred": "bread;cheese;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.871",
+  "pred_detail": "breadx1@0.969;cheesex2@0.925;tomatox1@0.871",
+  "input_th": [
+   "ขนมปัง",
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "fridge_valid_vid7_64_jpg.rf.72c1bdd3e38d87c9d88a3e9ceaa98331_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "bread;cheese;egg",
+  "pred": "bread;cheese;egg",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.87",
+  "pred_detail": "breadx2@0.87;cheesex1@0.921;eggx1@0.927",
+  "input_th": [
+   "ขนมปัง",
+   "ชีส",
+   "ไข่ไก่"
+  ],
+  "top1_buggy": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5700_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bacon;shrimp",
+  "pred": "bacon;shrimp",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.867",
+  "pred_detail": "baconx1@0.867;shrimpx1@0.885",
+  "input_th": [
+   "เบคอน",
+   "กุ้งสด"
+  ],
+  "top1_buggy": [
+   "R058",
+   "เมี่ยงคำ",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R058",
+   "เมี่ยงคำ",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5902_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;shrimp;tomato",
+  "pred": "cheese;chicken;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.866",
+  "pred_detail": "cheesex1@0.866;chickenx1@0.967;shrimpx1@0.877;tomatox1@0.92",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "fridge_test_DSC_6119_JPG_jpg.rf.2213fdb97c3a6bbdc059dfc2c6158da4_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "bread;chicken;egg;tomato",
+  "pred": "bread;chicken;egg;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.863",
+  "pred_detail": "breadx1@0.863;chickenx1@0.94;eggx1@0.873;tomatox1@0.943",
+  "input_th": [
+   "ขนมปัง",
+   "อกไก่",
+   "ไข่ไก่",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R044",
+   "บรูสเกตต้ามะเขือเทศ",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R044",
+   "บรูสเกตต้ามะเขือเทศ",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "fridge_valid_vid1_240_jpg.rf.f7d1ccc9d94cf2275af32438b7166d36_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "bread;cheese;tomato",
+  "pred": "bread;cheese;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.863",
+  "pred_detail": "breadx2@0.966;cheesex2@0.958;tomatox1@0.863",
+  "input_th": [
+   "ขนมปัง",
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "fridge_valid_DSC_6067_JPG_jpg.rf.e7cdca04bc8c10b49ae4de0bfe7521ae_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "bread;cheese;egg",
+  "pred": "bread;cheese;egg",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.861",
+  "pred_detail": "breadx1@0.955;cheesex1@0.861;eggx2@0.918",
+  "input_th": [
+   "ขนมปัง",
+   "ชีส",
+   "ไข่ไก่"
+  ],
+  "top1_buggy": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5693_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bacon;cheese;tomato",
+  "pred": "bacon;cheese;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.86",
+  "pred_detail": "baconx1@0.86;cheesex2@0.93;tomatox1@0.933",
+  "input_th": [
+   "เบคอน",
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_6156_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;egg;shrimp;tomato",
+  "pred": "cheese;chicken;egg;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "5",
+  "min_conf": "0.859",
+  "pred_detail": "cheesex1@0.946;chickenx1@0.875;eggx1@0.909;shrimpx1@0.859;tomatox1@0.917",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "ไข่ไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.368
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.368
+  ]
+ },
+ {
+  "file": "fridge_valid_DSC_6183_JPG_jpg.rf.a084fecf8302da632baebc5a8e520457_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "cheese;egg",
+  "pred": "cheese;egg",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.858",
+  "pred_detail": "cheesex1@0.868;eggx1@0.858",
+  "input_th": [
+   "ชีส",
+   "ไข่ไก่"
+  ],
+  "top1_buggy": [
+   "R046",
+   "ปีกไก่ทอดซอสบัฟฟาโล",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R048",
+   "ทีรามิสุ",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "fridge_test_vid4_3_jpg.rf.d681d1a76104ae5432c151a9c1f69b1f_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "cheese;tomato",
+  "pred": "cheese;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.853",
+  "pred_detail": "cheesex3@0.948;tomatox2@0.853",
+  "input_th": [
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "fridge_valid_DSC_6074_JPG_jpg.rf.e6fca9516aa8f34afc983c4d89d9c8d2_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "cheese;egg",
+  "pred": "cheese;egg",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.853",
+  "pred_detail": "cheesex1@0.944;eggx1@0.853",
+  "input_th": [
+   "ชีส",
+   "ไข่ไก่"
+  ],
+  "top1_buggy": [
+   "R046",
+   "ปีกไก่ทอดซอสบัฟฟาโล",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R048",
+   "ทีรามิสุ",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_6040_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;egg;shrimp;tomato",
+  "pred": "cheese;egg;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.848",
+  "pred_detail": "cheesex1@0.921;eggx1@0.848;shrimpx1@0.895;tomatox2@0.866",
+  "input_th": [
+   "ชีส",
+   "ไข่ไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.368
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "fridge_valid_vid1_10_jpg.rf.6250e67c84d56c443d89539fb4e54bc0_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "bread;cheese;tomato",
+  "pred": "bread;cheese;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.842",
+  "pred_detail": "breadx1@0.962;cheesex2@0.934;tomatox1@0.842",
+  "input_th": [
+   "ขนมปัง",
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5903_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;shrimp;tomato",
+  "pred": "cheese;chicken;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.839",
+  "pred_detail": "cheesex2@0.955;chickenx1@0.963;shrimpx1@0.839;tomatox1@0.909",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "fridge_valid_vid1_213_jpg.rf.2e7662b5236816a9048acb501e19ec87_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "bread;cheese;tomato",
+  "pred": "bread;cheese;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.833",
+  "pred_detail": "breadx1@0.976;cheesex1@0.901;tomatox1@0.833",
+  "input_th": [
+   "ขนมปัง",
+   "ชีส",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5780_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "shrimp;tomato",
+  "pred": "shrimp;tomato",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.831",
+  "pred_detail": "shrimpx1@0.831;tomatox1@0.926",
+  "input_th": [
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.0
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.0
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5886_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;shrimp;tomato",
+  "pred": "cheese;chicken;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.82",
+  "pred_detail": "cheesex1@0.863;chickenx1@0.946;shrimpx1@0.82;tomatox1@0.918",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "fridge_valid_DSC_5994_JPG_jpg.rf.c3165fe5b51b0b0e3fbde997f3769ab4_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "bread;chicken;egg",
+  "pred": "bread;chicken;egg",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.803",
+  "pred_detail": "breadx1@0.926;chickenx1@0.964;eggx1@0.803",
+  "input_th": [
+   "ขนมปัง",
+   "อกไก่",
+   "ไข่ไก่"
+  ],
+  "top1_buggy": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.423
+  ],
+  "top1_fixed": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.423
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5883_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bacon;cheese;chicken;shrimp;tomato",
+  "pred": "bacon;cheese;chicken;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "5",
+  "min_conf": "0.802",
+  "pred_detail": "baconx1@0.91;cheesex2@0.894;chickenx1@0.946;shrimpx1@0.802;tomatox1@0.869",
+  "input_th": [
+   "เบคอน",
+   "ชีส",
+   "อกไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.368
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.368
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5694_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bacon;cheese",
+  "pred": "bacon;cheese",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.799",
+  "pred_detail": "baconx1@0.799;cheesex2@0.896",
+  "input_th": [
+   "เบคอน",
+   "ชีส"
+  ],
+  "top1_buggy": [
+   "R068",
+   "ฟิตตูชินีผักโขมครีมซอส",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R068",
+   "ฟิตตูชินีผักโขมครีมซอส",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_6057_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bread;cheese;chicken;egg",
+  "pred": "bread;cheese;chicken;egg",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.799",
+  "pred_detail": "breadx1@0.94;cheesex1@0.828;chickenx1@0.799;eggx1@0.803",
+  "input_th": [
+   "ขนมปัง",
+   "ชีส",
+   "อกไก่",
+   "ไข่ไก่"
+  ],
+  "top1_buggy": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5991_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bread;chicken;egg;shrimp",
+  "pred": "bread;chicken;egg;shrimp",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.796",
+  "pred_detail": "breadx1@0.887;chickenx2@0.907;eggx1@0.84;shrimpx1@0.796",
+  "input_th": [
+   "ขนมปัง",
+   "อกไก่",
+   "ไข่ไก่",
+   "กุ้งสด"
+  ],
+  "top1_buggy": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.5
+  ],
+  "top1_fixed": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.5
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_6056_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bread;cheese;chicken;egg",
+  "pred": "bread;cheese;chicken;egg",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.789",
+  "pred_detail": "breadx1@0.926;cheesex1@0.926;chickenx1@0.789;eggx1@0.887",
+  "input_th": [
+   "ขนมปัง",
+   "ชีส",
+   "อกไก่",
+   "ไข่ไก่"
+  ],
+  "top1_buggy": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "fridge_test_DSC_6115_JPG_jpg.rf.aeb393b0ed22d3752239b64379e64987_r0.jpg",
+  "source": "fridge_rf(v1)",
+  "gt": "bread;cheese;chicken;tomato",
+  "pred": "bread;cheese;chicken;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.784",
+  "pred_detail": "breadx1@0.784;cheesex1@0.926;chickenx1@0.905;tomatox1@0.943",
+  "input_th": [
+   "ขนมปัง",
+   "ชีส",
+   "อกไก่",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R028",
+   "ซุปหัวหอมฝรั่งเศส",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5867_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bacon;cheese;chicken;tomato",
+  "pred": "bacon;cheese;chicken;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.783",
+  "pred_detail": "baconx1@0.783;cheesex2@0.902;chickenx1@0.96;tomatox1@0.889",
+  "input_th": [
+   "เบคอน",
+   "ชีส",
+   "อกไก่",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R038",
+   "สลัดกรีก",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5899_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;shrimp;tomato",
+  "pred": "cheese;chicken;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.767",
+  "pred_detail": "cheesex1@0.936;chickenx1@0.949;shrimpx1@0.767;tomatox1@0.918",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5853_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bacon;cheese;chicken;shrimp;tomato",
+  "pred": "bacon;cheese;chicken;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "5",
+  "min_conf": "0.761",
+  "pred_detail": "baconx1@0.787;cheesex2@0.9;chickenx1@0.965;shrimpx1@0.761;tomatox1@0.921",
+  "input_th": [
+   "เบคอน",
+   "ชีส",
+   "อกไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.368
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.368
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_6154_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;egg;shrimp;tomato",
+  "pred": "cheese;chicken;egg;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "5",
+  "min_conf": "0.757",
+  "pred_detail": "cheesex2@0.954;chickenx1@0.812;eggx1@0.757;shrimpx1@0.856;tomatox1@0.916",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "ไข่ไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.368
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.368
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5847_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;shrimp;tomato",
+  "pred": "cheese;chicken;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.753",
+  "pred_detail": "cheesex3@0.97;chickenx1@0.949;shrimpx1@0.753;tomatox1@0.919",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5821_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;shrimp",
+  "pred": "cheese;chicken;shrimp",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.751",
+  "pred_detail": "cheesex3@0.968;chickenx1@0.935;shrimpx1@0.751",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "กุ้งสด"
+  ],
+  "top1_buggy": [
+   "R046",
+   "ปีกไก่ทอดซอสบัฟฟาโล",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R046",
+   "ปีกไก่ทอดซอสบัฟฟาโล",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_6155_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;egg;shrimp;tomato",
+  "pred": "cheese;chicken;egg;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "5",
+  "min_conf": "0.749",
+  "pred_detail": "cheesex1@0.943;chickenx1@0.861;eggx1@0.749;shrimpx1@0.843;tomatox1@0.92",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "ไข่ไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.368
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.368
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5819_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;chicken;shrimp;tomato",
+  "pred": "cheese;chicken;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "4",
+  "min_conf": "0.742",
+  "pred_detail": "cheesex3@0.954;chickenx1@0.888;shrimpx1@0.742;tomatox1@0.929",
+  "input_th": [
+   "ชีส",
+   "อกไก่",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5913_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;shrimp;tomato",
+  "pred": "cheese;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.739",
+  "pred_detail": "cheesex2@0.951;shrimpx1@0.739;tomatox1@0.922",
+  "input_th": [
+   "ชีส",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5956_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "bread;egg",
+  "pred": "bread;egg",
+  "exact": "1",
+  "n_gt": "2",
+  "min_conf": "0.735",
+  "pred_detail": "breadx1@0.867;eggx1@0.735",
+  "input_th": [
+   "ขนมปัง",
+   "ไข่ไก่"
+  ],
+  "top1_buggy": [
+   "R004",
+   "ไก่อบสมุนไพรทั้งตัว",
+   100.0,
+   0.423
+  ],
+  "top1_fixed": [
+   "R048",
+   "ทีรามิสุ",
+   100.0,
+   0.293
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5785_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;shrimp;tomato",
+  "pred": "cheese;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.713",
+  "pred_detail": "cheesex3@0.928;shrimpx1@0.713;tomatox1@0.899",
+  "input_th": [
+   "ชีส",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.184
+  ]
+ },
+ {
+  "file": "rfraw_aicook-lcv4d_dsc_5784_jpg_jpg.jpg",
+  "source": "aicook-lcv4d",
+  "gt": "cheese;shrimp;tomato",
+  "pred": "cheese;shrimp;tomato",
+  "exact": "1",
+  "n_gt": "3",
+  "min_conf": "0.693",
+  "pred_detail": "cheesex3@0.95;shrimpx1@0.693;tomatox1@0.917",
+  "input_th": [
+   "ชีส",
+   "กุ้งสด",
+   "มะเขือเทศ"
+  ],
+  "top1_buggy": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.184
+  ],
+  "top1_fixed": [
+   "R037",
+   "ส้มตำไทย",
+   100.0,
+   0.184
+  ]
+ }
+]
