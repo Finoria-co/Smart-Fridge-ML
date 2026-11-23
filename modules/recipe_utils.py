@@ -5,10 +5,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
 
-def load_model(path='models/model.pkl'):
-    """โหลด bundle โมเดลของคนที่ 5 (รองรับทั้ง model.pkl และ recipe_model.pkl)"""
+def load_model(path='models/recipe_model.pkl'):
+    """โหลด bundle โมเดลของคนที่ 5 (รองรับทั้ง recipe_model.pkl และ model.pkl)"""
     if not os.path.exists(path):
-        alt_path = path.replace('model.pkl', 'recipe_model.pkl') if 'model.pkl' in path else path.replace('recipe_model.pkl', 'model.pkl')
+        alt_path = path.replace('recipe_model.pkl', 'model.pkl') if 'recipe_model.pkl' in path else path.replace('model.pkl', 'recipe_model.pkl')
         if os.path.exists(alt_path):
             path = alt_path
     with open(path, 'rb') as f:

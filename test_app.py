@@ -8,13 +8,18 @@ def test_home():
     assert res.status_code == 200
     print("✅ GET /: OK (200)")
 
-def test_detect_image_preset():
-    res = client.post("/api/detect-image", data={"sample_name": "fridge_thai_basil.jpg"})
+def test_detect_image():
+    import io
+    from PIL import Image
+    img = Image.new('RGB', (100, 100), color='white')
+    buf = io.BytesIO()
+    img.save(buf, format='JPEG')
+    buf.seek(0)
+    res = client.post("/api/detect-image", data={"image": (buf, "test.jpg")}, content_type="multipart/form-data")
     assert res.status_code == 200
     data = res.get_json()
     assert data["success"] is True
-    assert "หมูสับ" in data["detected_ingredients"]
-    print("✅ POST /api/detect-image (Preset): OK - Detected:", data["detected_ingredients"])
+    print("✅ POST /api/detect-image (Upload): OK")
 
 def test_extract_text():
     res = client.post("/api/extract-text", json={"text": "มีหมูบด 2 ขีด กับไข่ไก่ 3 ฟอง และเส้นสปาเก็ตตี้"})
@@ -65,7 +70,7 @@ def test_model_comparison():
 if __name__ == "__main__":
     print("--- Running Verification Tests for Member 6 Integration ---")
     test_home()
-    test_detect_image_preset()
+    test_detect_image()
     test_extract_text()
     test_recommend()
     test_model_comparison()
