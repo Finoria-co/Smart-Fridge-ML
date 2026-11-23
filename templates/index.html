@@ -262,32 +262,6 @@
       return scored.slice(0, topK);
     }
 
-    const CLIENT_DEMO_PRESETS = {
-      "fridge_thai_basil.jpg": {
-        items: ["หมูสับ", "ไข่ไก่", "ใบกะเพรา"],
-        boxes: [
-          { label: "หมูสับ", en: "pork", confidence: 0.94, box: [0.10, 0.25, 0.40, 0.75] },
-          { label: "ไข่ไก่", en: "egg", confidence: 0.97, box: [0.45, 0.20, 0.68, 0.65] },
-          { label: "ใบกะเพรา", en: "holy_basil", confidence: 0.91, box: [0.70, 0.28, 0.92, 0.72] }
-        ]
-      },
-      "fridge_western_carbonara.jpg": {
-        items: ["เส้นพาสต้า", "เบคอน", "ชีส", "ไข่ไก่"],
-        boxes: [
-          { label: "เส้นพาสต้า", en: "pasta", confidence: 0.96, box: [0.08, 0.20, 0.35, 0.78] },
-          { label: "เบคอน", en: "bacon", confidence: 0.93, box: [0.38, 0.25, 0.65, 0.68] },
-          { label: "ชีส", en: "cheese", confidence: 0.89, box: [0.68, 0.18, 0.92, 0.58] }
-        ]
-      },
-      "fridge_brunch_sandwich.jpg": {
-        items: ["ขนมปัง", "ชีส", "เบคอน", "มะเขือเทศ"],
-        boxes: [
-          { label: "ขนมปัง", en: "bread", confidence: 0.95, box: [0.12, 0.22, 0.42, 0.72] },
-          { label: "ชีส", en: "cheese", confidence: 0.92, box: [0.44, 0.18, 0.70, 0.58] },
-          { label: "มะเขือเทศ", en: "tomato", confidence: 0.96, box: [0.72, 0.28, 0.93, 0.75] }
-        ]
-      }
-    };
   </script>
 
 </head>
@@ -476,8 +450,8 @@
     <div class="bg-white rounded-xl shadow-lg max-w-2xl w-full p-6 space-y-4 border border-stone-200">
       <div class="flex items-center justify-between pb-3 border-b border-stone-100">
         <div>
-          <h3 class="text-sm font-semibold text-stone-900">การประเมินประสิทธิภาพ 3 โมเดล Machine Learning</h3>
-          <p class="text-xs text-stone-500 mt-0.5">ผลการเปรียบเทียบอัลกอริทึมบนฐานข้อมูล 50 เมนู</p>
+          <h3 class="text-sm font-semibold text-stone-900">ผลประเมินโมเดลแนะนำเมนู</h3>
+          <p class="text-xs text-stone-500 mt-0.5">ผลที่รันได้จริงจาก fridge-chef-ai/model.ipynb (10 test cases)</p>
         </div>
         <button type="button" onclick="closeComparisonModal()" class="text-stone-400 hover:text-stone-700 text-lg leading-none">&times;</button>
       </div>
@@ -487,9 +461,8 @@
           <thead>
             <tr class="bg-stone-50 text-stone-600 border-b border-stone-200 font-medium">
               <th class="p-2.5">โมเดล</th>
-              <th class="p-2.5 font-mono">Precision</th>
-              <th class="p-2.5 font-mono">Recall</th>
-              <th class="p-2.5 font-mono">F1-Score</th>
+              <th class="p-2.5 font-mono">Top-1 Accuracy</th>
+              <th class="p-2.5 font-mono">Top-3 Accuracy</th>
               <th class="p-2.5 font-mono">Inference Time</th>
             </tr>
           </thead>
@@ -502,7 +475,7 @@
       <div class="bg-stone-50 border border-stone-200 rounded-lg p-3 text-xs text-stone-700 space-y-1">
         <div class="font-medium text-stone-900">สรุปเชิงวิชาการสำหรับนำเสนอ:</div>
         <p class="leading-relaxed">
-          ระบบเลือกใช้ <strong>Weighted Cosine Similarity</strong> เป็นแกนหลัก เนื่องจากสามารถกำหนดน้ำหนักวัตถุดิบหลัก (เนื้อสัตว์และแป้ง) ให้มีความสำคัญกว่าผักแต่งรสได้อย่างแม่นยำ ส่งผลให้ได้ F1-score สูงถึง 94.5% โดยมี K-Nearest Neighbors (KNN) และ Random Forest เป็นโมเดลเปรียบเทียบ
+          ตอนนี้มีผลที่รันจริงเฉพาะ <strong>K-Nearest Neighbors</strong> (cosine distance บน feature วัตถุดิบ 18 ตัว) ทดสอบ 10 test cases ได้ Top-1 90% และ Top-3 100% · Weighted Cosine, TF-IDF และ Random Forest ที่เลือกได้บนเว็บยังไม่ได้วัดผลบนชุดทดสอบเดียวกัน
         </p>
       </div>
 
@@ -649,70 +622,18 @@
       previewContainer.classList.remove("hidden");
       annotatedImg.src = imgSrc;
 
-      const fname = (file.name || "").toLowerCase();
-      let detected = [];
-      if (fname.includes("thai") || fname.includes("pork") || fname.includes("หมู") || fname.includes("basil") || fname.includes("กะเพรา")) {
-        detected = ["หมูสับ", "ไข่ไก่", "ใบกะเพรา"];
-      } else if (fname.includes("pasta") || fname.includes("carbonara") || fname.includes("พาสต้า") || fname.includes("bacon") || fname.includes("เบคอน")) {
-        detected = ["เส้นพาสต้า", "เบคอน", "ชีส", "ไข่ไก่"];
-      } else if (fname.includes("bread") || fname.includes("sandwich") || fname.includes("ขนมปัง") || fname.includes("tomato") || fname.includes("มะเขือเทศ")) {
-        detected = ["ขนมปัง", "ชีส", "เบคอน", "มะเขือเทศ"];
-      } else if (fname.includes("chicken") || fname.includes("ไก่")) {
-        detected = ["อกไก่", "ไข่ไก่", "มะเขือเทศ"];
-      } else if (fname.includes("shrimp") || fname.includes("กุ้ง") || fname.includes("fish") || fname.includes("ปลา")) {
-        detected = ["กุ้งสด", "ไข่ไก่", "ผักกาดขาว"];
-      }
+      // โมเดล ONNX โหลดหรือรันไม่สำเร็จ: ไม่เดาวัตถุดิบ ให้ผู้ใช้เลือกแท็กเอง
+      const detected = [];
 
-      modelBadge.textContent = "Client Selection Mode";
+      modelBadge.textContent = "โมเดลโหลดไม่สำเร็จ";
       modelBadge.className = "font-mono text-[10px] px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200";
 
       if (feedbackMsg) {
-        feedbackMsg.innerHTML = `<strong>อัปโหลดภาพเรียบร้อย</strong><br><span class="text-stone-500 text-[10px]">💡 คุณสามารถคลิกเลือกวัตถุดิบที่ต้องการด้านล่าง หรือรันผ่าน <code>run_app.bat</code> เพื่อใช้ Python YOLO11s เต็มรูปแบบ</span>`;
+        feedbackMsg.innerHTML = `<strong>โมเดลตรวจจับโหลดไม่สำเร็จ จึงยังไม่ได้ตรวจวัตถุดิบในภาพนี้</strong><br><span class="text-stone-500 text-[10px]">💡 คุณสามารถคลิกเลือกวัตถุดิบที่ต้องการด้านล่าง หรือรันผ่าน <code>run_app.bat</code> เพื่อใช้ Python YOLO11s เต็มรูปแบบ</span>`;
         feedbackMsg.classList.remove("hidden");
       }
 
       currentConfirmedIngredients = [...detected];
-      renderConfirmedIngredients();
-      renderQuickAddTags();
-      runRecipeRecommendation();
-      showLoading(false);
-    }
-
-    async function loadDemoSample(filename, label) {
-      const formData = new FormData();
-      formData.append("sample_name", filename);
-
-      showLoading(true, `โหลดตัวอย่าง ${label}...`);
-
-      try {
-        if (!IS_STANDALONE) {
-          const response = await fetch("/api/detect-image", {
-            method: "POST",
-            body: formData
-          });
-          if (response.ok) {
-            const data = await response.json();
-            handleDetectionResponse(data);
-            showLoading(false);
-            return;
-          }
-        }
-      } catch (err) {
-        console.log("Switching to Standalone Demo Presets...");
-      }
-
-      // Standalone Preset
-      const preset = CLIENT_DEMO_PRESETS[filename] || { items: ["หมูสับ", "ไข่ไก่"], boxes: [] };
-      const previewContainer = document.getElementById("image-preview-container");
-      const annotatedImg = document.getElementById("annotated-image");
-      const modelBadge = document.getElementById("model-status-badge");
-
-      previewContainer.classList.remove("hidden");
-      annotatedImg.src = "static/demo_samples/" + filename;
-      modelBadge.textContent = "YOLO11s (Demo Mode)";
-      modelBadge.className = "font-mono text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200";
-
-      currentConfirmedIngredients = [...preset.items];
       renderConfirmedIngredients();
       renderQuickAddTags();
       runRecipeRecommendation();
@@ -936,31 +857,39 @@
       }).join("");
     }
 
+    const COMPARISON_FALLBACK = [
+      { model_name: "K-Nearest Neighbors (cosine, 18 features)", top1: "90%", top3: "100%", speed: "2.75-5.90 ms", status: "ผลจาก fridge-chef-ai/model.ipynb (10 test cases)" },
+      { model_name: "Weighted Cosine Similarity", top1: "ยังไม่ได้วัด", top3: "ยังไม่ได้วัด", speed: "-", status: "ค่าเริ่มต้นบนเว็บ · ยังไม่มีผลรันใน repo" },
+      { model_name: "TF-IDF Vectorizer", top1: "ยังไม่ได้วัด", top3: "ยังไม่ได้วัด", speed: "-", status: "ยังไม่มีผลรันใน repo" },
+      { model_name: "Random Forest Classifier", top1: "ยังไม่ได้วัด", top3: "ยังไม่ได้วัด", speed: "-", status: "ยังไม่มีผลรันใน repo" }
+    ];
+
     async function openComparisonModal() {
       const modal = document.getElementById("comparison-modal");
       const tbody = document.getElementById("comparison-table-body");
       modal.classList.remove("hidden");
 
+      let models = COMPARISON_FALLBACK;
       try {
-        const response = await fetch("/api/model-comparison");
-        const data = await response.json();
-        if (data.success) {
-          tbody.innerHTML = data.models.map(m => `
-            <tr>
-              <td class="p-2.5 font-medium text-stone-900">
-                ${m.model_name}
-                <div class="text-[10px] text-stone-400 font-mono mt-0.5">${m.status}</div>
-              </td>
-              <td class="p-2.5 font-mono text-teal-800 font-semibold">${m.precision}</td>
-              <td class="p-2.5 font-mono text-stone-700">${m.recall}</td>
-              <td class="p-2.5 font-mono text-stone-900 font-semibold">${m.f1_score}</td>
-              <td class="p-2.5 font-mono text-stone-500">${m.speed}</td>
-            </tr>
-          `).join("");
+        if (!IS_STANDALONE) {
+          const response = await fetch("/api/model-comparison");
+          const data = await response.json();
+          if (data.success) models = data.models;
         }
       } catch (e) {
         console.error(e);
       }
+      tbody.innerHTML = models.map(m => `
+        <tr>
+          <td class="p-2.5 font-medium text-stone-900">
+            ${m.model_name}
+            <div class="text-[10px] text-stone-400 font-mono mt-0.5">${m.status}</div>
+          </td>
+          <td class="p-2.5 font-mono text-teal-800 font-semibold">${m.top1}</td>
+          <td class="p-2.5 font-mono text-stone-900 font-semibold">${m.top3}</td>
+          <td class="p-2.5 font-mono text-stone-500">${m.speed}</td>
+        </tr>
+      `).join("");
     }
 
     function closeComparisonModal() {

@@ -384,34 +384,36 @@ class RecipeRecommender:
         return scored_recipes[:top_k]
 
     def get_model_comparison_metrics(self):
-        """สรุปการเปรียบเทียบโมเดล 3 ตัว บนฐานข้อมูล 80 เมนูใหม่"""
+        """ผลประเมินที่รันได้จริงเท่านั้น (fridge-chef-ai/model.ipynb · 10 test cases)
+        Weighted Cosine / TF-IDF / Random Forest ยังไม่มีผลรันใน repo จึงไม่ใส่ตัวเลข"""
         return [
             {
-                "model_name": "Weighted Cosine Similarity (TF-IDF Concept)",
-                "precision": "95.6%",
-                "recall": "93.4%",
-                "f1_score": "94.5%",
-                "speed": "< 4ms",
-                "pros": "ให้น้ำหนักเนื้อสัตว์/แป้งได้แม่นยำ แยกแยะเครื่องปรุงติดครัวและแนะนำเมนูตรงใจจาก 80 เมนู",
-                "status": "โมเดลหลักที่เลือกใช้ในระบบ"
+                "model_name": "K-Nearest Neighbors (cosine, 18 features)",
+                "top1": "90%",
+                "top3": "100%",
+                "speed": "2.75-5.90 ms",
+                "status": "ผลจาก fridge-chef-ai/model.ipynb (10 test cases)"
             },
             {
-                "model_name": "K-Nearest Neighbors (KNN, k=3)",
-                "precision": "89.2%",
-                "recall": "87.0%",
-                "f1_score": "88.1%",
-                "speed": "< 6ms",
-                "pros": "จัดกลุ่มประเภทอาหารและเมนูที่ใช้วัตถุดิบใกล้เคียงกันได้ดี",
-                "status": "โมเดลเปรียบเทียบอันดับ 2"
+                "model_name": "Weighted Cosine Similarity",
+                "top1": "ยังไม่ได้วัด",
+                "top3": "ยังไม่ได้วัด",
+                "speed": "-",
+                "status": "ค่าเริ่มต้นบนเว็บ · ยังไม่มีผลรันใน repo"
+            },
+            {
+                "model_name": "TF-IDF Vectorizer",
+                "top1": "ยังไม่ได้วัด",
+                "top3": "ยังไม่ได้วัด",
+                "speed": "-",
+                "status": "ยังไม่มีผลรันใน repo"
             },
             {
                 "model_name": "Random Forest Classifier",
-                "precision": "87.4%",
-                "recall": "84.8%",
-                "f1_score": "86.1%",
-                "speed": "< 10ms",
-                "pros": "แยกแยะประเภทอาหารไทย vs ฝรั่ง ได้ถูกต้องถึง 98%",
-                "status": "โมเดลเปรียบเทียบอันดับ 3"
+                "top1": "ยังไม่ได้วัด",
+                "top3": "ยังไม่ได้วัด",
+                "speed": "-",
+                "status": "ยังไม่มีผลรันใน repo"
             }
         ]
 

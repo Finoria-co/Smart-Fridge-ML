@@ -55,42 +55,6 @@ if os.path.exists(MAP_FILE):
     except Exception as e:
         print(f"[VisionDetector] ไม่สามารถอ่าน {MAP_FILE} ได้: {e}")
 
-# พรีเซ็ตวัตถุดิบสำหรับการจำลองแบบสมจริง (Mock Heuristics)
-DEMO_PRESETS = {
-    "thai_pork": {
-        "items": ["หมูสับ", "ไข่ไก่", "ใบกะเพรา"],
-        "boxes": [
-            {"label": "หมูสับ", "en": "pork", "confidence": 0.94, "box": [0.10, 0.25, 0.40, 0.75]},
-            {"label": "ไข่ไก่", "en": "egg", "confidence": 0.97, "box": [0.45, 0.20, 0.68, 0.65]},
-            {"label": "ใบกะเพรา", "en": "holy_basil", "confidence": 0.91, "box": [0.70, 0.28, 0.92, 0.72]}
-        ]
-    },
-    "western_pasta": {
-        "items": ["เส้นพาสต้า", "เบคอน", "ชีส", "ไข่ไก่"],
-        "boxes": [
-            {"label": "เส้นพาสต้า", "en": "pasta", "confidence": 0.96, "box": [0.08, 0.20, 0.35, 0.78]},
-            {"label": "เบคอน", "en": "bacon", "confidence": 0.93, "box": [0.38, 0.25, 0.65, 0.68]},
-            {"label": "ชีส", "en": "cheese", "confidence": 0.89, "box": [0.68, 0.18, 0.92, 0.58]},
-            {"label": "ไข่ไก่", "en": "egg", "confidence": 0.95, "box": [0.55, 0.62, 0.80, 0.88]}
-        ]
-    },
-    "brunch_bread": {
-        "items": ["ขนมปัง", "ชีส", "เบคอน", "มะเขือเทศ"],
-        "boxes": [
-            {"label": "ขนมปัง", "en": "bread", "confidence": 0.95, "box": [0.12, 0.22, 0.42, 0.72]},
-            {"label": "ชีส", "en": "cheese", "confidence": 0.92, "box": [0.44, 0.18, 0.70, 0.58]},
-            {"label": "เบคอน", "en": "bacon", "confidence": 0.90, "box": [0.42, 0.60, 0.72, 0.85]},
-            {"label": "มะเขือเทศ", "en": "tomato", "confidence": 0.96, "box": [0.72, 0.28, 0.93, 0.75]}
-        ]
-    },
-    "soup_cabbage": {
-        "items": ["หมูสับ", "ผักกาดขาว", "เต้าหู้ไข่"],
-        "boxes": [
-            {"label": "หมูสับ", "en": "pork", "confidence": 0.93, "box": [0.12, 0.22, 0.44, 0.70]},
-            {"label": "ผักกาดขาว", "en": "cabbage", "confidence": 0.95, "box": [0.48, 0.18, 0.88, 0.78]}
-        ]
-    }
-}
 
 
 # ตารางแปลงชื่อวัตถุดิบทั้งหมด 75 คลาสของโมเดล YOLO11s เป็นภาษาไทยมาตรฐาน
@@ -226,38 +190,7 @@ def detect_ingredients_from_image(image_path, annotated_save_path=None, model_pa
     ฟังก์ชันหลักที่คนที่ 6 เรียกใช้เพื่อตรวจจับวัตถุดิบจากรูปภาพ
     โดยเรียกใช้ predict_image() จาก cv/smart-fridge-cv/predict.py ของคนที่ 2 โดยตรง
     """
-    filename = os.path.basename(image_path).lower()
-    is_demo_sample = "demo_samples" in image_path or filename.startswith("fridge_")
-
-    # กรณีเป็นภาพ Demo Presets สำหรับการนำเสนอสด (Live Presentation Walkthrough)
-    if is_demo_sample:
-        if "thai" in filename or "pork" in filename or "basil" in filename:
-            preset = DEMO_PRESETS["thai_pork"]
-        elif "pasta" in filename or "carbonara" in filename or "west" in filename:
-            preset = DEMO_PRESETS["western_pasta"]
-        elif "bread" in filename or "brunch" in filename or "sandwich" in filename:
-            preset = DEMO_PRESETS["brunch_bread"]
-        elif "cabbage" in filename or "soup" in filename:
-            preset = DEMO_PRESETS["soup_cabbage"]
-        else:
-            preset = DEMO_PRESETS["thai_pork"]
-
-        detections = preset["boxes"]
-        detected_ingredients = list(set([d["label"] for d in detections]))
-
-        if annotated_save_path:
-            draw_bounding_boxes(image_path, detections, annotated_save_path)
-
-        return {
-            "success": True,
-            "is_real_model": True,
-            "message": "ตรวจจับวัตถุดิบสำเร็จ (Demo Preset Scenario)",
-            "detected_ingredients": detected_ingredients,
-            "detections": detections,
-            "annotated_image_url": annotated_save_path
-        }
-
-    # กรณีเป็นรูปถ่ายจริงที่ผู้ใช้อัปโหลด: รันโมเดล YOLO11s ของคนที่ 2
+    # รันโมเดล YOLO11s ของคนที่ 2 กับทุกรูป (ไม่มี preset ข้ามโมเดล)
     cv_dir = os.path.join(os.path.dirname(__file__), "..", "cv", "smart-fridge-cv")
     if os.path.exists(cv_dir) and cv_dir not in sys.path:
         sys.path.insert(0, cv_dir)
