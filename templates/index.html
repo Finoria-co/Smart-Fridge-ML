@@ -931,8 +931,6 @@
                   ${r.origin ? `<span class="text-[10px] text-stone-500 font-mono">${r.origin}</span>` : ''}
                   <span class="text-[10px] text-stone-400">•</span>
                   <span class="text-[10px] text-stone-500 font-mono">${r.prep_time}</span>
-                  <span class="text-[10px] text-stone-400">•</span>
-                  <span class="text-[10px] text-stone-500 font-mono">${r.calories}</span>
                 </div>
                 
                 <h3 class="text-sm font-semibold text-stone-900">${r.name}</h3>
@@ -942,6 +940,9 @@
               <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-1">
                 <div class="font-mono text-xs font-semibold text-stone-900">
                   ${r.match_score}% match
+                </div>
+                <div class="text-[10px] font-mono text-stone-500">
+                  ${r.calories}
                 </div>
               </div>
             </div>
