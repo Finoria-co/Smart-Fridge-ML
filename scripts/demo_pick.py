@@ -48,7 +48,8 @@ def main():
     rows = []
     for i in range(0, len(imgs), 32):
         batch = imgs[i:i + 32]
-        for p, r in zip(batch, model.predict([str(x) for x in batch], conf=a.conf, verbose=False)):
+        # conf 0.25 = ค่าที่เว็บรวมใช้ · กรองที่ a.conf ซ้ำสำหรับผลแบบ Data Contract
+        for p, r in zip(batch, model.predict([str(x) for x in batch], conf=min(a.conf, 0.25), verbose=False)):
             lbl = data / "labels" / a.split / (p.stem + ".txt")
             gt = {}
             for line in (lbl.read_text().splitlines() if lbl.exists() else []):
@@ -58,7 +59,8 @@ def main():
                         gt[std] = gt.get(std, 0) + 1
             b = r.boxes
             dets = [(r.names[int(c)], s, bx) for c, s, bx in zip(b.cls.tolist(), b.conf.tolist(), b.xyxy.tolist())]
-            pred = {g["ingredient"]: g for g in aggregate(dets)}
+            pred = {g["ingredient"]: g for g in aggregate([d for d in dets if d[1] >= a.conf])}
+            web = aggregate([d for d in dets if d[1] >= 0.25], only_contract=False)
             rows.append({
                 "file": p.name,
                 "source": source_of(p.stem),
@@ -67,9 +69,10 @@ def main():
                 "exact": int(set(gt) == set(pred) and len(gt) > 0),
                 "n_gt": len(gt),
                 "min_conf": round(min((g["confidence"] for g in pred.values()), default=0), 3),
+                "web_all": ";".join(g["ingredient"] for g in web),
                 "pred_detail": ";".join(f"{k}x{g['count']}@{g['confidence']}" for k, g in sorted(pred.items())),
             })
-    with open(out / "candidates.csv", "w", newline="", encoding="utf-8") as f:
+    with open(out / ("candidates.csv" if a.split == "test" else f"candidates_{a.split}.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)

@@ -1,5 +1,5 @@
 """วาดผลโมเดลจริงบนรูป demo ที่คัดไว้ และพิมพ์ผลแบบที่เว็บรวมเรียก (conf 0.25, only_contract=False)
-    (WSL) python scripts/demo_render.py <ชื่อไฟล์รูปใน test> ...
+    (WSL) python scripts/demo_render.py [--start N] <ชื่อไฟล์รูปใน test หรือ val> ...
 ผล: results/demo_pick/images/ (ไม่เข้า git: รูปเป็นของ dataset ภายนอก)
 """
 import shutil
@@ -10,12 +10,16 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from predict import DEFAULT_CONF, load_model, predict_image  # noqa: E402
 
-DATA = Path("/root/data/foodseg_yolo_v2/images/test")
+DATA = Path("/root/data/foodseg_yolo_v2/images")
+args = sys.argv[1:]
+start = 1
+if args[:1] == ["--start"]:
+    start, args = int(args[1]), args[2:]
 out = ROOT / "results" / "demo_pick" / "images"
 out.mkdir(parents=True, exist_ok=True)
 model = load_model()
-for i, name in enumerate(sys.argv[1:], 1):
-    p = DATA / name
+for i, name in enumerate(args, start):
+    p = next(DATA / sp / name for sp in ("test", "val") if (DATA / sp / name).exists())
     shutil.copy(p, out / f"demo{i}_original{p.suffix}")
     r = model.predict(str(p), conf=DEFAULT_CONF, verbose=False)[0]
     r.save(filename=str(out / f"demo{i}_pred.jpg"))
