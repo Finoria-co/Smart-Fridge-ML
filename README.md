@@ -35,7 +35,7 @@
 | **2** | 6752300461 | **ปฏิมา ถิ่นสำราญ** | Computer Vision ML Lead | ฝึกสอนและประเมินผลโมเดล YOLO11s ตรวจจับวัตถุดิบ (`models/best.pt`) |
 | **3** | 6752301123 | **นัทธนัท นุ่มนวล** | Recipe Data Engineer | ออกแบบและดูแลฐานข้อมูล 80 สูตรอาหารไทย-ฝรั่ง (`data/recipes_dataset.csv`) |
 | **4** | 6752300739 | **รุจิรัตน์ แสงชัย** | Text Processing & NLP | พัฒนาระบบสกัดคำพ้องวัตถุดิบภาษาไทย (`modules/text_extractor.py`) |
-| **5** | 6752301239 | **ขวัญมนัส คล้ายมี** | Core Recipe ML Lead | ออกแบบอัลกอริทึมจับคู่เมนูและเปรียบเทียบโมเดล (Weighted Cosine, KNN, TF-IDF, Random Forest) |
+| **5** | 6752301239<br>6752301085 | **ขวัญมนัส คล้ายมี**<br>**กัลยรัตน์ โพธิสาร** | Core Recipe ML Lead | ออกแบบอัลกอริทึมจับคู่เมนูและเปรียบเทียบโมเดล (Weighted Cosine, KNN, TF-IDF, Random Forest) |
 | **6** | 6752301085 | **กัลยรัตน์ โพธิสาร** | Web UI & Full-Stack Lead | พัฒนาระบบรวมศูนย์ Flask Web API, Frontend UI (In-Browser ONNX), สไลด์ และ GitHub Pages |
 
 ---
