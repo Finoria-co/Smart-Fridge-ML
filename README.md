@@ -1,17 +1,17 @@
-# 🧊 Smart Fridge Recipe Recommender
+#  Smart Fridge Recipe Recommender
 > **วิชา:** Machine Learning Mini-Project (ชั้นปีที่ 3)  
 > **ระบบตรวจจับภาพถ่ายวัตถุดิบในตู้เย็นและวิเคราะห์แนะนำเมนูอาหารไทย-ฝรั่งด้วย Machine Learning (80 เมนู • 4 โมเดล ML)**  
-> 🌐 **Live Web Application (GitHub Pages):** [https://finoria-co.github.io/Smart-Fridge-ML/](https://finoria-co.github.io/Smart-Fridge-ML/)
+>  **Live Web Application (GitHub Pages):** [https://finoria-co.github.io/Smart-Fridge-ML/](https://finoria-co.github.io/Smart-Fridge-ML/)
 
 ---
 
-## 📌 บทนำและวัตถุประสงค์ (Overview)
+##  บทนำและวัตถุประสงค์ (Overview)
 ปัญหาของสดเหลือในตู้เย็นจนหมดอายุ (Food Waste) และความลังเลในการทำอาหาร ("เย็นนี้กินอะไรดี?") เป็นปัญหาที่พบบ่อยในชีวิตประจำวัน  
 โปรเจกต์นี้จึงผสานเทคโนโลยี **Computer Vision (YOLO11s / WebAssembly ONNX)** เพื่อตรวจจับของสดจากรูปถ่าย เข้ากับ **Recommender System (Weighted Cosine Similarity, KNN, TF-IDF และ Random Forest)** เพื่อแนะนำเมนูอาหารที่เหมาะสมที่สุดจากวัตถุดิบที่มีจริง พร้อมคำนวณวัตถุดิบที่ยังขาดและแสดงขั้นตอนการปรุงทีละสเต็ป
 
 ---
 
-## 🏗️ สถาปัตยกรรมระบบ (System Architecture)
+##  สถาปัตยกรรมระบบ (System Architecture)
 ระบบทำงานแบบแยกโมดูลอิสระ (Modular Design) ผ่าน **4-Stage Pipeline**:
 1. **Input Layer (Computer Vision):** รับรูปถ่ายตู้เย็นและวัตถุดิบ (Upload / Drag & Drop จากกล้องหรือไฟล์)
 2. **Detection Layer:**
@@ -27,10 +27,10 @@
 
 ---
 
-## 👥 สมาชิกกลุ่มและหน้าที่รับผิดชอบ (Team Roles)
+##  สมาชิกกลุ่มและหน้าที่รับผิดชอบ (Team Roles)
 
 | ลำดับ | รหัสนักศึกษา | ชื่อ - นามสกุล | บทบาทหน้าที่ | หน้าที่รับผิดชอบหลัก |
-| :---: | :---: | :--- | :--- | :--- |
+| :---: | :---: | :------- | :--- | :--- |
 | **1** | 6752300241 | **อัมพร ชินพร** | Image Data Engineer | รวบรวมชุดภาพถ่ายวัตถุดิบ, ทำ Labeling & Augmentation บน Roboflow |
 | **2** | 6752300461 | **ปฏิมา ถิ่นสำราญ** | Computer Vision ML Lead | ฝึกสอนและประเมินผลโมเดล YOLO11s ตรวจจับวัตถุดิบ (`models/best.pt`) |
 | **3** | 6752301123 | **นัทธนัท นุ่มนวล** | Recipe Data Engineer | ออกแบบและดูแลฐานข้อมูล 80 สูตรอาหารไทย-ฝรั่ง (`data/recipes_dataset.csv`) |
@@ -40,7 +40,7 @@
 
 ---
 
-## 🚀 วิธีการติดตั้งและรันโปรเจกต์ (Quick Start)
+##  วิธีการติดตั้งและรันโปรเจกต์ (Quick Start)
 
 ### 1. ติดตั้ง Dependencies
 ```powershell
