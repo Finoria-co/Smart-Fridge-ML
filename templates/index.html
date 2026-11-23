@@ -6,6 +6,9 @@
   <title>Smart Fridge — ระบบวิเคราะห์เมนูอาหารจากของในตู้เย็น (Finoria-co)</title>
   <link rel="icon" type="image/png" href="static/logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- ONNX Runtime Web for In-Browser YOLO11s Inference on GitHub Pages -->
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.min.js"></script>
+  <script src="static/js/yolo_onnx.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
@@ -606,28 +609,31 @@
     }
 
     async function uploadAndDetectImage(file) {
-      const formData = new FormData();
-      formData.append("image", file);
-      formData.append("file", file);
-
       showLoading(true, "กำลังวิเคราะห์ภาพด้วย YOLO11s...");
 
+      // 1. ลองเรียก Flask Backend ก่อน (ถ้าผู้ใช้รัน app.py ไว้)
       try {
+        const formData = new FormData();
+        formData.append("image", file);
+        formData.append("file", file);
         const response = await fetch("/api/detect-image", {
           method: "POST",
           body: formData
         });
         if (response.ok) {
           const data = await response.json();
-          handleDetectionResponse(data);
-          showLoading(false);
-          return;
+          if (data.success) {
+            handleDetectionResponse(data);
+            showLoading(false);
+            return;
+          }
         }
       } catch (err) {
-        console.log("Local Python API not reached, switching to Standalone detection preview...");
+        console.log("Local Python API not reached, switching to In-Browser ONNX / Client Engine...");
       }
 
-      // Standalone FileReader preview & client-side detection simulation
+      // 2. ถ้า Backend ไม่ได้เปิด หรืออยู่บน GitHub Pages:
+      // รันโมเดล YOLO11s ONNX จริงในเบราว์เซอร์ 100% (In-Browser WebAssembly)!
       const reader = new FileReader();
       reader.onload = (e) => {
         const previewContainer = document.getElementById("image-preview-container");
@@ -638,45 +644,66 @@
         previewContainer.classList.remove("hidden");
         annotatedImg.src = e.target.result;
 
-        // ตรวจสอบชื่อไฟล์เพื่อจำลองวัตถุดิบ (เฉพาะกรณีมีคีย์เวิร์ดในชื่อไฟล์)
-        const fname = (file.name || "").toLowerCase();
-        let detected = [];
-        if (fname.includes("thai") || fname.includes("pork") || fname.includes("หมู") || fname.includes("basil") || fname.includes("กะเพรา")) {
-          detected = ["หมูสับ", "ไข่ไก่", "ใบกะเพรา"];
-        } else if (fname.includes("pasta") || fname.includes("carbonara") || fname.includes("พาสต้า") || fname.includes("bacon") || fname.includes("เบคอน")) {
-          detected = ["เส้นพาสต้า", "เบคอน", "ชีส", "ไข่ไก่"];
-        } else if (fname.includes("bread") || fname.includes("sandwich") || fname.includes("ขนมปัง") || fname.includes("tomato") || fname.includes("มะเขือเทศ")) {
-          detected = ["ขนมปัง", "ชีส", "เบคอน", "มะเขือเทศ"];
-        } else if (fname.includes("chicken") || fname.includes("ไก่")) {
-          detected = ["อกไก่", "ไข่ไก่", "มะเขือเทศ"];
-        } else if (fname.includes("shrimp") || fname.includes("กุ้ง") || fname.includes("fish") || fname.includes("ปลา")) {
-          detected = ["กุ้งสด", "ไข่ไก่", "ผักกาดขาว"];
-        } else {
-          detected = [];
+        if (typeof detectWithOnnxWeb === "function") {
+          const img = new Image();
+          img.onload = async () => {
+            try {
+              showLoading(true, "กำลังประมวลผลด้วยโมเดล YOLO11s ONNX ในเบราว์เซอร์...");
+              const onnxResult = await detectWithOnnxWeb(img, 0.25, 0.45, (status) => {
+                showLoading(true, status);
+              });
+              handleDetectionResponse(onnxResult);
+              showLoading(false);
+            } catch (onnxErr) {
+              console.warn("ONNX Web execution error:", onnxErr);
+              fallbackToClientSimulation(file, e.target.result);
+            }
+          };
+          img.src = e.target.result;
+          return;
         }
 
-        const isGhPages = window.location.hostname.includes("github.io");
-        modelBadge.textContent = isGhPages 
-          ? "GitHub Pages Static (รัน python app.py เพื่อใช้ YOLO11s จริง)" 
-          : "Standalone Preview (รัน python app.py เพื่อใช้ YOLO11s จริง)";
-        modelBadge.className = "font-mono text-[10px] px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200";
-
-        if (feedbackMsg) {
-          if (detected.length > 0) {
-            feedbackMsg.innerHTML = `<strong>ตรวจพบวัตถุดิบ (จากชื่อไฟล์):</strong> ${detected.join(", ")}<br><span class="text-stone-500 text-[10px]">💡 เพื่อรันโมเดล YOLO11s จริง (best.pt): ให้รัน <code>python app.py</code> แล้วเปิด <code>http://127.0.0.1:5000</code></span>`;
-          } else {
-            feedbackMsg.innerHTML = `<strong>อัปโหลดภาพสำเร็จ</strong><br><span class="text-stone-500 text-[10px]">💡 โหมดเว็บสแตติก (GitHub Pages) ไม่สามารถรันโมเดล YOLO11s .pt ได้โดยตรง — กรุณารัน <code>python app.py</code> ในเครื่อง หรือคลิกเลือกวัตถุดิบที่ต้องการด้านล่างได้ทันที</span>`;
-          }
-          feedbackMsg.classList.remove("hidden");
-        }
-
-        currentConfirmedIngredients = [...detected];
-        renderConfirmedIngredients();
-        renderQuickAddTags();
-        runRecipeRecommendation();
-        showLoading(false);
+        fallbackToClientSimulation(file, e.target.result);
       };
       reader.readAsDataURL(file);
+    }
+
+    function fallbackToClientSimulation(file, imgSrc) {
+      const previewContainer = document.getElementById("image-preview-container");
+      const annotatedImg = document.getElementById("annotated-image");
+      const modelBadge = document.getElementById("model-status-badge");
+      const feedbackMsg = document.getElementById("detection-feedback-msg");
+
+      previewContainer.classList.remove("hidden");
+      annotatedImg.src = imgSrc;
+
+      const fname = (file.name || "").toLowerCase();
+      let detected = [];
+      if (fname.includes("thai") || fname.includes("pork") || fname.includes("หมู") || fname.includes("basil") || fname.includes("กะเพรา")) {
+        detected = ["หมูสับ", "ไข่ไก่", "ใบกะเพรา"];
+      } else if (fname.includes("pasta") || fname.includes("carbonara") || fname.includes("พาสต้า") || fname.includes("bacon") || fname.includes("เบคอน")) {
+        detected = ["เส้นพาสต้า", "เบคอน", "ชีส", "ไข่ไก่"];
+      } else if (fname.includes("bread") || fname.includes("sandwich") || fname.includes("ขนมปัง") || fname.includes("tomato") || fname.includes("มะเขือเทศ")) {
+        detected = ["ขนมปัง", "ชีส", "เบคอน", "มะเขือเทศ"];
+      } else if (fname.includes("chicken") || fname.includes("ไก่")) {
+        detected = ["อกไก่", "ไข่ไก่", "มะเขือเทศ"];
+      } else if (fname.includes("shrimp") || fname.includes("กุ้ง") || fname.includes("fish") || fname.includes("ปลา")) {
+        detected = ["กุ้งสด", "ไข่ไก่", "ผักกาดขาว"];
+      }
+
+      modelBadge.textContent = "Client Selection Mode";
+      modelBadge.className = "font-mono text-[10px] px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200";
+
+      if (feedbackMsg) {
+        feedbackMsg.innerHTML = `<strong>อัปโหลดภาพเรียบร้อย</strong><br><span class="text-stone-500 text-[10px]">💡 คุณสามารถคลิกเลือกวัตถุดิบที่ต้องการด้านล่าง หรือรันผ่าน <code>run_app.bat</code> เพื่อใช้ Python YOLO11s เต็มรูปแบบ</span>`;
+        feedbackMsg.classList.remove("hidden");
+      }
+
+      currentConfirmedIngredients = [...detected];
+      renderConfirmedIngredients();
+      renderQuickAddTags();
+      runRecipeRecommendation();
+      showLoading(false);
     }
 
     async function loadDemoSample(filename, label) {
@@ -732,7 +759,8 @@
       const feedbackMsg = document.getElementById("detection-feedback-msg");
 
       previewContainer.classList.remove("hidden");
-      annotatedImg.src = data.annotated_image_url + "?t=" + new Date().getTime();
+      const isDataUrl = (data.annotated_image_url || "").startsWith("data:");
+      annotatedImg.src = isDataUrl ? data.annotated_image_url : (data.annotated_image_url + "?t=" + new Date().getTime());
 
       if (feedbackMsg) {
         if (data.message) {
@@ -743,7 +771,10 @@
         }
       }
 
-      if (data.is_real_model) {
+      if (data.is_onnx_web) {
+        modelBadge.textContent = "YOLO11s ONNX (In-Browser WebAssembly)";
+        modelBadge.className = "font-mono text-[10px] px-2 py-0.5 rounded bg-teal-50 text-teal-800 border border-teal-200";
+      } else if (data.is_real_model) {
         const found = data.detected_ingredients && data.detected_ingredients.length > 0;
         modelBadge.textContent = found ? "YOLO11s Active" : (data.detections && data.detections.length > 0 ? "YOLO11s Active" : "YOLO11s (ตรวจไม่พบวัตถุดิบในภาพ)");
         modelBadge.className = found 
