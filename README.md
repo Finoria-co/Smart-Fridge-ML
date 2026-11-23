@@ -29,12 +29,12 @@
 ## 👥 สมาชิกกลุ่มและหน้าที่รับผิดชอบ (Team Roles)
 | ลำดับ | บทบาทหน้าที่ | หน้าที่หลัก |
 | :---: | :--- | :--- |
-| **คนที่ 1** | Image Data Engineer | รวบรวมชุดภาพถ่ายวัตถุดิบ, ทำ Labeling & Augmentation บน Roboflow |
-| **คนที่ 2** | Computer Vision ML Lead | ฝึกสอนและประเมินผลโมเดล YOLO11s ตรวจจับวัตถุดิบ (`models/best.pt`) |
-| **คนที่ 3** | Recipe Data Engineer | ออกแบบและดูแลฐานข้อมูล 50 สูตรอาหารไทย-ฝรั่ง (`data/recipes_dataset.csv`) |
-| **คนที่ 4** | Text Processing & NLP | พัฒนาระบบสกัดคำพ้องวัตถุดิบภาษาไทย (`modules/text_extractor.py`) |
-| **คนที่ 5** | Core Recipe ML Lead | ออกแบบอัลกอริทึมจับคู่เมนู Weighted Cosine & Coverage (`modules/recipe_recommender.py`) |
-| **คนที่ 6** | Web UI & Full-Stack Lead | พัฒนาระบบรวมศูนย์ Flask Web API, Frontend UI, สไลด์ และ Live Demo |
+| **อัมพร ชินพร  6752300241** | Image Data Engineer | รวบรวมชุดภาพถ่ายวัตถุดิบ, ทำ Labeling & Augmentation บน Roboflow |
+| **ปฏิมา ถิ่นสำราญ  6752300461** | Computer Vision ML Lead | ฝึกสอนและประเมินผลโมเดล YOLO11s ตรวจจับวัตถุดิบ (`models/best.pt`) |
+| **รุจิรัตน์ แสงชัย  6752300739** | Recipe Data Engineer | ออกแบบและดูแลฐานข้อมูล 50 สูตรอาหารไทย-ฝรั่ง (`data/recipes_dataset.csv`) |
+| **นัทธนัท นุ่มนวล  6752301123** | Text Processing & NLP | พัฒนาระบบสกัดคำพ้องวัตถุดิบภาษาไทย (`modules/text_extractor.py`) |
+| **ขวัญมนัส คล้ายมี  6752301239** | Core Recipe ML Lead | ออกแบบอัลกอริทึมจับคู่เมนู Weighted Cosine & Coverage (`modules/recipe_recommender.py`) |
+| **กัลยรัตน์ โพธิสาร  6752301085** | Web UI & Full-Stack Lead | พัฒนาระบบรวมศูนย์ Flask Web API, Frontend UI, สไลด์ และ Live Demo |
 
 ---
 
