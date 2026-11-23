@@ -161,7 +161,7 @@ def api_recommend():
 
         # กรณีเลือกโมเดลของคนที่ 5 (KNN, TF-IDF, Random Forest)
         if model_type in ["knn", "tfidf", "rf"] and person5_bundle:
-            raw_p5 = recommend_p5(ingredients, person5_bundle, model=model_type, cuisine_filter=cuisine, top_n=top_k)
+            raw_p5 = recommend_p5(ingredients, person5_bundle, model=model_type, cuisine_filter=cuisine, top_n=50)
             
             # ทำ Dictionary สำหรับดึงข้อมูลวิธีปรุง (steps)
             recipe_lookup = {r["id"]: r for r in recommender.recipes}
@@ -196,8 +196,15 @@ def api_recommend():
                     "steps": steps
                 }
                 recipes.append(formatted)
-                if len(recipes) >= top_k:
-                    break
+
+            # เรียงลำดับจาก match_score มากไปน้อยอย่างเคร่งครัดเหมือน Weighted Cosine
+            recipes.sort(key=lambda x: (
+                x["is_ready_to_cook"],
+                x["match_score"],
+                -len(x["missing_ingredients"]),
+                x["cosine_similarity"]
+            ), reverse=True)
+            recipes = recipes[:top_k]
         else:
             # กรณีโมเดลหลัก Weighted Cosine Similarity
             recipes = recommender.recommend(ingredients, cuisine_filter=cuisine, top_k=top_k)

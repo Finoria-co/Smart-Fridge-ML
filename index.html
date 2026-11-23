@@ -192,25 +192,22 @@
         let matchScore = 0;
         let isReady = false;
 
-        if (modelType === "knn") {
-          // KNN Model (คนที่ 5): Unweighted Feature Coverage
-          matchScore = Math.round(covRatio * 100);
-          isReady = missingRaw.length === 0;
-        } else if (modelType === "tfidf") {
-          // TF-IDF Model (คนที่ 5): Keyword Text Match Scoring
-          matchScore = Math.round(Math.min(100, Math.max(20, (covRatio * 60) + (cosSim * 40))));
-          isReady = missingRaw.length === 0;
-        } else if (modelType === "rf") {
-          // Random Forest (คนที่ 5): Tree-Weighted Feature Scoring
-          matchScore = Math.round(Math.min(100, Math.max(15, (covRatio * 70) + (cosSim * 30))));
-          isReady = missingRaw.length === 0;
+        if (missingRaw.length === 0) {
+          matchScore = 100;
+          isReady = true;
         } else {
-          // Weighted Cosine Similarity (โมเดลหลัก)
-          if (missingRaw.length === 0) {
-            matchScore = 100;
-            isReady = true;
+          isReady = false;
+          if (modelType === "knn") {
+            // KNN Model (คนที่ 5): Unweighted Feature Coverage
+            matchScore = Math.round(Math.min(95, Math.max(15, covRatio * 100)));
+          } else if (modelType === "tfidf") {
+            // TF-IDF Model (คนที่ 5): Keyword Text Match Scoring
+            matchScore = Math.round(Math.min(95, Math.max(15, (covRatio * 65.0) + (cosSim * 35.0))));
+          } else if (modelType === "rf") {
+            // Random Forest (คนที่ 5): Tree-Weighted Feature Scoring
+            matchScore = Math.round(Math.min(95, Math.max(15, (covRatio * 75.0) + (cosSim * 25.0))));
           } else {
-            isReady = false;
+            // Weighted Cosine Similarity (โมเดลหลัก)
             let calc = (covRatio * 75.0) + (cosSim * 25.0);
             const hasMajor = ["หมูสับ", "อกไก่", "กุ้งสด", "เบคอน", "เส้นพาสต้า", "ข้าวสวย"].some(s => matchedStd.has(s));
             if (hasMajor) calc += 6.0;
@@ -252,9 +249,14 @@
       }
 
       scored.sort((a, b) => {
+        // 1. เมนูที่ทำได้ทันที (100%) มาก่อนเสมอ
         if (a.is_ready_to_cook !== b.is_ready_to_cook) return b.is_ready_to_cook ? 1 : -1;
+        // 2. เรียงลำดับคะแนน match_score จากมากไปน้อยอย่างเคร่งครัด (100% -> 90% -> 80% ...)
+        if (b.match_score !== a.match_score) return b.match_score - a.match_score;
+        // 3. ถ้าคะแนนเท่ากัน ให้เมนูที่ขาดวัตถุดิบน้อยกว่ามาก่อน
         if (a.missing_ingredients.length !== b.missing_ingredients.length) return a.missing_ingredients.length - b.missing_ingredients.length;
-        return b.match_score - a.match_score;
+        // 4. ถ้ายังเท่ากัน ให้ cosine similarity สูงกว่ามาก่อน
+        return b.cosine_similarity - a.cosine_similarity;
       });
 
       return scored.slice(0, topK);

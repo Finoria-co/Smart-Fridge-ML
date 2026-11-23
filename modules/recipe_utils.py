@@ -168,6 +168,12 @@ def recommend(user_ingredients, bundle, model='knn', cuisine_filter='ทั้�
             'allergens':      row.get('allergens', 'ไม่มี'),
         })
 
-    results.sort(key=lambda r: (-r['match_pct'], r['distance']))
+    # เรียงลำดับจากความพร้อมปรุง (100% ก่อน), match_pct มากไปน้อย, และขาดวัตถุดิบน้อยที่สุด
+    results.sort(key=lambda r: (
+        len(r['missing']) == 0,
+        r['match_pct'],
+        -len(r['missing']),
+        -r['distance']
+    ), reverse=True)
     return results[:top_n]
 

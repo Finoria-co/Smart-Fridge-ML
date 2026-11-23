@@ -372,12 +372,13 @@ class RecipeRecommender:
 
         # เรียงลำดับตามข้อตกลง:
         # 1. ทำได้ทันทีก่อน (is_ready_to_cook: True มาก่อน)
-        # 2. ขาดของน้อยที่สุดก่อน (missing_ingredients น้อยสุดมาบน: 0 -> 1 -> 2 -> 3...)
-        # 3. คะแนน match_score สูงสุด
+        # 2. คะแนน match_score สูงสุดก่อนเสมอ (จากมากไปน้อย 100% -> 80% -> 60% ...)
+        # 3. ขาดของน้อยที่สุดก่อน (missing_ingredients น้อยสุดมาบน: 0 -> 1 -> 2 -> 3...)
         scored_recipes.sort(key=lambda x: (
             x["is_ready_to_cook"],
+            x["match_score"],
             -len(x["missing_ingredients"]),
-            x["match_score"]
+            x["cosine_similarity"]
         ), reverse=True)
 
         return scored_recipes[:top_k]
