@@ -1,7 +1,8 @@
 #  Smart Fridge Recipe Recommender
 > **วิชา:** Machine Learning Mini-Project (ชั้นปีที่ 3)  
 > **ระบบตรวจจับภาพถ่ายวัตถุดิบในตู้เย็นและวิเคราะห์แนะนำเมนูอาหารไทย-ฝรั่งด้วย Machine Learning (80 เมนู • 4 โมเดล ML)**  
->  **Live Web Application (GitHub Pages):** [https://finoria-co.github.io/Smart-Fridge-ML/](https://finoria-co.github.io/Smart-Fridge-ML/)
+>  **Live Web Application (GitHub Pages):** [https://finoria-co.github.io/Smart-Fridge-ML/](https://finoria-co.github.io/Smart-Fridge-ML/)  
+>  **วิดีโอนำเสนอและสไลด์ (Google Drive):** [Mini Project - ML (final).mp4 · Smart Fridge Recommender - Finoria-co.pdf](https://drive.google.com/drive/folders/1ZBb_LmAqwVN5aDRSX7b5No7Cmb20zCYV?usp=drive_link)
 
 ---
 

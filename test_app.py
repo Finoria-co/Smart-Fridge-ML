@@ -64,7 +64,9 @@ def test_model_comparison():
     res = client.get("/api/model-comparison")
     assert res.status_code == 200
     data = res.get_json()
-    assert len(data["models"]) == 3
+    assert len(data["models"]) == 4
+    knn = data["models"][0]
+    assert knn["top1"] == "90%" and knn["top3"] == "100%"  # ผลจริงจาก fridge-chef-ai/model.ipynb
     print("✅ GET /api/model-comparison: OK - Models count:", len(data["models"]))
 
 if __name__ == "__main__":
