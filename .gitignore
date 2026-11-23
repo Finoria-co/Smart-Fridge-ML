@@ -7,3 +7,4 @@ __pycache__/
 .ipynb_checkpoints/
 *.pt
 results/demo_pick/images/
+demo_test_images/
