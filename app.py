@@ -27,6 +27,12 @@ except Exception as e:
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.json.ensure_ascii = False
 
+try:
+    from flask_cors import CORS
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
+except ImportError:
+    pass
+
 UPLOAD_FOLDER = os.path.join("static", "uploads")
 DEMO_FOLDER = os.path.join("static", "demo_samples")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
